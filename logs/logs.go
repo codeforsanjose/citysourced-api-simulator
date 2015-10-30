@@ -13,10 +13,10 @@ import (
 // ==============================================================================================================================
 var (
 	modulename string = "iDirectStat"
-	Log = logging.MustGetLogger(modulename)
+	Log               = logging.MustGetLogger(modulename)
 	LogPrinter *logPrinterType
-	Debug bool = false
-	Verbose bool = false
+	Debug      bool = false
+	Verbose    bool = false
 )
 
 func Init(debug, verbose bool) error {
@@ -29,8 +29,6 @@ type Password string
 func (p Password) Redacted() interface{} {
 	return logging.Redact(string(p))
 }
-
-
 
 func init() {
 	var syslogformat = logging.MustStringFormatter(
@@ -52,7 +50,6 @@ func init() {
 	LogPrinter = NewLogPrinter()
 	go LogPrinter.run()
 }
-
 
 func LogDebug(format string, args ...interface{}) {
 	if Verbose {
@@ -76,11 +73,11 @@ func (l *LogString) AddF(format string, args ...interface{}) {
 }
 
 func (l *LogString) AddS(s string) {
-	l.raw = l.raw + s 
+	l.raw = l.raw + s
 }
 
 func (l *LogString) AddSR(s string) {
-	l.raw = l.raw + s + "\n" 
+	l.raw = l.raw + s + "\n"
 }
 
 func (l *LogString) Box(w int) string {
@@ -91,7 +88,7 @@ func (l *LogString) Box(w int) string {
 		if i == 0 {
 			x := ((w - len(ln)) / 2) - 1
 			out += fmt.Sprintf("\u2554%s %s %s\n", strings.Repeat("\u2550", x), ln, strings.Repeat("\u2550", x))
-		} else if i == (ls - 1) && len(ln) == 0 {
+		} else if i == (ls-1) && len(ln) == 0 {
 			continue
 		} else {
 			out += fmt.Sprintf("\u2551%s\n", strings.Replace(ln, "\n", "\n\u2551", -1))
@@ -110,13 +107,11 @@ func (l *LogString) Raw() string {
 	return l.raw
 }
 
-
-
 type logPrinterType struct {
 	todo chan string
 }
 
-func NewLogPrinter() (*logPrinterType) {
+func NewLogPrinter() *logPrinterType {
 	Log.Debug("NewLogPrinter()... ")
 	l := new(logPrinterType)
 	l.todo = make(chan string, 100)
@@ -133,5 +128,3 @@ func (l *logPrinterType) run() {
 		fmt.Println(msg)
 	}
 }
-
-

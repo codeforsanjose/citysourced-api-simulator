@@ -1,6 +1,8 @@
-package requests
+package request
 
 import (
+	"CitySourcedAPI/common"
+	"CitySourcedAPI/logs"
 	"encoding/xml"
 	_ "fmt"
 )
@@ -10,12 +12,12 @@ type KeyValuePair_Type struct {
 	Key   string `xml:"Key,attr"`
 }
 
-type CreateMobileDevice_Type struct {
+type CreateThreeOneOne_Type struct {
 	XMLName           xml.Name            `xml:"CsRequest"`
 	ApiAuthKey        string              `xml:"ApiAuthKey"`
 	ApiRequestType    string              `xml:"ApiRequestType"`
 	ApiRequestVersion string              `xml:"ApiRequestVersion"`
-	DateCreated       string              `xml:"DateCreated"`
+	DateCreated       common.CustomTime   `xml:"DateCreated"`
 	DeviceType        string              `xml:"DeviceType"`
 	DeviceModel       string              `xml:"DeviceModel"`
 	DeviceId          string              `xml:"DeviceId"`
@@ -33,23 +35,26 @@ type CreateMobileDevice_Type struct {
 	KeyValuePairs     []KeyValuePair_Type `xml:"KeyValuePairs>KeyValuePair"`
 }
 
-func NewCreateMobileDevice(input string) (st *CreateMobileDevice_Type, err error) {
-	st = new(CreateMobileDevice_Type)
+func NewCreateThreeOneOne(input string) (st *CreateThreeOneOne_Type, err error) {
+	st = new(CreateThreeOneOne_Type)
 	err = xml.Unmarshal([]byte(input), st)
 	return st, err
 }
 
-/*
-
 // Displays the contents of the Spec_Type custom type.
-func (s Spec_Type) String() string {
+func (s CreateThreeOneOne_Type) String() string {
 	ls := new(logs.LogString)
-	ls.AddF("[%s]\n", s.name)
-	ls.AddF("Indexes - timestamp: %d   uniqueId: %d\n", s.timestampIndex, s.uniqueIdIndex)
-	for _, col := range s.colOrder {
-		ls.AddF("   %s\n", s.columns[col])
+	ls.AddS("CreateThreeOneOne_Type\n")
+	ls.AddF("AuthKey: %q\n", s.ApiAuthKey)
+	ls.AddF("Request - type: %s  ver: %s\n", s.ApiRequestType, s.ApiRequestVersion)
+	ls.AddF("DateCreated \"%v\"\n", s.DateCreated)
+	ls.AddF("Device - type %s  model: %s  Id: %s\n", s.DeviceType, s.DeviceModel, s.DeviceId)
+	ls.AddF("Request - type: %q  id: %q\n", s.RequestType, s.RequestTypeId)
+	ls.AddF("Location - lat: %v  lon: %v  directionality: %q\n", s.Latitude, s.Longitude, s.Directionality)
+	ls.AddF("Description: %q\n", s.Description)
+	ls.AddF("Author(anon: %t) %s %s  Email: %s  Tel: %s\n", s.AuthorIsAnonymous, s.AuthorNameFirst, s.AuthorNameLast, s.AuthorEmail, s.AuthorTelephone)
+	for _, v := range s.KeyValuePairs {
+		ls.AddF("   %s: %s\n", v.Key, v.Value)
 	}
 	return ls.Box(90)
 }
-
-*/

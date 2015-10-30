@@ -1,15 +1,16 @@
 package data
 
 import (
+	"CitySourcedAPI/common"
 	"CitySourcedAPI/logs"
+
 	"encoding/json"
-
-	"github.com/davecgh/go-spew/spew"
-
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"time"
+	"sync"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 var debug = true
@@ -52,11 +53,16 @@ func readSystem(filePath string) (*SystemType, error) {
 		return nil, errors.New(msg)
 	}
 
-	for _, rpt := range System.Data.Reports {
-		rpt.parseDate()
+	// Update Last ID
+	var lastId int64 = 0
+	for _, v := range System.Data.Reports {
+		if v.Id > lastId {
+			lastId = v.Id
+		}
 	}
+	System.Data.lastId = lastId
 
-	fmt.Printf("After loading dates...\n%s\n", spew.Sdump(System.Data.Reports))
+	fmt.Printf("After loading dates...\n%s\n", spew.Sdump(System.Data))
 
 	System.Loaded = true
 	return &System, nil
@@ -90,7 +96,9 @@ type DebugType struct {
 
 // ------------------------------- ReportsType -------------------------------
 type Data_Type struct {
+	lastId  int64
 	Reports []*Report_Type `json:"reports"`
+	sync.Mutex
 }
 
 func (d *Data_Type) FindDeviceId(id string) ([]*Report_Type, error) {
@@ -105,60 +113,38 @@ func (d *Data_Type) FindDeviceId(id string) ([]*Report_Type, error) {
 
 // ------------------------------- TableType -------------------------------
 type Report_Type struct {
-	Id                int64  `json:"id"`
-	DateCreated       string `json:"datecreated"`
-	DC                time.Time
-	DeviceType        string  `json:"devicetype"`
-	DeviceModel       string  `json:"devicemodel"`
-	DeviceId          string  `json:"deviceid"`
-	RequestType       string  `json:"requesttype"`
-	RequestTypeId     string  `json:"requesttypeid"`
-	Latitude          float64 `json:"latitude"`
-	Longitude         float64 `json:"longitude"`
-	Directionality    string  `json:"directionality"`
-	Description       string  `json:"description"`
-	AuthorNameFirst   string  `json:"authornamefirst"`
-	AuthorNameLast    string  `json:"authornamelast"`
-	AuthorEmail       string  `json:"authoremail"`
-	AuthorTelephone   string  `json:"authortelephone"`
-	AuthorIsAnonymous bool    `json:"authorisanonymous"`
-}
-
-func (r *Report_Type) parseDate() {
-	dt, _ := time.Parse("2006-01-02T15:04:05", r.DateCreated)
-	r.DC = dt
-	fmt.Printf("*** DateCreated: %s  dt: %v (%T)   %v\n", r.DateCreated, dt, dt, r.DC)
+	Id                int64             `json:"id"`
+	DateCreated       common.CustomTime `json:"datecreated"`
+	DeviceType        string            `json:"devicetype"`
+	DeviceModel       string            `json:"devicemodel"`
+	DeviceId          string            `json:"deviceid"`
+	RequestType       string            `json:"requesttype"`
+	RequestTypeId     string            `json:"requesttypeid"`
+	Latitude          float64           `json:"latitude"`
+	Longitude         float64           `json:"longitude"`
+	Directionality    string            `json:"directionality"`
+	Description       string            `json:"description"`
+	AuthorNameFirst   string            `json:"authornamefirst"`
+	AuthorNameLast    string            `json:"authornamelast"`
+	AuthorEmail       string            `json:"authoremail"`
+	AuthorTelephone   string            `json:"authortelephone"`
+	AuthorIsAnonymous bool              `json:"authorisanonymous"`
 }
 
 func (r *Report_Type) Distance(rlat, rlon float64) float64 {
 	return Distance(rlat, rlon, r.Latitude, r.Longitude)
 }
 
-// func (x *Report_Type) String() string {
-// 	return spew.Sdump(x)
-// }
-
-
-// ==============================================================================================================================
-//                                      Custom Time Format
-// ==============================================================================================================================
-type CustomTime struct {
-    time.Time
+// Displays the contents of the Spec_Type custom type.
+func (s Report_Type) String() string {
+	ls := new(logs.LogString)
+	ls.AddS("Report\n")
+	ls.AddF("Id: %v\n", s.Id)
+	ls.AddF("DateCreated \"%v\"\n", s.DateCreated)
+	ls.AddF("Device - type %s  model: %s  Id: %s\n", s.DeviceType, s.DeviceModel, s.DeviceId)
+	ls.AddF("Request - type: %q  id: %q\n", s.RequestType, s.RequestTypeId)
+	ls.AddF("Location - lat: %v  lon: %v  directionality: %q\n", s.Latitude, s.Longitude, s.Directionality)
+	ls.AddF("Description: %q\n", s.Description)
+	ls.AddF("Author(anon: %t) %s %s  Email: %s  Tel: %s\n", s.AuthorIsAnonymous, s.AuthorNameFirst, s.AuthorNameLast, s.AuthorEmail, s.AuthorTelephone)
+	return ls.Box(90)
 }
-
-const ctLayout = "1974-05-20T13:45:30"
-
-func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
-    ct.Time, err = time.Parse(ctLayout, string(b))
-    return
-}
-
-func (ct *CustomTime) MarshalJSON() ([]byte, error) {
-    return []byte(ct.Time.Format(ctLayout)), nil
-}
-
-var nilTime = (time.Time{}).UnixNano()
-func (ct *CustomTime) IsSet() bool {
-    return ct.UnixNano() != nilTime
-}
-

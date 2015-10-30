@@ -8,9 +8,6 @@ import (
 	"testing"
 )
 
-
-
-
 // ==============================================================================================================================
 //                                      Ship
 // ==============================================================================================================================
@@ -26,9 +23,9 @@ func TestConsole(t *testing.T) {
 	l.AddF("in quotes %q  not in quotes: %s\n", s1, s2)
 	l.BCon(60)
 
-	for i := 1001; i < 1021; i ++ {
+	for i := 1001; i < 1021; i++ {
 		l = new(logs.LogString)
-		l.AddF("TTitle %d\n", i - 1000)
+		l.AddF("TTitle %d\n", i-1000)
 		l.AddF("And here we are at line: %d\n", i)
 		l.AddS("line 2\n")
 		l.BCon(60)
@@ -37,7 +34,6 @@ func TestConsole(t *testing.T) {
 	n1 := "James"
 	n2 := "Romo"
 	logs.LogDebug("This is a test by %q and %q\n", n1, n2)
-
 
 	time.Sleep(3 * time.Second)
 }

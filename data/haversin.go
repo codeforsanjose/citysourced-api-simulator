@@ -3,7 +3,7 @@ package data
 import (
 	"math"
 )
-	
+
 // From: https://gist.github.com/cdipaolo/d3f8db3848278b49db68
 
 // haversin(θ) function
@@ -22,7 +22,7 @@ func hsin(theta float64) float64 {
 // http://en.wikipedia.org/wiki/Haversine_formula
 func Distance(lat1, lon1, lat2, lon2 float64) float64 {
 	// convert to radians
-  // must cast radius as float to multiply later
+	// must cast radius as float to multiply later
 	var la1, lo1, la2, lo2, r float64
 	la1 = lat1 * math.Pi / 180
 	lo1 = lon1 * math.Pi / 180
