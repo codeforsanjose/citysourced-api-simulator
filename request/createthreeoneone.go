@@ -13,10 +13,7 @@ type KeyValuePair_Type struct {
 }
 
 type CreateThreeOneOne_Type struct {
-	XMLName           xml.Name            `xml:"CsRequest"`
-	ApiAuthKey        string              `xml:"ApiAuthKey"`
-	ApiRequestType    string              `xml:"ApiRequestType"`
-	ApiRequestVersion string              `xml:"ApiRequestVersion"`
+	Request_Type
 	DateCreated       common.CustomTime   `xml:"DateCreated"`
 	DeviceType        string              `xml:"DeviceType"`
 	DeviceModel       string              `xml:"DeviceModel"`
@@ -41,12 +38,10 @@ func NewCreateThreeOneOne(input string) (st *CreateThreeOneOne_Type, err error) 
 	return st, err
 }
 
-// Displays the contents of the Spec_Type custom type.
 func (s CreateThreeOneOne_Type) String() string {
 	ls := new(logs.LogString)
 	ls.AddS("CreateThreeOneOne_Type\n")
-	ls.AddF("AuthKey: %q\n", s.ApiAuthKey)
-	ls.AddF("Request - type: %s  ver: %s\n", s.ApiRequestType, s.ApiRequestVersion)
+	ls.AddS(s.Request_Type.String())
 	ls.AddF("DateCreated \"%v\"\n", s.DateCreated)
 	ls.AddF("Device - type %s  model: %s  Id: %s\n", s.DeviceType, s.DeviceModel, s.DeviceId)
 	ls.AddF("Request - type: %q  id: %q\n", s.RequestType, s.RequestTypeId)

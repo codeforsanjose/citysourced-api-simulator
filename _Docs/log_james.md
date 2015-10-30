@@ -2,7 +2,16 @@
 
 [2015.10.30 - Fri]
 
+* config.json
+	* Added "api" section.
+		* Added "authkey" - will validate the input authkey.
+	* Added Auth() function - tests an auth code against the authkey above.
+* requests
+	* Moved the "common" request header fields into a separate structure "Request_Type".
+* Test OK.
+* Saved to GIT.
 * 
+
 
 [2015.10.29 - Thu]
 

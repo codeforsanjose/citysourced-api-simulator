@@ -21,7 +21,9 @@ var log = logs.Log
 //                                      CONFIG VARIABLES
 // ==============================================================================================================================
 
-var System SystemType
+var (
+	System SystemType
+)
 
 func ReadConfig(filePathSystem string) error {
 	log.Info("Loading configuration file - System: %q", filePathSystem)
@@ -62,10 +64,19 @@ func readSystem(filePath string) (*SystemType, error) {
 	}
 	System.Data.lastId = lastId
 
-	fmt.Printf("After loading dates...\n%s\n", spew.Sdump(System.Data))
+	fmt.Printf("After loading dates...\n%s\n", spew.Sdump(System))
 
 	System.Loaded = true
 	return &System, nil
+}
+
+func Auth(ac string) error {
+	if ac != System.API.AuthKey {
+		msg := "Invalid auth code."
+		log.Warning(msg)
+		return errors.New(msg)
+	}
+	return nil
 }
 
 // ==============================================================================================================================
@@ -75,6 +86,7 @@ func readSystem(filePath string) (*SystemType, error) {
 type SystemType struct {
 	Loaded          bool
 	Instrumentation DebugType `json:"instrumentation"`
+	API             API_Type  `json:"api"`
 	Data            Data_Type `json:"data"`
 }
 
@@ -88,6 +100,11 @@ func (x *SystemType) Display() string {
 type DebugType struct {
 	Debug   bool `json:"debug"`
 	Verbose bool `json:"verbose"`
+}
+
+// ------------------------------- API_Type -------------------------------
+type API_Type struct {
+	AuthKey string `json:"authkey"`
 }
 
 // ==============================================================================================================================

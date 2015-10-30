@@ -17,9 +17,13 @@ func TestReadConfig(t *testing.T) {
 		t.Errorf("System configuration is not marked as loaded.")
 	}
 
-	// if err := data.ReadConfig("../config.json"); err != nil {
-	// 	t.Errorf("Error \"%v\" occurred when reading the config - data.ReadConfig()", err)
-	// }
+	if err := data.Auth("1234567890"); err != nil {
+		t.Errorf("Auth() failed: %s", err)
+	}
+	 
+	if err := data.Auth("1111"); err == nil {
+		t.Errorf("Auth() failed: %s", err)
+	} 
 
 }
 

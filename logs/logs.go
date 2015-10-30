@@ -99,6 +99,25 @@ func (l *LogString) Box(w int) string {
 	return l.fmt
 }
 
+func (l *LogString) BoxC(w int) string {
+	out := ""
+	ss := strings.Split(l.raw, "\n")
+	ls := len(ss)
+	for i, ln := range ss {
+		if i == 0 {
+			x := ((w - len(ln)) / 2) - 1
+			out += fmt.Sprintf("\u2554%s %s %s\n", strings.Repeat("\u2550", x), ln, strings.Repeat("\u2550", x))
+		} else if i == (ls-1) && len(ln) == 0 {
+			continue
+		} else {
+			out += fmt.Sprintf("\u2551%s\n", strings.Replace(ln, "\n", "\n\u2551", -1))
+		}
+	}
+	out += fmt.Sprintf("\u255A%s\n", strings.Repeat("\u2550", w))
+	l.fmt = out
+	return l.fmt
+}
+
 func (l *LogString) BCon(w int) {
 	LogPrinter.Con(l.Box(w))
 }

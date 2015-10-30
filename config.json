@@ -3,6 +3,9 @@
         "debug": true,
         "verbose": false
     },
+    "api": {
+        "authkey": "1234567890"
+    },
     "data": {
         "reports": [
             {

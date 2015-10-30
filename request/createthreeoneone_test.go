@@ -58,6 +58,9 @@ func TestCreateThreeOneOne(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error unmashalling test package: %s", err)
 	}
+	if debug {
+		fmt.Println(spew.Sdump(data))
+	}
 
 	fmt.Println(spew.Sdump(data))
 }
