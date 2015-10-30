@@ -1,0 +1,64 @@
+{
+    "instrumentation": {
+        "debug": true,
+        "verbose": false
+    },
+    "data": {
+        "reports": [
+            {
+            "id": 100,
+            "datecreated": "2015-05-20T08:30:30",
+            "devicetype": "IPHONE",
+            "devicemodel": "5S",
+            "deviceid": "987654321",
+            "requesttype": "Graffiti Removal",
+            "requesttypeid": "10",
+            "latitude": 37.138698,
+            "longitude": -121.615391,
+            "directionality": "25 N NW",
+            "description": "Illegal Trash / Dumping",
+            "authornamefirst": "",
+            "authornamelast": "",
+            "authoremail": "",
+            "authortelephone": "",
+            "authorisanonymous": true
+            },
+            {
+            "id": 101,
+            "datecreated": "2015-10-20T13:45:30",
+            "devicetype": "IPHONE",
+            "devicemodel": "5S",
+            "deviceid": "123456789",
+            "requesttype": "Graffiti Removal",
+            "requesttypeid": "10",
+            "latitude": 37.338208,
+            "longitude": -121.886329,
+            "directionality": "25 N NW",
+            "description": "I hate this stuff",
+            "authornamefirst": "",
+            "authornamelast": "",
+            "authoremail": "",
+            "authortelephone": "",
+            "authorisanonymous": true
+            },
+            {
+            "id": 102,
+            "datecreated": "2015-05-20T10:17:00",
+            "devicetype": "IPHONE",
+            "devicemodel": "6",
+            "deviceid": "123456789",
+            "requesttype": "Graffiti Removal",
+            "requesttypeid": "10",
+            "latitude": 37.273506,
+            "longitude": -121.835976,
+            "directionality": "25 N NW",
+            "description": "The building wall is covered with graffiti.",
+            "authornamefirst": "John",
+            "authornamelast": "Citizen",
+            "authoremail": "jc@xyz.com",
+            "authortelephone": "4082229999",
+            "authorisanonymous": false
+            }
+        ]
+    }
+}
