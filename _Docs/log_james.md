@@ -5,6 +5,11 @@
 * Added to Report_Type based on City Sourced API.
 * Removed all the individual fields from requests.Response_Type, and changed request.response.go to use the Report_Type struct.
 * Saved to GIT.
+* Separated the data from the config file.  So now there is:
+	* config.json
+	* data.json
+* Test OK.
+* Saved to GIT.
 
 [2015.10.30 - Fri]
 

@@ -22,74 +22,44 @@ var log = logs.Log
 // ==============================================================================================================================
 
 var (
-	System SystemType
+	Config ConfigType
+	Data   Data_Type
 )
 
-func ReadConfig(filePathSystem string) error {
-	log.Info("Loading configuration file - System: %q", filePathSystem)
-	_, errSystem := readSystem(filePathSystem)
-	if errSystem != nil {
-		return errors.New("Configuration has already been loaded!")
+func ReadConfig(filePathConfig, filePathData string) error {
+	log.Info("Loading configuration file - Config: %q", filePathConfig)
+	_, errConfig := readConfig(filePathConfig)
+	if errConfig != nil {
+		return errors.New(fmt.Sprintf("Error loading config: %s", errConfig))
 	}
+
+	_, errData := readData(filePathData)
+	if errData != nil {
+		return errors.New(fmt.Sprintf("Error loading config: %s", errConfig))
+	}
+
 	return nil
 }
 
-func readSystem(filePath string) (*SystemType, error) {
-	if System.Loaded {
-		msg := "Duplicate calls to System Config!"
-		log.Warning(msg)
-		return &System, errors.New(msg)
-	}
-
-	file, err := ioutil.ReadFile(filePath)
-	if err != nil {
-		msg := fmt.Sprintf("Unable to open the System Config file - specified at: %q.\nError: %v", filePath, err)
-		log.Critical(msg)
-		return nil, errors.New(msg)
-	}
-
-	err = json.Unmarshal([]byte(file), &System)
-	if err != nil {
-		msg := fmt.Sprintf("Invalid JSON in the System Config file - specified at: %q.\nError: %v", filePath, err)
-		log.Critical(msg)
-		return nil, errors.New(msg)
-	}
-
-	// Update Last ID
-	var lastId int64 = 0
-	for _, v := range System.Data.Reports {
-		if v.Id > lastId {
-			lastId = v.Id
-		}
-	}
-	System.Data.lastId = lastId
-
-	fmt.Printf("After loading dates...\n%s\n", spew.Sdump(System))
-
-	System.Loaded = true
-	return &System, nil
-}
-
 func Auth(ac string) bool {
-	if ac == System.API.AuthKey {
+	if ac == Config.API.AuthKey {
 		return true
 	}
 	return false
 }
 
 // ==============================================================================================================================
-//                                      SYSTEM
+//                                      Config
 // ==============================================================================================================================
-// ------------------------------- SystemType -------------------------------
-type SystemType struct {
+// ------------------------------- ConfigType -------------------------------
+type ConfigType struct {
 	Loaded          bool
 	Instrumentation DebugType `json:"instrumentation"`
 	API             API_Type  `json:"api"`
-	Data            Data_Type `json:"data"`
 }
 
-func (x *SystemType) Display() string {
-	s := fmt.Sprintf("\n==================================== SYSTEM ==================================\n")
+func (x *ConfigType) Display() string {
+	s := fmt.Sprintf("\n==================================== CONFIG ==================================\n")
 	s += spew.Sdump(x)
 	return s
 }
@@ -105,12 +75,39 @@ type API_Type struct {
 	AuthKey string `json:"authkey"`
 }
 
-// ==============================================================================================================================
-//                                      REPORTS
-// ==============================================================================================================================
+func readConfig(filePath string) (*ConfigType, error) {
+	if Config.Loaded {
+		msg := "Duplicate calls to load Config file!"
+		log.Warning(msg)
+		return &Config, errors.New(msg)
+	}
 
-// ------------------------------- ReportsType -------------------------------
+	file, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		msg := fmt.Sprintf("Unable to open the Config Config file - specified at: %q.\nError: %v", filePath, err)
+		log.Critical(msg)
+		return nil, errors.New(msg)
+	}
+
+	err = json.Unmarshal([]byte(file), &Config)
+	if err != nil {
+		msg := fmt.Sprintf("Invalid JSON in the Config Config file - specified at: %q.\nError: %v", filePath, err)
+		log.Critical(msg)
+		return nil, errors.New(msg)
+	}
+
+	fmt.Printf("After loading dates...\n%s\n", spew.Sdump(Config))
+
+	Config.Loaded = true
+	return &Config, nil
+}
+
+// ==============================================================================================================================
+//                                      DATA
+// ==============================================================================================================================
+// ------------------------------- Data_Type -------------------------------
 type Data_Type struct {
+	Loaded bool
 	lastId  int64
 	Reports []*Report_Type `json:"reports"`
 	sync.Mutex
@@ -125,6 +122,56 @@ func (d *Data_Type) FindDeviceId(id string) ([]*Report_Type, error) {
 	}
 	return out, nil
 }
+
+func (x *Data_Type) Display() string {
+	s := fmt.Sprintf("\n==================================== DATA ==================================\n")
+	s += spew.Sdump(x)
+	return s
+}
+
+
+func readData(filePath string) (*Data_Type, error) {
+	if Data.Loaded {
+		msg := "Duplicate calls to load Data file!"
+		log.Warning(msg)
+		return &Data, errors.New(msg)
+	}
+
+	file, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		msg := fmt.Sprintf("Unable to open the Data Data file - specified at: %q.\nError: %v", filePath, err)
+		log.Critical(msg)
+		return nil, errors.New(msg)
+	}
+
+	err = json.Unmarshal([]byte(file), &Data)
+	if err != nil {
+		msg := fmt.Sprintf("Invalid JSON in the Data Data file - specified at: %q.\nError: %v", filePath, err)
+		log.Critical(msg)
+		return nil, errors.New(msg)
+	}
+
+	// Update Last ID
+	var lastId int64 = 0
+	for _, v := range Data.Reports {
+		if v.Id > lastId {
+			lastId = v.Id
+		}
+	}
+	Data.lastId = lastId
+
+	fmt.Printf("After loading dates...\n%s\n", spew.Sdump(Data))
+
+	Data.Loaded = true
+	return &Data, nil
+}
+
+// ==============================================================================================================================
+//                                      REPORTS
+// ==============================================================================================================================
+
+// ------------------------------- ReportsType -------------------------------
+
 
 // ------------------------------- Report_Type -------------------------------
 type Report_Type struct {

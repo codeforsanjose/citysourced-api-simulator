@@ -9,11 +9,12 @@ import (
 
 func TestReadConfig(t *testing.T) {
 
-	if err := data.ReadConfig("../config.json"); err != nil {
+	if err := data.ReadConfig("../config.json", "../data.json"); err != nil {
 		t.Errorf("Error %v occurred when reading the config - data.ReadConfig()", err)
 	}
-	fmt.Printf("%v", data.System.Display())
-	if data.System.Loaded != true {
+	fmt.Printf("%v", data.Config.Display())
+	fmt.Printf("%v", data.Data.Display())
+	if data.Config.Loaded != true {
 		t.Errorf("System configuration is not marked as loaded.")
 	}
 
@@ -32,7 +33,7 @@ func TestReadConfig(t *testing.T) {
 func TestFindDeviceId(t *testing.T) {
 
 	di := "123456789"
-	reports := data.System.Data
+	reports := data.Data
 
 	rpts, err := reports.FindDeviceId(di)
 	if err != nil {
@@ -56,7 +57,7 @@ func TestDistance(t *testing.T) {
 		dist float64 = 0.0
 	)
 
-	for _, r := range data.System.Data.Reports {
+	for _, r := range data.Data.Reports {
 		dist = r.Distance(rlat, rlon)
 		fmt.Printf("ID: %v at %v:%v - distance: %v\n", r.Id, r.Latitude, r.Longitude, dist)
 	}
