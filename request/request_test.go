@@ -2,7 +2,7 @@ package request
 
 import (
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
+	// "github.com/davecgh/go-spew/spew"
 	"testing"
 )
 
@@ -54,13 +54,8 @@ func TestCreateThreeOneOne(t *testing.T) {
 		</KeyValuePairs>
 		</CsRequest>
 	`
-	data, err := NewCreateThreeOneOne(input)
-	if err != nil {
-		t.Errorf("Error unmashalling test package: %s", err)
-	}
-	if debug {
-		fmt.Println(spew.Sdump(data))
-	}
 
-	fmt.Println(spew.Sdump(data))
+	data, _ := ProcessRequest(input)
+
+	fmt.Printf("[ProcessRequest] returned: %q\n", data)
 }

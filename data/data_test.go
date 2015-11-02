@@ -17,13 +17,15 @@ func TestReadConfig(t *testing.T) {
 		t.Errorf("System configuration is not marked as loaded.")
 	}
 
-	if err := data.Auth("1234567890"); err != nil {
-		t.Errorf("Auth() failed: %s", err)
+	ac := "1234567890"
+	if a := data.Auth(ac); !a {
+		t.Errorf("Auth() failed.")
 	}
-	 
-	if err := data.Auth("1111"); err == nil {
-		t.Errorf("Auth() failed: %s", err)
-	} 
+
+	ac = "1111"
+	if a := data.Auth(ac); a {
+		t.Errorf("Auth() passed erroneously for: %q", ac)
+	}
 
 }
 

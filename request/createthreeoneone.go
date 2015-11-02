@@ -3,8 +3,8 @@ package request
 import (
 	"CitySourcedAPI/common"
 	"CitySourcedAPI/logs"
+
 	"encoding/xml"
-	_ "fmt"
 )
 
 type KeyValuePair_Type struct {
@@ -14,27 +14,30 @@ type KeyValuePair_Type struct {
 
 type CreateThreeOneOne_Type struct {
 	Request_Type
-	DateCreated       common.CustomTime   `xml:"DateCreated"`
-	DeviceType        string              `xml:"DeviceType"`
-	DeviceModel       string              `xml:"DeviceModel"`
-	DeviceId          string              `xml:"DeviceId"`
-	RequestType       string              `xml:"RequestType"`
-	RequestTypeId     string              `xml:"RequestTypeId"`
-	Latitude          float64             `xml:"Latitude"`
-	Longitude         float64             `xml:"Longitude"`
-	Directionality    string              `xml:"Directionality"`
-	Description       string              `xml:"Description"`
-	AuthorNameFirst   string              `xml:"AuthorNameFirst"`
-	AuthorNameLast    string              `xml:"AuthorNameLast"`
-	AuthorEmail       string              `xml:"AuthorEmail"`
-	AuthorTelephone   string              `xml:"AuthorTelephone"`
-	AuthorIsAnonymous bool                `xml:"AuthorIsAnonymous"`
+	DateCreated       common.CustomTime   `xml:"DateCreated" json:"DateCreated"`
+	DeviceType        string              `xml:"DeviceType" json:"DeviceType"`
+	DeviceModel       string              `xml:"DeviceModel" json:"DeviceModel"`
+	DeviceId          string              `xml:"DeviceId" json:"DeviceId"`
+	RequestType       string              `xml:"RequestType" json:"RequestType"`
+	RequestTypeId     string              `xml:"RequestTypeId" json:"RequestTypeId"`
+	Latitude          float64             `xml:"Latitude" json:"Latitude"`
+	Longitude         float64             `xml:"Longitude" json:"Longitude"`
+	Directionality    string              `xml:"Directionality" json:"Directionality"`
+	Description       string              `xml:"Description" json:"Description"`
+	AuthorNameFirst   string              `xml:"AuthorNameFirst" json:"AuthorNameFirst"`
+	AuthorNameLast    string              `xml:"AuthorNameLast" json:"AuthorNameLast"`
+	AuthorEmail       string              `xml:"AuthorEmail" json:"AuthorEmail"`
+	AuthorTelephone   string              `xml:"AuthorTelephone" json:"AuthorTelephone"`
+	AuthorIsAnonymous bool                `xml:"AuthorIsAnonymous" json:"AuthorIsAnonymous"`
 	KeyValuePairs     []KeyValuePair_Type `xml:"KeyValuePairs>KeyValuePair"`
 }
 
-func NewCreateThreeOneOne(input string) (st *CreateThreeOneOne_Type, err error) {
+func ProcessCreateThreeOneOne(input string) (st *CreateThreeOneOne_Type, err error) {
 	st = new(CreateThreeOneOne_Type)
 	err = xml.Unmarshal([]byte(input), st)
+	if err != nil {
+		return st, err
+	}
 	return st, err
 }
 
