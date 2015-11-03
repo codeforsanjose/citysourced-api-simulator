@@ -20,13 +20,11 @@ var log = logs.Log
 // ==============================================================================================================================
 
 func ProcessRequest(input string) (string, error) {
+	log.Debug("Request: \n%s\n", input)
 	rt := new(Request_Type)
 	if err := xml.Unmarshal([]byte(input), rt); err != nil {
+		log.Warning("XML cannot be unmarshaled: %s", err)
 		return "", err
-	}
-	if debug {
-		log.Debug("Request received: %s", rt.ApiRequestType)
-		log.Debug("Request:\n%s\n", spew.Sdump(*rt))
 	}
 
 	switch rt.ApiRequestType {

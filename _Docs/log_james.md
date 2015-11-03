@@ -1,5 +1,16 @@
 # CitySourced Test API
 
+[2015.11.03 - Tue]
+
+* Created "main" file: "cs_api.go".
+* Added framework of HTTP handling, with paths:
+	* / = home, displays a brief into.
+	* /docs/ = returns more detailed info about usage.
+	* /api/ = path for using the API.  This only responds to POST's.
+* /api POST method reading full post content, and sending to request.ProcessRequest()
+* Test OK.
+* Saved to GIT.
+
 [2015.11.02 - Mon]
 
 * Added to Report_Type based on City Sourced API.
