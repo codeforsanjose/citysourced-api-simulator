@@ -19,11 +19,9 @@ var log = logs.Log
 //                                       PROCESS REQUEST
 // ==============================================================================================================================
 
-func ProcessRequest(input string) (string, error) {
-	log.Debug("Request: \n%s\n", input)
-	rt := new(Request_Type)
-	if err := xml.Unmarshal([]byte(input), rt); err != nil {
-		log.Warning("XML cannot be unmarshaled: %s", err)
+func Process(input string) (string, error) {
+	rt, err := newRequest(input)
+	if err != nil {
 		return "", err
 	}
 
@@ -51,6 +49,16 @@ func ProcessRequest(input string) (string, error) {
 // ==============================================================================================================================
 //                                       REQUEST
 // ==============================================================================================================================
+func newRequest(input string) (*Request_Type, error) {
+	log.Debug("Request: \n%s\n", input)
+	rt := new(Request_Type)
+	if err := xml.Unmarshal([]byte(input), rt); err != nil {
+		log.Warning("Request XML cannot be unmarshaled: %s", err)
+		return nil, err
+	}
+	return rt, nil
+}
+
 type Request_Type struct {
 	XMLName           xml.Name `xml:"CsRequest" json:"CsRequest"`
 	ApiAuthKey        string   `xml:"ApiAuthKey" json:"ApiAuthKey"`

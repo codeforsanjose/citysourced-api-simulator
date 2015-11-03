@@ -68,7 +68,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	// }
 
 	fmt.Printf("api request - method: %v\n%#v\n", r.Method, string(req))
-    request.ProcessRequest(string(req))
+    request.Process(string(req))
     
 	fmt.Fprint(w, "call to api!")
 }

@@ -1,0 +1,198 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE database SYSTEM "file:///System/Library/DTDs/CoreData.dtd">
+
+<database>
+    <databaseInfo>
+        <version>134481920</version>
+        <UUID>0F3B107E-7445-4A06-85B7-26A017E14C33</UUID>
+        <nextObjectID>116</nextObjectID>
+        <metadata>
+            <plist version="1.0">
+                <dict>
+                    <key>NSPersistenceFrameworkVersion</key>
+                    <integer>526</integer>
+                    <key>NSStoreModelVersionHashes</key>
+                    <dict>
+                        <key>LMCookieJar</key>
+                        <data>
+		Fttmf2L4PrGvKUF496+nqgVVGek45TjOe7sUMtjNg8I=
+		</data>
+                        <key>LMEnvironment</key>
+                        <data>
+		uzBoVFcO4YvR9/3ej4AJ1UOOsA/u5DKY2aemusoIseU=
+		</data>
+                        <key>LMEnvironmentDomain</key>
+                        <data>
+		yM1GPGHdquS8IWLtuczlNoqKhIhD9FW6IReSfFffJgs=
+		</data>
+                        <key>LMEnvironmentVariable</key>
+                        <data>
+		P8e0lYd5JZKRabS/eXVSOJ4oitilz67xtv+pLqW1Jqg=
+		</data>
+                        <key>LMEnvironmentVariableValue</key>
+                        <data>
+		my5hNPJ51oDCSa8EgdNxWAnRcDLcERUGjtuXnzhSxQ0=
+		</data>
+                        <key>LMKeyValue</key>
+                        <data>
+		bIXXbyYF2xAv2MXg8JTVFsslmMKuvsfnR86QdUcFkdM=
+		</data>
+                        <key>LMRequest</key>
+                        <data>
+		kYB6By9dZHqmH3YNw3h9tYPoxeG5ZWHPfhLXXp7OLFs=
+		</data>
+                        <key>LMRequestGroup</key>
+                        <data>
+		N3ml+gYVWc4m0LSGLnBDJ37p9isOc41y+TtaM0Eacrc=
+		</data>
+                        <key>LMRequestTreeItem</key>
+                        <data>
+		ak+hYb/lDeG55U0kgGvU5ej7HUltUj0RTrX5z/izNrs=
+		</data>
+                    </dict>
+                    <key>NSStoreModelVersionHashesVersion</key>
+                    <integer>3</integer>
+                    <key>NSStoreModelVersionIdentifiers</key>
+                    <array>
+                        <string>LMDocumentVersion3</string>
+                    </array>
+                </dict>
+            </plist>
+        </metadata>
+    </databaseInfo>
+    <object type="LMKEYVALUE" id="z102">
+        <attribute name="value" type="string"></attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string"></attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z105"></relationship>
+    </object>
+    <object type="LMENVIRONMENTDOMAIN" id="z104">
+        <attribute name="uuid" type="string">664AAC4A-F66E-4811-8CD5-37CD15D9E133</attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string">Default Domain</attribute>
+        <relationship name="environments" type="0/0" destination="LMENVIRONMENT" idrefs="z106"></relationship>
+        <relationship name="variables" type="0/0" destination="LMENVIRONMENTVARIABLE" idrefs="z110"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z105">
+        <attribute name="uuid" type="string">2226C2E4-81F9-472D-A0E6-1B869B0F61A8</attribute>
+        <attribute name="url" type="string">http://localhost:5050/api/</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">POST</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n   \u3c00ApiAuthKey\u3e001234567890\u3c00\\/ApiAuthKey\u3e00\\n   \u3c00ApiRequestType\u3e00CreateThreeOneOne\u3c00\\/ApiRequestType\u3e00\\n   \u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n   \u3c00DateCreated\u3e001974-05-20T13:45:30\u3c00\\/DateCreated\u3e00\\n   \u3c00DeviceType\u3e00IPHONE\u3c00\\/DeviceType\u3e00\\n   \u3c00DeviceModel\u3e003GS\u3c00\\/DeviceModel\u3e00\\n   \u3c00DeviceId\u3e00987654321\u3c00\\/DeviceId\u3e00\\n   \u3c00RequestType\u3e00Graffiti Removal\u3c00\\/RequestType\u3e00\\n   \u3c00RequestTypeId\u3e0010\u3c00\\/RequestTypeId\u3e00\\n   \u3c00Latitude\u3e0034.0632809\u3c00\\/Latitude\u3e00\\n   \u3c00Longitude\u3e00-118.445211\u3c00\\/Longitude\u3e00\\n   \u3c00Directionality\u3e0025 N NW\u3c00\\/Directionality\u3e00\\n   \u3c00Description\u3e00This is my description.\u3c00\\/Description\u3e00\\n   \u3c00AuthorNameFirst\u3e00\u3c00\\/AuthorNameFirst\u3e00\\n   \u3c00AuthorNameLast\u3e00\u3c00\\/AuthorNameLast\u3e00\\n   \u3c00AuthorEmail\u3e00\u3c00\\/AuthorEmail\u3e00\\n   \u3c00AuthorTelephone\u3e00\u3c00\\/AuthorTelephone\u3e00\\n   \u3c00AuthorIsAnonymous\u3e00True\u3c00\\/AuthorIsAnonymous\u3e00\\n   \u3c00KeyValuePairs\u3e00\\n      \u3c00KeyValuePair Key=\\"Key1\\"\u3e00Value1\u3c00\\/KeyValuePair\u3e00\\n      \u3c00KeyValuePair Key=\\"Key2\\"\u3e00Value2\u3c00\\/KeyValuePair\u3e00\\n   \u3c00\\/KeyValuePairs\u3e00\\n\u3c00\\/CsRequest\u3e00"]</attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string">Create311 - no author</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z102"></relationship>
+    </object>
+    <object type="LMENVIRONMENT" id="z106">
+        <attribute name="uuid" type="string">1A2F3647-B047-4C65-AE9F-835F87B0A3D1</attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string">Default Environment</attribute>
+        <relationship name="domain" type="0/1" destination="LMENVIRONMENTDOMAIN" idrefs="z104"></relationship>
+        <relationship name="variablesvalues" type="0/0" destination="LMENVIRONMENTVARIABLEVALUE" idrefs="z107"></relationship>
+    </object>
+    <object type="LMENVIRONMENTVARIABLEVALUE" id="z107">
+        <attribute name="value" type="string"></attribute>
+        <relationship name="environment" type="1/1" destination="LMENVIRONMENT" idrefs="z106"></relationship>
+        <relationship name="variable" type="1/1" destination="LMENVIRONMENTVARIABLE" idrefs="z110"></relationship>
+    </object>
+    <object type="LMCOOKIEJAR" id="z108">
+        <attribute name="uuid" type="string">4DD896AC-9C45-4345-BD84-E64B499DF53F</attribute>
+        <attribute name="order" type="int64">1</attribute>
+        <attribute name="name" type="string">Default Jar</attribute>
+    </object>
+    <object type="LMENVIRONMENTVARIABLE" id="z110">
+        <attribute name="uuid" type="string">004795AA-11D0-4F8C-BB2E-44B00FBB717D</attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string"></attribute>
+        <relationship name="domain" type="0/1" destination="LMENVIRONMENTDOMAIN" idrefs="z104"></relationship>
+        <relationship name="values" type="0/0" destination="LMENVIRONMENTVARIABLEVALUE" idrefs="z107"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z111">
+        <attribute name="value" type="string"></attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string"></attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z112"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z112">
+        <attribute name="uuid" type="string">C0A3B289-D5EE-4144-BC2F-48C7433829EA</attribute>
+        <attribute name="url" type="string">http://localhost:5050/api/</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">POST</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n   \u3c00ApiAuthKey\u3e001234567890\u3c00\\/ApiAuthKey\u3e00\\n   \u3c00ApiRequestType\u3e00CreateThreeOneOne\u3c00\\/ApiRequestType\u3e00\\n   \u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n   \u3c00DateCreated\u3e001974-05-20T13:45:30\u3c00\\/DateCreated\u3e00\\n   \u3c00DeviceType\u3e00IPHONE\u3c00\\/DeviceType\u3e00\\n   \u3c00DeviceModel\u3e003GS\u3c00\\/DeviceModel\u3e00\\n   \u3c00DeviceId\u3e00987654321\u3c00\\/DeviceId\u3e00\\n   \u3c00RequestType\u3e00Graffiti Removal\u3c00\\/RequestType\u3e00\\n   \u3c00RequestTypeId\u3e0010\u3c00\\/RequestTypeId\u3e00\\n   \u3c00Latitude\u3e0034.0632809\u3c00\\/Latitude\u3e00\\n   \u3c00Longitude\u3e00-118.445211\u3c00\\/Longitude\u3e00\\n   \u3c00Directionality\u3e0025 N NW\u3c00\\/Directionality\u3e00\\n   \u3c00Description\u3e00This is my description.\u3c00\\/Description\u3e00\\n   \u3c00AuthorNameFirst\u3e00James\u3c00\\/AuthorNameFirst\u3e00\\n   \u3c00AuthorNameLast\u3e00Haskell\u3c00\\/AuthorNameLast\u3e00\\n   \u3c00AuthorEmail\u3e00jh@xyz.com\u3c00\\/AuthorEmail\u3e00\\n   \u3c00AuthorTelephone\u3e002223334444\u3c00\\/AuthorTelephone\u3e00\\n   \u3c00AuthorIsAnonymous\u3e00False\u3c00\\/AuthorIsAnonymous\u3e00\\n   \u3c00KeyValuePairs\u3e00\\n      \u3c00KeyValuePair Key=\\"Key1\\"\u3e00Value1\u3c00\\/KeyValuePair\u3e00\\n      \u3c00KeyValuePair Key=\\"Key2\\"\u3e00Value2\u3c00\\/KeyValuePair\u3e00\\n   \u3c00\\/KeyValuePairs\u3e00\\n\u3c00\\/CsRequest\u3e00"]</attribute>
+        <attribute name="order" type="int64">1</attribute>
+        <attribute name="name" type="string">Create311 - author</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z111"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z113">
+        <attribute name="value" type="string"></attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string"></attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z114"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z114">
+        <attribute name="uuid" type="string">2400C0E7-2428-409E-9B0B-0CF20F110F25</attribute>
+        <attribute name="url" type="string">http://localhost:5050/api/</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">POST</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n   \u3c00ApiAuthKey\u3e001234567890\u3c00\\/ApiAuthKey\u3e00\\n   \u3c00ApiRequestType\u3e00CreateSomething\u3c00\\/ApiRequestType\u3e00\\n   \u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n\u3c00\\/CsRequest\u3e00"]</attribute>
+        <attribute name="order" type="int64">2</attribute>
+        <attribute name="name" type="string">Invalid Request</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z113"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z115">
+        <attribute name="uuid" type="string">A00A7E4B-4083-4CBE-B3FC-2DC2D3886630</attribute>
+        <attribute name="url" type="string">http://localhost:5050/api/</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">POST</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n   \u3c00ApiAuthKey\u3e002222222\u3c00\\/ApiAuthKey\u3e00\\n   \u3c00ApiRequestType\u3e00CreateSomething\u3c00\\/ApiRequestType\u3e00\\n   \u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n\u3c00\\/CsRequest\u3e00"]</attribute>
+        <attribute name="order" type="int64">3</attribute>
+        <attribute name="name" type="string">Invalid Auth</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z116"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z116">
+        <attribute name="value" type="string"></attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string"></attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z115"></relationship>
+    </object>
+</database>

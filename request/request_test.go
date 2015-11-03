@@ -55,7 +55,7 @@ func TestCreateThreeOneOne(t *testing.T) {
 		</CsRequest>
 	`
 
-	data, _ := ProcessRequest(input)
+	data, _ := Process(input)
 
 	fmt.Printf("[ProcessRequest] returned: %q\n", data)
 }

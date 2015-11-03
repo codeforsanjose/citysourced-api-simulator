@@ -10,6 +10,11 @@
 * /api POST method reading full post content, and sending to request.ProcessRequest()
 * Test OK.
 * Saved to GIT.
+* In request/request.go:
+	* Moved the code creating a new request (from the top of Process()) into the new function newRequest().  
+	* Test OK.
+	* Saved to GIT.
+* 
 
 [2015.11.02 - Mon]
 
