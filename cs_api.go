@@ -1,10 +1,10 @@
 package main
 
 import (
-    "CitySourcedAPI/request"
-    
+	"CitySourcedAPI/request"
+
 	"fmt"
-    "io/ioutil"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -53,12 +53,12 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-    req, err := ioutil.ReadAll(r.Body)
-    if err != nil {
-        errorHandler(w, r, http.StatusBadRequest)
-        return
-    }
-    
+	req, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		errorHandler(w, r, http.StatusBadRequest)
+		return
+	}
+
 	// decoder := xml.NewDecoder(r.Body)
 	// var stReq request.Request_Type
 	// err := decoder.Decode(&stReq)
@@ -68,7 +68,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	// }
 
 	fmt.Printf("api request - method: %v\n%#v\n", r.Method, string(req))
-    request.Process(string(req))
-    
+	request.Process(string(req))
+
 	fmt.Fprint(w, "call to api!")
 }

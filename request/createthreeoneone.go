@@ -5,6 +5,8 @@ import (
 	"CitySourcedAPI/logs"
 
 	"encoding/xml"
+	"errors"
+	"fmt"
 )
 
 type KeyValuePair_Type struct {
@@ -32,13 +34,15 @@ type CreateThreeOneOne_Type struct {
 	KeyValuePairs     []KeyValuePair_Type `xml:"KeyValuePairs>KeyValuePair"`
 }
 
-func ProcessCreateThreeOneOne(input string) (st *CreateThreeOneOne_Type, err error) {
+func CreateThreeOneOne(input string) (st *CreateThreeOneOne_Type, err error) {
 	st = new(CreateThreeOneOne_Type)
 	err = xml.Unmarshal([]byte(input), st)
 	if err != nil {
-		return st, err
+		msg := fmt.Sprintf("Unable to unmarshal CreateThreeOneOne request: %s", err)
+		log.Warning(msg)
+		return st, errors.New(msg)
 	}
-	return st, err
+	return st, nil
 }
 
 func (s CreateThreeOneOne_Type) String() string {

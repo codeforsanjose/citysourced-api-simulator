@@ -7,8 +7,6 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
-
-	"github.com/davecgh/go-spew/spew"
 )
 
 var debug = true
@@ -19,28 +17,30 @@ var log = logs.Log
 //                                       PROCESS REQUEST
 // ==============================================================================================================================
 
-func Process(input string) (string, error) {
-	rt, err := newRequest(input)
-	if err != nil {
-		return "", err
+func Process(input string) (response string, err error) {
+	rt, e := newRequest(input)
+	if e != nil {
+		return "", e
 	}
 
 	switch rt.ApiRequestType {
 	case "CreateThreeOneOne":
-		log.Debug("Processing CreateThreeOneOne request...")
-		data, err := ProcessCreateThreeOneOne(input)
-		if err != nil {
-			log.Warning("ProcessCreateThreeOneOne failed - error: %s", err)
-		}
-		if debug {
-			fmt.Println(spew.Sdump(data))
-		}
+		response, err = CreateThreeOneOne(input)
+
+	case "GetReportsByAddress":
+		response, err = GetReportsByAddress(input)
 
 	default:
 		msg := fmt.Sprintf("Unknown request received: %s", rt.ApiRequestType)
 		log.Warning(msg)
 		return "", errors.New(msg)
 	}
+	
+	log.Debug("Response:\n%s\n", response)
+	if err != nil {
+		log.Warning("CreateThreeOneOne failed - error: %s", err)
+	}
+
 
 	return "", nil
 

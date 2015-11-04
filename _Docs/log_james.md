@@ -1,5 +1,14 @@
 # CitySourced Test API
 
+[2015.11.04 - Wed]
+
+* Separated "data" and "config".
+* Created separate test files for each.
+* Polished the test files.  I think the coverage is pretty good now.
+* data test ok.
+* config test ok.
+* Saved to GIT.
+
 [2015.11.03 - Tue]
 
 * Created "main" file: "cs_api.go".
@@ -14,7 +23,6 @@
 	* Moved the code creating a new request (from the top of Process()) into the new function newRequest().  
 	* Test OK.
 	* Saved to GIT.
-* 
 
 [2015.11.02 - Mon]
 
