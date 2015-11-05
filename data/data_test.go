@@ -91,6 +91,21 @@ func TestFindDeviceId(t *testing.T) {
 
 }
 
+func TestFindAddress(t *testing.T) {
+	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestFindAddress <<<<<<<<<<<<<<<<<<<<<<<<<<")
+
+	addr := "100 E. Santa Clara, San Jose, CA"
+	radius := 1.0
+	reports := data.D
+
+	rpts, err := reports.FindAddress(addr, radius)
+	if err != nil {
+		t.Errorf("FindAddress failed - error: %q", err)
+	}
+	fmt.Printf("Reports found for address %q, radius: %v:\n%s", addr, radius, spew.Sdump(rpts))
+
+}
+
 func TestDistance(t *testing.T) {
 	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestDistance <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	var (
@@ -101,9 +116,9 @@ func TestDistance(t *testing.T) {
 		dvals [3]float64
 	)
 
-	dvals[0] = 1.1111310100377383
-	dvals[1] = 20.29057239138166
-	dvals[2] = 15.39672821003696
+	dvals[0] = 1788.1925774420406
+	dvals[1] = 32654.521037160826
+	dvals[2] = 24778.639830370197
 
 	for i, r := range data.D.Reports {
 		dist = r.Distance(rlat, rlon)

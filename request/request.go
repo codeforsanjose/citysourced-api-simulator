@@ -41,7 +41,6 @@ func Process(input string) (response string, err error) {
 		log.Warning("CreateThreeOneOne failed - error: %s", err)
 	}
 
-
 	return "", nil
 
 }

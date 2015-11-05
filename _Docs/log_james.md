@@ -3,7 +3,15 @@
 [2015.11.05 - Thu]
 
 * Saved to GIT.
-* 
+* Created "geocode" package.
+* Downloaded a geocode API using Google From: https://github.com/nf/geocode/blob/master/geocode.go, by Jonathan Ingram.
+* In package "geocode", added mygeocode.go, containing shortcuts:
+	* GetLatLng()
+	* GetAddress()
+* Expanded on Jonathan's test cases.
+* Converted Haversin function back to meters.  Everyone uses meters...
+* Test OK.
+* Saved to GIT.
 
 [2015.11.04 - Wed]
 

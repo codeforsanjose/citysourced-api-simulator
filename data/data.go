@@ -37,6 +37,10 @@ type Data_Type struct {
 	sync.Mutex
 }
 
+func (d *Data_Type) LastId() int64 {
+	return d.lastId
+}
+
 func (d *Data_Type) FindDeviceId(id string) ([]*Report_Type, error) {
 	out := make([]*Report_Type, 0)
 	for _, v := range d.Reports {
@@ -55,8 +59,10 @@ func (d *Data_Type) FindId(id int64) (*Report_Type, error) {
 	return r, errors.New(fmt.Sprintf("Id: %v not found!", id))
 }
 
-func (d *Data_Type) LastId() int64 {
-	return d.lastId
+func (d *Data_Type) FindAddress(addr string, radius float64) ([]*Report_Type, error) {
+	rlist := make([]*Report_Type, 0)
+	log.Debug("FindAddress - addr: %s  radius: %v", addr, radius)
+	return rlist, nil
 }
 
 func (x *Data_Type) Display() string {

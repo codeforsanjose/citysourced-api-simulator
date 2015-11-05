@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CsRequest>
+   <ApiAuthKey>1234567890</ApiAuthKey>
+   <ApiRequestType>GetReportsByAddress</ApiRequestType>
+   <ApiRequestVersion>1</ApiRequestVersion>
+   <Address>100 E Santa Clara St, San Jose, CA 95113</Address>
+   <Radius>.5</Radius>
+   <MaxResults>10</MaxResults>
+   <IncludeDetails>False</IncludeDetails>
+   <DateRangeStart></DateRangeStart>
+   <DateRangeEnd></DateRangeEnd>
+   <CurrentStatus></CurrentStatus>
+</CsRequest>

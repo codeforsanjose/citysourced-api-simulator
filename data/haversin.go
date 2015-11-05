@@ -38,6 +38,5 @@ func Distance(lat1, lon1, lat2, lon2 float64) float64 {
 	h := hsin(la2-la1) + math.Cos(la1)*math.Cos(la2)*hsin(lo2-lo1)
 	meters = 2 * r * math.Asin(math.Sqrt(h))
 
-	// Convert meters to miles
-	return meters * milesPerMeter
+	return meters
 }
