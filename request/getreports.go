@@ -1,7 +1,6 @@
 package request
 
 import (
-	"CitySourcedAPI/common"
 	"CitySourcedAPI/logs"
 
 	"encoding/xml"
@@ -11,13 +10,13 @@ import (
 
 type GetReportsByAddress_Type struct {
 	Request_Type
-	Address        string            `xml:"Address" json:"Address"`
-	Radius         float64           `xml:"Radius" json:"Radius"`
-	MaxResults     int64             `xml:"MaxResults" json:"MaxResults"`
-	IncludeDetails bool              `xml:"IncludeDetails" json:"IncludeDetails"`
-	DateRangeStart common.CustomTime `xml:"DateRangeStart" json:"DateRangeStart"`
-	DateRangeEnd   common.CustomTime `xml:"DateRangeEnd" json:"DateRangeEnd"`
-	CurrentStatus  string            `xml:"CurrentStatus" json:"CurrentStatus"`
+	Address        string          `xml:"Address" json:"Address"`
+	Radius         float64         `xml:"Radius" json:"Radius"`
+	MaxResults     int64           `xml:"MaxResults" json:"MaxResults"`
+	IncludeDetails bool            `xml:"IncludeDetails" json:"IncludeDetails"`
+	DateRangeStart data.CustomTime `xml:"DateRangeStart" json:"DateRangeStart"`
+	DateRangeEnd   data.CustomTime `xml:"DateRangeEnd" json:"DateRangeEnd"`
+	CurrentStatus  string          `xml:"CurrentStatus" json:"CurrentStatus"`
 }
 
 func GetReportsByAddress(input string) (st *GetReportsByAddress_Type, err error) {

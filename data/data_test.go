@@ -1,7 +1,6 @@
 package data_test
 
 import (
-	"CitySourcedAPI/common"
 	"CitySourcedAPI/data"
 	"fmt"
 	"testing"
@@ -52,7 +51,7 @@ func TestDataValidity(t *testing.T) {
 	}
 	fmt.Printf("Id 100 - type: %T.\n", r)
 
-	var cdval common.CustomTime
+	var cdval data.CustomTime
 	cdval.UnmarshalText([]byte("2015-10-20T13:45:30"))
 	if r.DateCreated != cdval {
 		t.Errorf("Invalid DateCreated: %s  should be: %s", r.DateCreated, cdval)
@@ -101,10 +100,10 @@ func TestDistance(t *testing.T) {
 		// dvals [3]float64 = [1788.1925774420406, 32654.521037160826, 24778.639830370197]
 		dvals [3]float64
 	)
-	
-	 dvals[0] = 1788.1925774420406
-	 dvals[1] = 32654.521037160826
-	 dvals[2] = 24778.639830370197
+
+	dvals[0] = 1.1111310100377383
+	dvals[1] = 20.29057239138166
+	dvals[2] = 15.39672821003696
 
 	for i, r := range data.D.Reports {
 		dist = r.Distance(rlat, rlon)

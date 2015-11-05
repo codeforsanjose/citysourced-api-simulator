@@ -1,7 +1,6 @@
 package request
 
 import (
-	"CitySourcedAPI/common"
 	"CitySourcedAPI/logs"
 
 	"encoding/xml"
@@ -16,7 +15,7 @@ type KeyValuePair_Type struct {
 
 type CreateThreeOneOne_Type struct {
 	Request_Type
-	DateCreated       common.CustomTime   `xml:"DateCreated" json:"DateCreated"`
+	DateCreated       data.CustomTime     `xml:"DateCreated" json:"DateCreated"`
 	DeviceType        string              `xml:"DeviceType" json:"DeviceType"`
 	DeviceModel       string              `xml:"DeviceModel" json:"DeviceModel"`
 	DeviceId          string              `xml:"DeviceId" json:"DeviceId"`

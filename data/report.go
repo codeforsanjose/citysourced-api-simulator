@@ -1,9 +1,6 @@
 package data
 
-import (
-	"CitySourcedAPI/common"
-	"CitySourcedAPI/logs"
-)
+import "CitySourcedAPI/logs"
 
 // ==============================================================================================================================
 //                                      REPORTS
@@ -11,35 +8,35 @@ import (
 
 // ------------------------------- Report_Type -------------------------------
 type Report_Type struct {
-	Id                int64             `json:"Id" xml:"Id"`
-	DateCreated       common.CustomTime `json:"DateCreated" xml:"DateCreated"`
-	DateUpdated       common.CustomTime `json:"DateUpdated" xml:"DateUpdated"`
-	DeviceType        string            `json:"DeviceType" xml:"DeviceType"`
-	DeviceModel       string            `json:"DeviceModel" xml:"DeviceModel"`
-	DeviceId          string            `json:"DeviceId" xml:"DeviceId"`
-	RequestType       string            `json:"RequestType" xml:"RequestType"`
-	RequestTypeId     string            `json:"RequestTypeId" xml:"RequestTypeId"`
-	ImageUrl          string            `json:"ImageUrl" xml:"ImageUrl"`
-	ImageUrlXl        string            `json:"ImageUrlXl" xml:"ImageUrlXl"`
-	ImageUrlLg        string            `json:"ImageUrlLg" xml:"ImageUrlLg"`
-	ImageUrlMd        string            `json:"ImageUrlMd" xml:"ImageUrlMd"`
-	ImageUrlSm        string            `json:"ImageUrlSm" xml:"ImageUrlSm"`
-	ImageUrlXs        string            `json:"ImageUrlXs" xml:"ImageUrlXs"`
-	City              string            `json:"City" xml:"City"`
-	State             string            `json:"State" xml:"State"`
-	ZipCode           string            `json:"ZipCode" xml:"ZipCode"`
-	Latitude          float64           `json:"Latitude" xml:"Latitude"`
-	Longitude         float64           `json:"Longitude" xml:"Longitude"`
-	Directionality    string            `json:"Directionality" xml:"Directionality"`
-	Description       string            `json:"Description" xml:"Description"`
-	AuthorNameFirst   string            `json:"AuthorNameFirst" xml:"AuthorNameFirst"`
-	AuthorNameLast    string            `json:"AuthorNameLast" xml:"AuthorNameLast"`
-	AuthorEmail       string            `json:"AuthorEmail" xml:"AuthorEmail"`
-	AuthorTelephone   string            `json:"AuthorTelephone" xml:"AuthorTelephone"`
-	AuthorIsAnonymous bool              `json:"AuthorIsAnonymous" xml:"AuthorIsAnonymous"`
-	UrlDetail         string            `json:"UrlDetail" xml:"UrlDetail"`
-	UrlShortened      string            `json:"UrlShortened" xml:"UrlShortened"`
-	StatusType        string            `json:"StatusType" xml:"StatusType"`
+	Id                int64      `json:"Id" xml:"Id"`
+	DateCreated       CustomTime `json:"DateCreated" xml:"DateCreated"`
+	DateUpdated       CustomTime `json:"DateUpdated" xml:"DateUpdated"`
+	DeviceType        string     `json:"DeviceType" xml:"DeviceType"`
+	DeviceModel       string     `json:"DeviceModel" xml:"DeviceModel"`
+	DeviceId          string     `json:"DeviceId" xml:"DeviceId"`
+	RequestType       string     `json:"RequestType" xml:"RequestType"`
+	RequestTypeId     string     `json:"RequestTypeId" xml:"RequestTypeId"`
+	ImageUrl          string     `json:"ImageUrl" xml:"ImageUrl"`
+	ImageUrlXl        string     `json:"ImageUrlXl" xml:"ImageUrlXl"`
+	ImageUrlLg        string     `json:"ImageUrlLg" xml:"ImageUrlLg"`
+	ImageUrlMd        string     `json:"ImageUrlMd" xml:"ImageUrlMd"`
+	ImageUrlSm        string     `json:"ImageUrlSm" xml:"ImageUrlSm"`
+	ImageUrlXs        string     `json:"ImageUrlXs" xml:"ImageUrlXs"`
+	City              string     `json:"City" xml:"City"`
+	State             string     `json:"State" xml:"State"`
+	ZipCode           string     `json:"ZipCode" xml:"ZipCode"`
+	Latitude          float64    `json:"Latitude" xml:"Latitude"`
+	Longitude         float64    `json:"Longitude" xml:"Longitude"`
+	Directionality    string     `json:"Directionality" xml:"Directionality"`
+	Description       string     `json:"Description" xml:"Description"`
+	AuthorNameFirst   string     `json:"AuthorNameFirst" xml:"AuthorNameFirst"`
+	AuthorNameLast    string     `json:"AuthorNameLast" xml:"AuthorNameLast"`
+	AuthorEmail       string     `json:"AuthorEmail" xml:"AuthorEmail"`
+	AuthorTelephone   string     `json:"AuthorTelephone" xml:"AuthorTelephone"`
+	AuthorIsAnonymous bool       `json:"AuthorIsAnonymous" xml:"AuthorIsAnonymous"`
+	UrlDetail         string     `json:"UrlDetail" xml:"UrlDetail"`
+	UrlShortened      string     `json:"UrlShortened" xml:"UrlShortened"`
+	StatusType        string     `json:"StatusType" xml:"StatusType"`
 }
 
 func (r *Report_Type) Distance(rlat, rlon float64) float64 {

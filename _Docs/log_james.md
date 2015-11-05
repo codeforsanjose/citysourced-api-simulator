@@ -1,5 +1,10 @@
 # CitySourced Test API
 
+[2015.11.05 - Thu]
+
+* Saved to GIT.
+* 
+
 [2015.11.04 - Wed]
 
 * Separated "data" and "config".
@@ -8,6 +13,12 @@
 * data test ok.
 * config test ok.
 * Saved to GIT.
+* Moved the CustomTime code from the "common" package to the "data" package.
+	* Changed all references to CustomTime from "common" to "data".
+* In data:
+	* Modified the data.haversin.go routine to return miles rather than meters.
+	* Modified the distance test in data_test.go to check for the mileage amount.
+* Test ok.
 
 [2015.11.03 - Tue]
 

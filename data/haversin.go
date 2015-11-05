@@ -4,6 +4,8 @@ import (
 	"math"
 )
 
+const milesPerMeter float64 = 0.000621371
+
 // From: https://gist.github.com/cdipaolo/d3f8db3848278b49db68
 
 // haversin(θ) function
@@ -21,6 +23,7 @@ func hsin(theta float64) float64 {
 // distance returned is METERS!!!!!!
 // http://en.wikipedia.org/wiki/Haversine_formula
 func Distance(lat1, lon1, lat2, lon2 float64) float64 {
+	var meters float64
 	// convert to radians
 	// must cast radius as float to multiply later
 	var la1, lo1, la2, lo2, r float64
@@ -33,6 +36,8 @@ func Distance(lat1, lon1, lat2, lon2 float64) float64 {
 
 	// calculate
 	h := hsin(la2-la1) + math.Cos(la1)*math.Cos(la2)*hsin(lo2-lo1)
+	meters = 2 * r * math.Asin(math.Sqrt(h))
 
-	return 2 * r * math.Asin(math.Sqrt(h))
+	// Convert meters to miles
+	return meters * milesPerMeter
 }
