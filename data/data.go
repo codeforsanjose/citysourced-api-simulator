@@ -1,6 +1,7 @@
 package data
 
 import (
+	"CitySourcedAPI/geo"
 	"CitySourcedAPI/logs"
 
 	"encoding/json"
@@ -42,13 +43,13 @@ func (d *Data_Type) LastId() int64 {
 }
 
 func (d *Data_Type) FindDeviceId(id string) ([]*Report_Type, error) {
-	out := make([]*Report_Type, 0)
+	rlist := make([]*Report_Type, 0)
 	for _, v := range d.Reports {
 		if v.DeviceId == id {
-			out = append(out, v)
+			rlist = append(rlist, v)
 		}
 	}
-	return out, nil
+	return rlist, nil
 }
 
 func (d *Data_Type) FindId(id int64) (*Report_Type, error) {
@@ -62,6 +63,21 @@ func (d *Data_Type) FindId(id int64) (*Report_Type, error) {
 func (d *Data_Type) FindAddress(addr string, radius float64) ([]*Report_Type, error) {
 	rlist := make([]*Report_Type, 0)
 	log.Debug("FindAddress - addr: %s  radius: %v", addr, radius)
+	alat, alng, e := geo.GetLatLng(addr)
+	if e != nil {
+		msg := fmt.Sprintf("GeoLoc failed for address: %s", e)
+		log.Warning(msg)
+		return rlist, errors.New(msg)
+	}
+	log.Debug("Scanning Reports for reports within %v meters of: %v|%v", radius, alat, alng)
+	for _, v := range d.Reports {
+		dist := Distance(alat, alng, v.Latitude, v.Longitude)
+		fmt.Printf("Id: %v  dist: %v\n", v.Id, dist)
+		if dist < radius {
+			rlist = append(rlist, v)
+		}
+	}
+	log.Debug(">>> rlist:\n%s\n", spew.Sdump(rlist))
 	return rlist, nil
 }
 

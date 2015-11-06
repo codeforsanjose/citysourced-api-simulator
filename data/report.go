@@ -1,6 +1,10 @@
 package data
 
-import "CitySourcedAPI/logs"
+import (
+"CitySourcedAPI/logs"
+"encoding/xml"
+	
+)
 
 // ==============================================================================================================================
 //                                      REPORTS
@@ -8,6 +12,7 @@ import "CitySourcedAPI/logs"
 
 // ------------------------------- Report_Type -------------------------------
 type Report_Type struct {
+	XMLName           xml.Name    `xml:"Request" json:"Request"`
 	Id                int64      `json:"Id" xml:"Id"`
 	DateCreated       CustomTime `json:"DateCreated" xml:"DateCreated"`
 	DateUpdated       CustomTime `json:"DateUpdated" xml:"DateUpdated"`

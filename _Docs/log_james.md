@@ -1,5 +1,12 @@
 # CitySourced Test API
 
+[2015.11.06 - Fri]
+
+* Moved response.go out of the "request" package, and created it's own package "response".
+* Test: request_test.go passed OK.
+* Saved to GIT.
+* 
+
 [2015.11.05 - Thu]
 
 * Saved to GIT.
@@ -12,6 +19,17 @@
 * Converted Haversin function back to meters.  Everyone uses meters...
 * Test OK.
 * Saved to GIT.
+* Improved CustomTime - will now set a "zero" instance of time.Time if the parse string is empty.
+* Added FindAddress() to data/data.go.  Finds all reports within the specified search center point and radius.
+	* Added test cases for FindAddress() to data_test.go
+	* Test OK.
+* Renamed "geocode" package to "geo".
+* In request/getreports.go:
+	* The GetReportsByAddress struct was failing when parsing the XML, as some of the XML fields are blank.  These were fields previously declared as int64, float64, and boolean - basically anything other than a string.  Strings appear to be the only datatype that will successfully parse if the XML element is blank/empty.  (Columns: Radius, MaxResults, IncludeDetails).  SO...
+	* Converted ALL Exportable fields in GetReportsByAddress to string types, and added non-export versions with the original, required datatype.
+	* Added code to validate the string data, and parse it into the non-export fields.
+* Other miscellaneous fixes from moving code around.
+* In request/request_test.go, added several test cases and XML text for testing GetReportsByAddress().
 
 [2015.11.04 - Wed]
 

@@ -4,7 +4,7 @@
 //  == Google: http://code.google.com/apis/maps/documentation/geocoding/
 //  == OSM: http://wiki.openstreetmap.org/wiki/Nominatim
 //  == YOURS: http://wiki.openstreetmap.org/wiki/YOURS
-package geocode
+package geo
 
 import (
 	"encoding/json"

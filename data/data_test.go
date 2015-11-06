@@ -94,8 +94,8 @@ func TestFindDeviceId(t *testing.T) {
 func TestFindAddress(t *testing.T) {
 	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestFindAddress <<<<<<<<<<<<<<<<<<<<<<<<<<")
 
-	addr := "100 E. Santa Clara, San Jose, CA"
-	radius := 1.0
+	addr := "200 E. Santa Clara St, San Jose, CA"
+	radius := 100.0
 	reports := data.D
 
 	rpts, err := reports.FindAddress(addr, radius)

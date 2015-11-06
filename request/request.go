@@ -1,7 +1,7 @@
 package request
 
 import (
-	"CitySourcedAPI/data"
+	"CitySourcedAPI/config"
 	"CitySourcedAPI/logs"
 
 	"encoding/xml"
@@ -9,9 +9,9 @@ import (
 	"fmt"
 )
 
-var debug = true
-var verbose = true
-var log = logs.Log
+var (
+	log = logs.Log
+)
 
 // ==============================================================================================================================
 //                                       PROCESS REQUEST
@@ -35,7 +35,7 @@ func Process(input string) (response string, err error) {
 		log.Warning(msg)
 		return "", errors.New(msg)
 	}
-	
+
 	log.Debug("Response:\n%s\n", response)
 	if err != nil {
 		log.Warning("CreateThreeOneOne failed - error: %s", err)
@@ -49,12 +49,13 @@ func Process(input string) (response string, err error) {
 //                                       REQUEST
 // ==============================================================================================================================
 func newRequest(input string) (*Request_Type, error) {
-	log.Debug("Request: \n%s\n", input)
+	log.Debug("New Request: \n%s\n", input)
 	rt := new(Request_Type)
 	if err := xml.Unmarshal([]byte(input), rt); err != nil {
 		log.Warning("Request XML cannot be unmarshaled: %s", err)
 		return nil, err
 	}
+	log.Debug("rt:\n%+v", rt)
 	return rt, nil
 }
 
@@ -67,7 +68,7 @@ type Request_Type struct {
 
 // Check auth code.
 func (r *Request_Type) auth() (ok bool) {
-	ok = data.Auth(r.ApiAuthKey)
+	ok = config.Auth(r.ApiAuthKey)
 	if !ok {
 		msg := "Invalid auth code."
 		log.Warning(msg)

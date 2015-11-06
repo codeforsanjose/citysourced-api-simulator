@@ -19,6 +19,10 @@ func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
 	if b[0] == '"' && b[len(b)-1] == '"' {
 		b = b[1 : len(b)-1]
 	}
+	if len(b) == 0 {
+		ct.Time = *new(time.Time)
+		return
+	} 
 	ct.Time, err = time.Parse(customDateFmt, string(b))
 	return
 }
@@ -27,17 +31,21 @@ func (ct *CustomTime) MarshalJSON() ([]byte, error) {
 	return []byte(ct.Time.Format(customDateFmt)), nil
 }
 
-func (t CustomTime) MarshalText() (result []byte, err error) {
-	fmted := t.Format(customDateFmt)
+func (ct CustomTime) MarshalText() (result []byte, err error) {
+	fmted := ct.Format(customDateFmt)
 	return []byte(fmted), nil
 }
 
-func (t *CustomTime) UnmarshalText(text []byte) error {
+func (ct *CustomTime) UnmarshalText(text []byte) error {
+	if len(text) == 0 {
+		*ct = CustomTime{}
+		return nil
+	}
 	parse, err := time.Parse(customDateFmt, string(text))
 	if err != nil {
 		return err
 	}
-	*t = CustomTime{parse}
+	*ct = CustomTime{parse}
 	return nil
 }
 

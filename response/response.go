@@ -1,13 +1,22 @@
-package request
+package response
 
 import (
-	// "CitySourcedAPI/common"
 	"CitySourcedAPI/data"
-	// "CitySourcedAPI/logs"
+	"CitySourcedAPI/logs"
 
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"github.com/davecgh/go-spew/spew"
+)
+
+const (
+	XmlHeader string = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>"
+)
+
+var (
+	log = logs.Log
+	responseMsg map[bool]string
 )
 
 // ==============================================================================================================================
@@ -21,7 +30,7 @@ type Response_Type struct {
 }
 
 func (r *Response_Type) xml() (string, error) {
-	b, err := xml.Marshal(r)
+	b, err := xml.MarshalIndent(r, "", "   ")
 	return string(b), err
 }
 
@@ -43,12 +52,28 @@ func NewResponseShort(message string, rtime float64) (*Response_Type, error) {
 // ==============================================================================================================================
 type ResponseReports_Type struct {
 	Response_Type
-	Reports []Report_Type `xml:"Reports>Report"`
+	Reports []*data.Report_Type `xml:"Reports>Report"`
 }
 
-type Report_Type struct {
-	XMLName xml.Name `xml:"Request" json:"Request"`
-	data.Report_Type
+func (r *ResponseReports_Type) xml() (string, error) {
+	b, err := xml.MarshalIndent(r, "", "   ")
+	return string(b), err
+}
+
+func (r *ResponseReports_Type) json() (string, error) {
+	b, err := json.Marshal(r)
+	return string(b), err
+}
+
+func NewResponseReports(success bool, rtime float64, reports []*data.Report_Type) (string, error) {
+	rt := ResponseReports_Type{}
+	rt.Message = responseMsg[success]
+	rt.ResponseTime = fmt.Sprintf("%v Seconds", rtime)
+	rt.Reports = reports
+	log.Debug("rt: %s", spew.Sdump(rt))
+	xmlout, err := rt.xml()
+	xmlout = XmlHeader + xmlout
+	return xmlout, err
 }
 
 // ==============================================================================================================================
@@ -57,4 +82,10 @@ type Report_Type struct {
 type ResponseAddress_Type struct {
 	Response_Type
 	Address string `xml:"Address"`
+}
+
+func init() {
+	responseMsg = make(map[bool]string)
+	responseMsg[true] = "Congratulations! The reports you requested are below."
+	responseMsg[false] = "FAIL"
 }

@@ -1,6 +1,7 @@
 package request
 
 import (
+	"CitySourcedAPI/data"
 	"CitySourcedAPI/logs"
 
 	"encoding/xml"
@@ -33,15 +34,15 @@ type CreateThreeOneOne_Type struct {
 	KeyValuePairs     []KeyValuePair_Type `xml:"KeyValuePairs>KeyValuePair"`
 }
 
-func CreateThreeOneOne(input string) (st *CreateThreeOneOne_Type, err error) {
-	st = new(CreateThreeOneOne_Type)
-	err = xml.Unmarshal([]byte(input), st)
+func CreateThreeOneOne(input string) (string, error) {
+	st := new(CreateThreeOneOne_Type)
+	err := xml.Unmarshal([]byte(input), st)
 	if err != nil {
 		msg := fmt.Sprintf("Unable to unmarshal CreateThreeOneOne request: %s", err)
 		log.Warning(msg)
-		return st, errors.New(msg)
+		return "", errors.New(msg)
 	}
-	return st, nil
+	return "", nil
 }
 
 func (s CreateThreeOneOne_Type) String() string {
