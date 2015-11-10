@@ -6,7 +6,20 @@
 * Renamed BaseReport_Type to BaseReport.
 * Test OK.
 * Saved to GIT.
-* 
+* Refactored the following in the "data" package:
+	* BaseReport_Type -> BaseReport
+	* Report_Type -> Report
+	* Data_type -> Reports
+	* Reports.FindId() -> FindID()
+	* Reports.FindDeviceId() -> FindDeviceID()
+	* Reports.lastId -> lastID
+	* Report.Id -> ID
+	* BaseReport.RequestTypeId -> RequestTypeID
+	* BaseReport.DeviceId -> DeviceID
+	* Reports.LastId() -> LastID()
+	* Reports.indId -> indID
+* Test OK.
+* Saved to GIT.
 
 [2015.11.09 - Mon]
 

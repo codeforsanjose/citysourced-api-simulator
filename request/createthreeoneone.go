@@ -46,7 +46,7 @@ func CreateThreeOneOne(input string, start time.Time) (string, error) {
 
 	log.Debug("CreateThreeOneOne: \n%+v\n", st)
 
-	data.D.AddReport(st.BaseReport)
+	data.D.Append(st.BaseReport)
 
 	return "", nil
 }
@@ -56,8 +56,8 @@ func (s CreateThreeOneOne_Type) String() string {
 	ls.AddS("CreateThreeOneOne_Type\n")
 	ls.AddS(s.Request_Type.String())
 	ls.AddF("DateCreated \"%v\"\n", s.DateCreated)
-	ls.AddF("Device - type %s  model: %s  Id: %s\n", s.DeviceType, s.DeviceModel, s.DeviceId)
-	ls.AddF("Request - type: %q  id: %q\n", s.RequestType, s.RequestTypeId)
+	ls.AddF("Device - type %s  model: %s  Id: %s\n", s.DeviceType, s.DeviceModel, s.DeviceID)
+	ls.AddF("Request - type: %q  id: %q\n", s.RequestType, s.RequestTypeID)
 	ls.AddF("Location - lat: %v  lon: %v  directionality: %q\n", s.Latitude, s.Longitude, s.Directionality)
 	ls.AddF("Description: %q\n", s.Description)
 	ls.AddF("Author(anon: %t) %s %s  Email: %s  Tel: %s\n", s.AuthorIsAnonymous, s.AuthorNameFirst, s.AuthorNameLast, s.AuthorEmail, s.AuthorTelephone)

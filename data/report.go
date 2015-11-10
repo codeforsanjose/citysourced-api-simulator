@@ -19,22 +19,22 @@ const (
 //                                      REPORT LIST
 // ==============================================================================================================================
 
-type ReportList []*Report_Type
+type ReportList []*Report
 
 func NewReportList() ReportList {
-	x := make([]*Report_Type, 0)
+	x := make([]*Report, 0)
 	return x
 }
 
-func (rl *ReportList) Add(r *Report_Type) error {
+func (rl *ReportList) Add(r *Report) error {
 	fmt.Printf("[Add] r:\n%s\n", spew.Sdump(r))
 	*rl = append(*rl, r)
 	return nil
 }
 
-func (rl *ReportList) AddBR(id int64, st *BaseReport) (*Report_Type, error) {
-	r := Report_Type{
-		Id:         id,
+func (rl *ReportList) AddBR(id int64, st *BaseReport) (*Report, error) {
+	r := Report{
+		ID:         id,
 		BaseReport: *st,
 	}
 	fmt.Printf("[Add] st: type: %T\n%s\n", st, spew.Sdump(r))
@@ -78,17 +78,17 @@ func (bt ByTimestamp) Less(i, j int) bool {
 // ==============================================================================================================================
 
 // ------------------------------- Report_Type -------------------------------
-type Report_Type struct {
+type Report struct {
 	XMLName xml.Name `xml:"Report" json:"Report"`
-	Id      int64    `json:"Id" xml:"Id"`
+	ID      int64    `json:"Id" xml:"Id"`
 	BaseReport
 }
 
 // Displays the contents of the Spec_Type custom type.
-func (s Report_Type) String() string {
+func (s Report) String() string {
 	ls := new(logs.LogString)
 	ls.AddS("Report\n")
-	ls.AddF("Id: %v\n", s.Id)
+	ls.AddF("ID: %v\n", s.ID)
 	ls.AddS(s.BaseReport.String())
 	return ls.Box(90)
 }
@@ -103,9 +103,9 @@ type BaseReport struct {
 	DateUpdated       CustomTime `json:"DateUpdated" xml:"DateUpdated"`
 	DeviceType        string     `json:"DeviceType" xml:"DeviceType"`
 	DeviceModel       string     `json:"DeviceModel" xml:"DeviceModel"`
-	DeviceId          string     `json:"DeviceId" xml:"DeviceId"`
+	DeviceID          string     `json:"DeviceId" xml:"DeviceId"`
 	RequestType       string     `json:"RequestType" xml:"RequestType"`
-	RequestTypeId     string     `json:"RequestTypeId" xml:"RequestTypeId"`
+	RequestTypeID     string     `json:"RequestTypeId" xml:"RequestTypeId"`
 	ImageUrl          string     `json:"ImageUrl" xml:"ImageUrl"`
 	ImageUrlXl        string     `json:"ImageUrlXl" xml:"ImageUrlXl"`
 	ImageUrlLg        string     `json:"ImageUrlLg" xml:"ImageUrlLg"`
@@ -197,8 +197,8 @@ func (s BaseReport) String() string {
 	ls := new(logs.LogString)
 	ls.AddS("Base Report\n")
 	ls.AddF("DateCreated \"%v\"\n", s.DateCreated)
-	ls.AddF("Device - type %s  model: %s  Id: %s\n", s.DeviceType, s.DeviceModel, s.DeviceId)
-	ls.AddF("Request - type: %q  id: %q\n", s.RequestType, s.RequestTypeId)
+	ls.AddF("Device - type %s  model: %s  Id: %s\n", s.DeviceType, s.DeviceModel, s.DeviceID)
+	ls.AddF("Request - type: %q  id: %q\n", s.RequestType, s.RequestTypeID)
 	ls.AddF("Location - lat: %v  lon: %v  directionality: %q\n", s.latitude, s.longitude, s.Directionality)
 	ls.AddF("          %s, %s   %s\n", s.City, s.State, s.ZipCode)
 	ls.AddF("Description: %q\n", s.Description)

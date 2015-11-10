@@ -69,20 +69,20 @@ func (r *ResponseReport_Type) json() (string, error) {
 }
 
 type ResponseReports_Type struct {
-	ReportCount int               `xml:"ReportCount"`
-	Reports     []*data.Report_Type `xml:"Report"`
+	ReportCount int            `xml:"ReportCount"`
+	Reports     []*data.Report `xml:"Report"`
 }
 
-func NewResponseReports(success bool, start time.Time, reports []*data.Report_Type) (string, error) {
+func NewResponseReports(success bool, start time.Time, reports []*data.Report) (string, error) {
 	rt := ResponseReport_Type{}
 	rt.Message = responseMsg[success]
 	rt.ResponseTime = fmt.Sprintf("%v Seconds", time.Since(start).Seconds())
-	
+
 	rts := ResponseReports_Type{}
 	rts.ReportCount = len(reports)
 	rts.Reports = reports
 	rt.Reports = rts
-	
+
 	log.Debug("rt: %s", spew.Sdump(rt))
 	xmlout, err := rt.xml()
 	xmlout = XmlHeader + xmlout

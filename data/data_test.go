@@ -40,12 +40,12 @@ func TestReadData(t *testing.T) {
 func TestDataValidity(t *testing.T) {
 	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestDataValidity <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	// Check lastID
-	if lId := data.D.LastId(); lId != 102 {
+	if lId := data.D.LastID(); lId != 102 {
 		t.Errorf("LastId: %v is incorrect.", lId)
 	}
 
 	// Make sure we've got the data we think we should have - check random data:
-	r, e := data.D.FindId(101)
+	r, e := data.D.FindID(101)
 	if e != nil {
 		t.Errorf("FindId failed: %q.", e)
 	}
@@ -57,8 +57,8 @@ func TestDataValidity(t *testing.T) {
 		t.Errorf("Invalid DateCreated: %s  should be: %s", r.DateCreated, cdval)
 	}
 	sval := "101101101"
-	if r.DeviceId != sval {
-		t.Errorf("Invalid DeviceId: %s  should be: %s", r.DeviceId, sval)
+	if r.DeviceID != sval {
+		t.Errorf("Invalid DeviceId: %s  should be: %s", r.DeviceID, sval)
 	}
 	var fval float64 = -121.886329
 	if r.Lng() != fval {
@@ -78,9 +78,9 @@ func TestAddReport(t *testing.T) {
 		DateUpdated:       data.NewCustomTime("2015-02-25T09:00:01.000"),
 		DeviceType:        "IPHONE",
 		DeviceModel:       "5S",
-		DeviceId:          "new01",
+		DeviceID:          "new01",
 		RequestType:       "Graffiti Removal",
-		RequestTypeId:     "10",
+		RequestTypeID:     "10",
 		ImageUrl:          "http://www.citysourced.com/image_200.png",
 		ImageUrlXl:        "http://www.citysourced.com/image_xl_200.png",
 		ImageUrlLg:        "http://www.citysourced.com/image_lg_200.png",
@@ -103,7 +103,7 @@ func TestAddReport(t *testing.T) {
 		UrlShortened:      "",
 		StatusType:        "Open",
 	}
-	data.D.AddReport(newRpt)
+	data.D.Append(newRpt)
 	fmt.Printf("------ After add:\n%s\n", data.D.Display())
 }
 
@@ -112,14 +112,14 @@ func TestFindDeviceId(t *testing.T) {
 	di := "100102100102"
 	reports := data.D
 
-	rpts, err := reports.FindDeviceId(di)
+	rpts, err := reports.FindDeviceID(di)
 	if err != nil {
 		t.Errorf("FindDeviceId failed - error: %q", err)
 	}
 	fmt.Printf("Reports found for device ID %q:\n%s", di, spew.Sdump(rpts))
 
 	di = "101101101"
-	rpts, err = reports.FindDeviceId(di)
+	rpts, err = reports.FindDeviceID(di)
 	if err != nil {
 		t.Errorf("FindDeviceId failed - error: %q", err)
 	}
@@ -160,7 +160,7 @@ func TestDistance(t *testing.T) {
 	for i, r := range data.D.Reports {
 		fmt.Printf("-- i: %d  lat: %v  lng: %v\n", i, r.Lat(), r.Lng())
 		dist = r.CalcDistance(rlat, rlon)
-		fmt.Printf("ID: %v at %v:%v - distance: %v\n", r.Id, r.Lat(), r.Lng(), dist)
+		fmt.Printf("ID: %v at %v:%v - distance: %v\n", r.ID, r.Lat(), r.Lng(), dist)
 		if i < len(dvals) {
 			if dist != dvals[i] {
 				t.Errorf("Wrong distance: %v  should be: %v", dist, dvals[i])
