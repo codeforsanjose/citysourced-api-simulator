@@ -73,7 +73,7 @@ func TestDataValidity(t *testing.T) {
 
 func TestAddReport(t *testing.T) {
 	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestAddReport <<<<<<<<<<<<<<<<<<<<<<<<<<")
-	newRpt := data.BaseReport_Type{
+	newRpt := data.BaseReport{
 		DateCreated:       data.NewCustomTime("2015-02-20T13:45:30"),
 		DateUpdated:       data.NewCustomTime("2015-02-25T09:00:01.000"),
 		DeviceType:        "IPHONE",
@@ -159,7 +159,7 @@ func TestDistance(t *testing.T) {
 
 	for i, r := range data.D.Reports {
 		fmt.Printf("-- i: %d  lat: %v  lng: %v\n", i, r.Lat(), r.Lng())
-		dist = r.Distance(rlat, rlon)
+		dist = r.CalcDistance(rlat, rlon)
 		fmt.Printf("ID: %v at %v:%v - distance: %v\n", r.Id, r.Lat(), r.Lng(), dist)
 		if i < len(dvals) {
 			if dist != dvals[i] {

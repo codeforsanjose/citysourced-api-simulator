@@ -1,5 +1,13 @@
 # CitySourced Test API
 
+[2015.11.10 - Tue]
+
+* Installed new Atom editor... looks like it has a lot of capabilities that VS Code doesn't...  although it does a bit slow.
+* Renamed BaseReport_Type to BaseReport.
+* Test OK.
+* Saved to GIT.
+* 
+
 [2015.11.09 - Mon]
 
 * Merged all usages of the "generic" Report struct into data.report.go.  
@@ -9,7 +17,10 @@
 	* Tests on data and request all OK.
 	* Saved to GIT.
 	* Modified "data" package to return "<Report>" tags within the response.  It was returning "<Request>".
-	* 
+	* Saved to GIT.
+	* Created ReportList type - slice: []*Report_Type.
+	* Renamed BaseReport.Distance() to CalcDistance() so I could add "Distance" to BaseReport.  Changed my mind... this won't work.
+	* Deleted the "_notinuse" folders in geo and request
 
 [2015.11.06 - Fri]
 

@@ -23,12 +23,12 @@ type KeyValuePair_Type struct {
 
 type CreateThreeOneOne_Type struct {
 	Request_Type
-	data.BaseReport_Type
+	data.BaseReport
 	KeyValuePairs []KeyValuePair_Type `xml:"KeyValuePairs>KeyValuePair"`
 }
 
 func (st *CreateThreeOneOne_Type) Validate() error {
-	return st.BaseReport_Type.Validate()
+	return st.BaseReport.Validate()
 }
 
 func CreateThreeOneOne(input string, start time.Time) (string, error) {
@@ -46,7 +46,7 @@ func CreateThreeOneOne(input string, start time.Time) (string, error) {
 
 	log.Debug("CreateThreeOneOne: \n%+v\n", st)
 
-	data.D.AddReport(st.BaseReport_Type)
+	data.D.AddReport(st.BaseReport)
 
 	return "", nil
 }

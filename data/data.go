@@ -19,9 +19,10 @@ var (
 )
 
 func Init(fileName string) error {
+	D.Reports = make([]*Report_Type, 0)
 	_, err := readData(fileName)
 	if err != nil {
-		return errors.New(fmt.Sprintf("Error loading config: %s", err))
+		return fmt.Errorf("Error loading config: %s", err)
 	}
 	return nil
 }
@@ -29,12 +30,14 @@ func Init(fileName string) error {
 // ==============================================================================================================================
 //                                      DATA
 // ==============================================================================================================================
+
 // ------------------------------- Data_Type -------------------------------
 type Data_Type struct {
 	Loaded  bool
 	lastId  int64
-	Reports []*Report_Type `json:"reports"`
-	indId   map[int64]*Report_Type
+	Reports ReportList `json:"reports" xml:"reports"`
+	// Reports []*Report_Type `json:"reports" xml:"reports"`
+	indId map[int64]*Report_Type
 	sync.Mutex
 }
 
@@ -42,23 +45,17 @@ func (d *Data_Type) LastId() int64 {
 	return d.lastId
 }
 
-func (d *Data_Type) AddReport(st BaseReport_Type) error {
+func (d *Data_Type) AddReport(st BaseReport) error {
 	if err := st.Validate(); err != nil {
 		return err
 	}
 	// log.Debug("[AddReport] st: type: %T\n%s", st, spew.Sdump(st))
 	d.Lock()
 	d.lastId = d.lastId + 1
-	r := Report_Type{
-		Id:              d.lastId,
-		BaseReport_Type: st,
-	}
-	fmt.Printf("[AddReport2] st: type: %T\n%s\n", st, spew.Sdump(r))
-
-	d.Reports = append(d.Reports, &r)
-	d.indId[d.lastId] = &r
+	r, _ := d.Reports.AddBR(d.lastId, &st)
+	d.indId[d.lastId] = r
 	d.Unlock()
-	// log.Debug(d.Display())
+	log.Debug(d.Display())
 	return nil
 }
 
@@ -88,7 +85,7 @@ func (d *Data_Type) Validate() error {
 }
 
 func (d *Data_Type) FindAddress(addr string, radius float64) ([]*Report_Type, error) {
-	rlist := make([]*Report_Type, 0)
+	rlist := NewReportList()
 	log.Debug("FindAddress - addr: %s  radius: %v", addr, radius)
 	alat, alng, e := geo.GetLatLng(addr)
 	if e != nil {
@@ -101,7 +98,7 @@ func (d *Data_Type) FindAddress(addr string, radius float64) ([]*Report_Type, er
 		dist := Distance(alat, alng, v.latitude, v.longitude)
 		fmt.Printf("Id: %v  dist: %v\n", v.Id, dist)
 		if dist < radius {
-			rlist = append(rlist, v)
+			rlist.Add(v)
 		}
 	}
 	log.Debug(">>> rlist:\n%s\n", spew.Sdump(rlist))

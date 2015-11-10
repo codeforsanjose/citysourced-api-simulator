@@ -2,6 +2,7 @@ package data
 
 import (
 	"CitySourcedAPI/logs"
+	"_sketches/spew"
 	"encoding/xml"
 	"errors"
 	"fmt"
@@ -15,6 +16,64 @@ const (
 )
 
 // ==============================================================================================================================
+//                                      REPORT LIST
+// ==============================================================================================================================
+
+type ReportList []*Report_Type
+
+func NewReportList() ReportList {
+	x := make([]*Report_Type, 0)
+	return x
+}
+
+func (rl *ReportList) Add(r *Report_Type) error {
+	fmt.Printf("[Add] r:\n%s\n", spew.Sdump(r))
+	*rl = append(*rl, r)
+	return nil
+}
+
+func (rl *ReportList) AddBR(id int64, st *BaseReport) (*Report_Type, error) {
+	r := Report_Type{
+		Id:         id,
+		BaseReport: *st,
+	}
+	fmt.Printf("[Add] st: type: %T\n%s\n", st, spew.Sdump(r))
+	rl.Add(&r)
+	return &r, nil
+}
+
+/*
+func (bs *BufferSet_Type) Sort() error {
+	sort.Sort(ByTimestamp(bs.rows))
+	return nil
+}
+
+type ByTimestamp []*Buffer_Type
+
+func (bt ByTimestamp) Len() int {
+	return len(bt)
+}
+
+func (bt ByTimestamp) Swap(i, j int) {
+	bt[i], bt[j] = bt[j], bt[i]
+}
+
+func (bt ByTimestamp) Less(i, j int) bool {
+	ti := bt[i].Spec.timestampIndex
+	ui := bt[i].Spec.uniqueIdIndex
+	switch {
+	case *(bt[i].Data[ti].(*int64)) < *(bt[j].Data[ti].(*int64)):
+		return true
+	case *(bt[i].Data[ti].(*int64)) > *(bt[j].Data[ti].(*int64)):
+		return false
+	case *(bt[i].Data[ti].(*int64)) == *(bt[j].Data[ti].(*int64)):
+		return *(bt[i].Data[ui].(*int64)) < *(bt[j].Data[ui].(*int64))
+	}
+	return false
+}
+*/
+
+// ==============================================================================================================================
 //                                      REPORT
 // ==============================================================================================================================
 
@@ -22,7 +81,7 @@ const (
 type Report_Type struct {
 	XMLName xml.Name `xml:"Report" json:"Report"`
 	Id      int64    `json:"Id" xml:"Id"`
-	BaseReport_Type
+	BaseReport
 }
 
 // Displays the contents of the Spec_Type custom type.
@@ -30,7 +89,7 @@ func (s Report_Type) String() string {
 	ls := new(logs.LogString)
 	ls.AddS("Report\n")
 	ls.AddF("Id: %v\n", s.Id)
-	ls.AddS(s.BaseReport_Type.String())
+	ls.AddS(s.BaseReport.String())
 	return ls.Box(90)
 }
 
@@ -39,7 +98,7 @@ func (s Report_Type) String() string {
 // ==============================================================================================================================
 
 // ------------------------------- BaseReport_Type -------------------------------
-type BaseReport_Type struct {
+type BaseReport struct {
 	DateCreated       CustomTime `json:"DateCreated" xml:"DateCreated"`
 	DateUpdated       CustomTime `json:"DateUpdated" xml:"DateUpdated"`
 	DeviceType        string     `json:"DeviceType" xml:"DeviceType"`
@@ -73,19 +132,19 @@ type BaseReport_Type struct {
 	StatusType        string     `json:"StatusType" xml:"StatusType"`
 }
 
-func (st *BaseReport_Type) Lng() float64 {
+func (st *BaseReport) Lng() float64 {
 	return st.longitude
 }
 
-func (st *BaseReport_Type) Lat() float64 {
+func (st *BaseReport) Lat() float64 {
 	return st.latitude
 }
 
-func (st *BaseReport_Type) AuthIsAnon() bool {
+func (st *BaseReport) AuthIsAnon() bool {
 	return st.authorIsAnonymous
 }
 
-func (st *BaseReport_Type) Validate() error {
+func (st *BaseReport) Validate() error {
 	errmsg := ""
 
 	// Longitude, Latitude - if there's a value, then convert it... otherwise
@@ -129,12 +188,12 @@ func (st *BaseReport_Type) Validate() error {
 	return nil
 }
 
-func (r *BaseReport_Type) Distance(rlat, rlon float64) float64 {
+func (r *BaseReport) CalcDistance(rlat, rlon float64) float64 {
 	return Distance(rlat, rlon, r.latitude, r.longitude)
 }
 
 // Displays the contents of the Spec_Type custom type.
-func (s BaseReport_Type) String() string {
+func (s BaseReport) String() string {
 	ls := new(logs.LogString)
 	ls.AddS("Base Report\n")
 	ls.AddF("DateCreated \"%v\"\n", s.DateCreated)

@@ -1,0 +1,477 @@
+!_TAG_FILE_FORMAT	2
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted/
+!_TAG_PROGRAM_AUTHOR	Joel Stemmer	/stemmertech@gmail.com/
+!_TAG_PROGRAM_NAME	gotags
+!_TAG_PROGRAM_URL	https://github.com/jstemmer/gotags
+!_TAG_PROGRAM_VERSION	1.3.0	/go1.5.1/
+*GoogleResponse	geo/geocode.go	217;"	e	access:private	ctype:Response	language:Go	line:217	type:*GoogleResponse
+*OSMResponse	geo/geocode.go	218;"	e	access:private	ctype:Response	language:Go	line:218	type:*OSMResponse
+*YOURSResponse	geo/geocode.go	219;"	e	access:private	ctype:Response	language:Go	line:219	type:*YOURSResponse
+ACS/iDirectStat/logs	logs/logs_test.go	4;"	i	language:Go	line:4
+API	config/config.go	45;"	w	access:public	ctype:ConfigType	language:Go	line:45	type:API_Type
+API_Type	config/config.go	62;"	t	access:public	language:Go	line:62	type:struct
+Add	data/data.go	44;"	m	access:public	ctype:ReportList	language:Go	line:44	signature:(r *Report_Type)	type:error
+AddBR	data/data.go	50;"	m	access:public	ctype:ReportList	language:Go	line:50	signature:(id int64, st *BaseReport_Type)	type:*Report_Type, error
+AddF	logs/logs.go	71;"	m	access:public	ctype:LogString	language:Go	line:71	signature:(format string, args )
+AddReport	data/data.go	105;"	m	access:public	ctype:Data_Type	language:Go	line:105	signature:(st BaseReport_Type)	type:error
+AddS	logs/logs.go	75;"	m	access:public	ctype:LogString	language:Go	line:75	signature:(s string)
+AddSR	logs/logs.go	79;"	m	access:public	ctype:LogString	language:Go	line:79	signature:(s string)
+Address	geo/geocode.go	292;"	w	access:public	ctype:GoogleResult	language:Go	line:292	type:string
+Address	geo/geocode.go	334;"	w	access:public	ctype:OSMResponse	language:Go	line:334	type:string
+Address	geo/geocode.go	58;"	w	access:public	ctype:Request	language:Go	line:58	type:string
+Address	request/getreports.go	24;"	w	access:public	ctype:GetReportsByAddress_Type	language:Go	line:24	type:string
+Address	response/response.go	97;"	w	access:public	ctype:ResponseAddress_Type	language:Go	line:97	type:string
+AddressParts	geo/geocode.go	293;"	w	access:public	ctype:GoogleResult	language:Go	line:293	type:[]*GoogleAddressPart
+AddressParts	geo/geocode.go	335;"	w	access:public	ctype:OSMResponse	language:Go	line:335	type:*OSMAddressPart
+Age	copier/copier_test.go	14;"	w	access:public	ctype:User	language:Go	line:14	type:int32
+Age	copier/copier_test.go	24;"	w	access:public	ctype:Employee	language:Go	line:24	type:int32
+ApiAuthKey	request/request.go	69;"	w	access:public	ctype:Request_Type	language:Go	line:69	type:string
+ApiRequestType	request/request.go	70;"	w	access:public	ctype:Request_Type	language:Go	line:70	type:string
+ApiRequestVersion	request/request.go	71;"	w	access:public	ctype:Request_Type	language:Go	line:71	type:string
+Auth	config/config.go	28;"	f	access:public	language:Go	line:28	signature:(ac string)	type:bool
+AuthIsAnon	data/report.go	85;"	m	access:public	ctype:BaseReport_Type	language:Go	line:85	signature:()	type:bool
+AuthKey	config/config.go	63;"	w	access:public	ctype:API_Type	language:Go	line:63	type:string
+AuthorEmail	data/report.go	67;"	w	access:public	ctype:BaseReport_Type	language:Go	line:67	type:string
+AuthorIsAnonymous	data/report.go	69;"	w	access:public	ctype:BaseReport_Type	language:Go	line:69	type:string
+AuthorNameFirst	data/report.go	65;"	w	access:public	ctype:BaseReport_Type	language:Go	line:65	type:string
+AuthorNameLast	data/report.go	66;"	w	access:public	ctype:BaseReport_Type	language:Go	line:66	type:string
+AuthorTelephone	data/report.go	68;"	w	access:public	ctype:BaseReport_Type	language:Go	line:68	type:string
+BCon	logs/logs.go	121;"	m	access:public	ctype:LogString	language:Go	line:121	signature:(w int)
+BaseReport_Type	data/report.go	25;"	e	access:public	ctype:Report_Type	language:Go	line:25	type:BaseReport_Type
+BaseReport_Type	data/report.go	42;"	t	access:public	language:Go	line:42	type:struct
+BenchmarkCopyStruct	copier/copier_test.go	200;"	f	access:public	language:Go	line:200	signature:(b *testing.B)
+BenchmarkJsonMarshalCopy	copier/copier_test.go	220;"	f	access:public	language:Go	line:220	signature:(b *testing.B)
+BenchmarkNamaCopy	copier/copier_test.go	207;"	f	access:public	language:Go	line:207	signature:(b *testing.B)
+Body	docs/docs.go	5;"	w	access:public	ctype:Page	language:Go	line:5	type:string
+Bounds	geo/geocode.go	305;"	w	access:public	ctype:Geometry	language:Go	line:305	type:Bounds
+Bounds	geo/geocode.go	44;"	t	access:public	language:Go	line:44	type:struct
+Bounds	geo/geocode.go	62;"	w	access:public	ctype:Request	language:Go	line:62	type:*Bounds
+Box	logs/logs.go	83;"	m	access:public	ctype:LogString	language:Go	line:83	signature:(w int)	type:string
+BoxC	logs/logs.go	102;"	m	access:public	ctype:LogString	language:Go	line:102	signature:(w int)	type:string
+BoxIt	common/common.go	47;"	f	access:public	language:Go	line:47	signature:(str []string, w int)	type:string
+C	config/config.go	16;"	v	access:public	language:Go	line:16	type:ConfigType
+CalcDistance	data/report.go	133;"	m	access:public	ctype:BaseReport_Type	language:Go	line:133	signature:(rlat, rlon float64)	type:float64
+City	data/report.go	56;"	w	access:public	ctype:BaseReport_Type	language:Go	line:56	type:string
+City	geo/geocode.go	343;"	w	access:public	ctype:OSMAddressPart	language:Go	line:343	type:string
+CitySourcedAPI/config	config/config_test.go	4;"	i	language:Go	line:4
+CitySourcedAPI/config	cs_api.go	4;"	i	language:Go	line:4
+CitySourcedAPI/config	request/request.go	4;"	i	language:Go	line:4
+CitySourcedAPI/config	request/request_test.go	4;"	i	language:Go	line:4
+CitySourcedAPI/config	response/response_test.go	4;"	i	language:Go	line:4
+CitySourcedAPI/config	web/web.go	4;"	i	language:Go	line:4
+CitySourcedAPI/data	cs_api.go	5;"	i	language:Go	line:5
+CitySourcedAPI/data	data/data_test.go	4;"	i	language:Go	line:4
+CitySourcedAPI/data	request/createthreeoneone.go	4;"	i	language:Go	line:4
+CitySourcedAPI/data	request/getreports.go	4;"	i	language:Go	line:4
+CitySourcedAPI/data	request/request_test.go	5;"	i	language:Go	line:5
+CitySourcedAPI/data	response/response.go	4;"	i	language:Go	line:4
+CitySourcedAPI/data	response/response_test.go	5;"	i	language:Go	line:5
+CitySourcedAPI/docs	cs_api.go	6;"	i	language:Go	line:6
+CitySourcedAPI/geo	data/data.go	4;"	i	language:Go	line:4
+CitySourcedAPI/logs	config/config.go	4;"	i	language:Go	line:4
+CitySourcedAPI/logs	cs_api.go	7;"	i	language:Go	line:7
+CitySourcedAPI/logs	data/data.go	5;"	i	language:Go	line:5
+CitySourcedAPI/logs	data/report.go	4;"	i	language:Go	line:4
+CitySourcedAPI/logs	request/createthreeoneone.go	5;"	i	language:Go	line:5
+CitySourcedAPI/logs	request/getreports.go	5;"	i	language:Go	line:5
+CitySourcedAPI/logs	request/request.go	5;"	i	language:Go	line:5
+CitySourcedAPI/logs	response/response.go	5;"	i	language:Go	line:5
+CitySourcedAPI/request	cs_api.go	8;"	i	language:Go	line:8
+CitySourcedAPI/response	request/getreports.go	6;"	i	language:Go	line:6
+CitySourcedAPI/response	request/request.go	6;"	i	language:Go	line:6
+Con	logs/logs.go	140;"	m	access:public	ctype:logPrinterType	language:Go	line:140	signature:(s string)
+ConfigType	config/config.go	42;"	t	access:public	language:Go	line:42	type:struct
+Coordinates	geo/geocode.go	373;"	w	access:public	ctype:YOURSResponse	language:Go	line:373	type:[][]float64
+Copy	copier/copier.go	5;"	f	access:public	language:Go	line:5	signature:(toValue interface{}, fromValue interface{})	type:error
+Count	geo/geocode.go	216;"	w	access:public	ctype:Response	language:Go	line:216	type:int
+CreateThreeOneOne	request/createthreeoneone.go	34;"	f	access:public	language:Go	line:34	signature:(input string, start time.Time)	type:string, error
+CreateThreeOneOne_Type	request/createthreeoneone.go	24;"	t	access:public	language:Go	line:24	type:struct
+CurrentStatus	request/getreports.go	33;"	w	access:public	ctype:GetReportsByAddress_Type	language:Go	line:33	type:string
+CustomTime	data/customtime.go	14;"	t	access:public	language:Go	line:14	type:struct
+D	data/data.go	18;"	v	access:public	language:Go	line:18	type:Data_Type
+Data_Type	data/data.go	92;"	t	access:public	language:Go	line:92	type:struct
+DateCreated	data/report.go	43;"	w	access:public	ctype:BaseReport_Type	language:Go	line:43	type:CustomTime
+DateRangeEnd	request/getreports.go	32;"	w	access:public	ctype:GetReportsByAddress_Type	language:Go	line:32	type:data.CustomTime
+DateRangeStart	request/getreports.go	31;"	w	access:public	ctype:GetReportsByAddress_Type	language:Go	line:31	type:data.CustomTime
+DateUpdated	data/report.go	44;"	w	access:public	ctype:BaseReport_Type	language:Go	line:44	type:CustomTime
+Debug	config/config.go	57;"	w	access:public	ctype:DebugType	language:Go	line:57	type:bool
+Debug	logs/logs.go	18;"	v	access:public	language:Go	line:18	type:bool
+DebugType	config/config.go	56;"	t	access:public	language:Go	line:56	type:struct
+Description	data/report.go	64;"	w	access:public	ctype:BaseReport_Type	language:Go	line:64	type:string
+Detail	docs/docs.go	17;"	v	access:public	language:Go	line:17
+DeviceId	data/report.go	47;"	w	access:public	ctype:BaseReport_Type	language:Go	line:47	type:string
+DeviceModel	data/report.go	46;"	w	access:public	ctype:BaseReport_Type	language:Go	line:46	type:string
+DeviceType	data/report.go	45;"	w	access:public	ctype:BaseReport_Type	language:Go	line:45	type:string
+Directionality	data/report.go	63;"	w	access:public	ctype:BaseReport_Type	language:Go	line:63	type:string
+Display	config/config.go	48;"	m	access:public	ctype:ConfigType	language:Go	line:48	signature:()	type:string
+Display	data/data.go	165;"	m	access:public	ctype:Data_Type	language:Go	line:165	signature:()	type:string
+Distance	data/haversin.go	25;"	f	access:public	language:Go	line:25	signature:(lat1, lon1, lat2, lon2 float64)	type:float64
+Distance	data/report.go	74;"	w	access:public	ctype:BaseReport_Type	language:Go	line:74	type:float64
+Distance	geo/geocode.go	378;"	w	access:public	ctype:YOURSProperties	language:Go	line:378	type:string
+DoubleAge	copier/copier_test.go	18;"	m	access:public	ctype:User	language:Go	line:18	signature:()	type:int32
+DoubleAge	copier/copier_test.go	26;"	w	access:public	ctype:Employee	language:Go	line:26	type:int32
+EmployeId	copier/copier_test.go	25;"	w	access:public	ctype:Employee	language:Go	line:25	type:int64
+Employee	copier/copier_test.go	22;"	t	access:public	language:Go	line:22	type:struct
+FindAddress	data/data.go	144;"	m	access:public	ctype:Data_Type	language:Go	line:144	signature:(addr string, radius float64)	type:[]*Report_Type, error
+FindDeviceId	data/data.go	119;"	m	access:public	ctype:Data_Type	language:Go	line:119	signature:(id string)	type:[]*Report_Type, error
+FindId	data/data.go	129;"	m	access:public	ctype:Data_Type	language:Go	line:129	signature:(id int64)	type:*Report_Type, error
+Found	geo/geocode.go	215;"	w	access:public	ctype:Response	language:Go	line:215	type:string
+GEOCODE	geo/geocode.go	24;"	c	access:public	language:Go	line:24	type:RequestType
+GOOGLE	geo/geocode.go	28;"	c	access:public	language:Go	line:28
+Geometry	geo/geocode.go	294;"	w	access:public	ctype:GoogleResult	language:Go	line:294	type:*Geometry
+Geometry	geo/geocode.go	304;"	t	access:public	language:Go	line:304	type:struct
+GetAddress	geo/mygeocode.go	24;"	f	access:public	language:Go	line:24	signature:(lat, lng float64)	type:string, error
+GetInterfacePtrType	common/common.go	64;"	f	access:public	language:Go	line:64	signature:(interfacePtr interface{})	type:string
+GetLatLng	geo/mygeocode.go	9;"	f	access:public	language:Go	line:9	signature:(addr string)	type:float64, float64, error
+GetReportsByAddress	request/getreports.go	36;"	f	access:public	language:Go	line:36	signature:(input string, start time.Time)	type:string, error
+GetReportsByAddress_Type	request/getreports.go	22;"	t	access:public	language:Go	line:22	type:struct
+GoogleAddressPart	geo/geocode.go	298;"	t	access:public	language:Go	line:298	type:struct
+GoogleResponse	geo/geocode.go	222;"	t	access:public	language:Go	line:222	type:struct
+GoogleResult	geo/geocode.go	226;"	t	access:public	language:Go	line:226	type:struct
+HTTPClient	geo/geocode.go	53;"	w	access:public	ctype:Request	language:Go	line:53	type:*http.Client
+Home	docs/docs.go	9;"	v	access:public	language:Go	line:9
+HouseNumber	geo/geocode.go	341;"	w	access:public	ctype:OSMAddressPart	language:Go	line:341	type:string
+Id	data/report.go	24;"	w	access:public	ctype:Report_Type	language:Go	line:24	type:int64
+ImageUrl	data/report.go	50;"	w	access:public	ctype:BaseReport_Type	language:Go	line:50	type:string
+ImageUrlLg	data/report.go	52;"	w	access:public	ctype:BaseReport_Type	language:Go	line:52	type:string
+ImageUrlMd	data/report.go	53;"	w	access:public	ctype:BaseReport_Type	language:Go	line:53	type:string
+ImageUrlSm	data/report.go	54;"	w	access:public	ctype:BaseReport_Type	language:Go	line:54	type:string
+ImageUrlXl	data/report.go	51;"	w	access:public	ctype:BaseReport_Type	language:Go	line:51	type:string
+ImageUrlXs	data/report.go	55;"	w	access:public	ctype:BaseReport_Type	language:Go	line:55	type:string
+IncludeDetails	request/getreports.go	29;"	w	access:public	ctype:GetReportsByAddress_Type	language:Go	line:29	type:string
+Init	config/config.go	19;"	f	access:public	language:Go	line:19	signature:(fileName string)	type:error
+Init	data/data.go	21;"	f	access:public	language:Go	line:21	signature:(fileName string)	type:error
+Init	logs/logs.go	22;"	f	access:public	language:Go	line:22	signature:(debug, verbose bool)	type:error
+Instructions	geo/geocode.go	379;"	w	access:public	ctype:YOURSProperties	language:Go	line:379	type:string
+Instrumentation	config/config.go	44;"	w	access:public	ctype:ConfigType	language:Go	line:44	type:DebugType
+IsSet	data/customtime.go	59;"	m	access:public	ctype:CustomTime	language:Go	line:59	signature:()	type:bool
+Key	request/createthreeoneone.go	21;"	w	access:public	ctype:KeyValuePair_Type	language:Go	line:21	type:string
+KeyValuePair_Type	request/createthreeoneone.go	19;"	t	access:public	language:Go	line:19	type:struct
+KeyValuePairs	request/createthreeoneone.go	27;"	w	access:public	ctype:CreateThreeOneOne_Type	language:Go	line:27	type:[]KeyValuePair_Type
+Language	geo/geocode.go	66;"	w	access:public	ctype:Request	language:Go	line:66	type:string
+LastId	data/data.go	101;"	m	access:public	ctype:Data_Type	language:Go	line:101	signature:()	type:int64
+Lat	data/report.go	81;"	m	access:public	ctype:BaseReport_Type	language:Go	line:81	signature:()	type:float64
+Lat	geo/geocode.go	336;"	w	access:public	ctype:OSMResponse	language:Go	line:336	type:string
+Lat	geo/geocode.go	37;"	w	access:public	ctype:Point	language:Go	line:37	type:float64
+Latitude	data/report.go	59;"	w	access:public	ctype:BaseReport_Type	language:Go	line:59	type:string
+Limit	geo/geocode.go	64;"	w	access:public	ctype:Request	language:Go	line:64	type:int64
+Lng	data/report.go	77;"	m	access:public	ctype:BaseReport_Type	language:Go	line:77	signature:()	type:float64
+Lng	geo/geocode.go	337;"	w	access:public	ctype:OSMResponse	language:Go	line:337	type:string
+Lng	geo/geocode.go	37;"	w	access:public	ctype:Point	language:Go	line:37	type:float64
+Loaded	config/config.go	43;"	w	access:public	ctype:ConfigType	language:Go	line:43	type:bool
+Loaded	data/data.go	93;"	w	access:public	ctype:Data_Type	language:Go	line:93	type:bool
+Location	geo/geocode.go	306;"	w	access:public	ctype:Geometry	language:Go	line:306	type:Point
+Location	geo/geocode.go	59;"	w	access:public	ctype:Request	language:Go	line:59	type:*Point
+Log	logs/logs.go	16;"	v	access:public	language:Go	line:16
+LogDebug	logs/logs.go	54;"	f	access:public	language:Go	line:54	signature:(format string, args )
+LogPrinter	logs/logs.go	17;"	v	access:public	language:Go	line:17	type:*logPrinterType
+LogString	logs/logs.go	66;"	t	access:public	language:Go	line:66	type:struct
+Longitude	data/report.go	61;"	w	access:public	ctype:BaseReport_Type	language:Go	line:61	type:string
+Lookup	geo/geocode.go	144;"	m	access:public	ctype:Request	language:Go	line:144	signature:(transport http.RoundTripper)	type:*Response, error
+MarshalJSON	data/customtime.go	35;"	m	access:public	ctype:CustomTime	language:Go	line:35	signature:()	type:[]byte, error
+MarshalText	data/customtime.go	39;"	m	access:public	ctype:CustomTime	language:Go	line:39	signature:()	type:[]byte, error
+MaxResults	request/getreports.go	27;"	w	access:public	ctype:GetReportsByAddress_Type	language:Go	line:27	type:string
+Message	response/response.go	29;"	w	access:public	ctype:Response_Type	language:Go	line:29	type:string
+Name	copier/copier_test.go	12;"	w	access:public	ctype:User	language:Go	line:12	type:string
+Name	copier/copier_test.go	23;"	w	access:public	ctype:Employee	language:Go	line:23	type:string
+Name	geo/geocode.go	299;"	w	access:public	ctype:GoogleAddressPart	language:Go	line:299	type:string
+Name	geo/geocode.go	342;"	w	access:public	ctype:OSMAddressPart	language:Go	line:342	type:string
+NewCustomTime	data/customtime.go	18;"	f	access:public	ctype:CustomTime	language:Go	line:18	signature:(in string)	type:CustomTime
+NewLogPrinter	logs/logs.go	133;"	f	access:public	ctype:logPrinterType	language:Go	line:133	signature:()	type:*logPrinterType
+NewReportList	data/data.go	38;"	f	access:public	language:Go	line:38	signature:()	type:ReportList
+NewResponseReports	response/response.go	76;"	f	access:public	language:Go	line:76	signature:(success bool, start time.Time, reports []*data.Report_Type)	type:string, error
+NorthEast	geo/geocode.go	45;"	w	access:public	ctype:Bounds	language:Go	line:45	type:Point
+Notes	copier/copier_test.go	15;"	w	access:public	ctype:User	language:Go	line:15	type:[]string
+Notes	copier/copier_test.go	28;"	w	access:public	ctype:Employee	language:Go	line:28	type:[]string
+OSM	geo/geocode.go	29;"	c	access:public	language:Go	line:29
+OSMAddressPart	geo/geocode.go	340;"	t	access:public	language:Go	line:340	type:struct
+OSMResponse	geo/geocode.go	311;"	t	access:public	language:Go	line:311	type:struct
+Page	docs/docs.go	3;"	t	access:public	language:Go	line:3	type:struct
+Password	logs/logs.go	27;"	t	access:public	language:Go	line:27	type:string
+Point	geo/geocode.go	36;"	t	access:public	language:Go	line:36	type:struct
+Process	request/request.go	23;"	f	access:public	language:Go	line:23	signature:(input string, start time.Time)	type:string, error
+ProgramElapsedTime	common/common.go	17;"	f	access:public	language:Go	line:17	signature:()	type:float64
+Properties	geo/geocode.go	374;"	w	access:public	ctype:YOURSResponse	language:Go	line:374	type:*YOURSProperties
+Provider	geo/geocode.go	54;"	w	access:public	ctype:Request	language:Go	line:54	type:ProviderApiLocation
+ProviderApiLocation	geo/geocode.go	19;"	t	access:public	language:Go	line:19	type:string
+QueryString	geo/geocode.go	214;"	w	access:public	ctype:Response	language:Go	line:214	type:string
+ROUTE	geo/geocode.go	25;"	c	access:public	language:Go	line:25	type:RequestType
+Radius	request/getreports.go	25;"	w	access:public	ctype:GetReportsByAddress_Type	language:Go	line:25	type:string
+Raw	logs/logs.go	125;"	m	access:public	ctype:LogString	language:Go	line:125	signature:()	type:string
+Redacted	logs/logs.go	29;"	m	access:public	ctype:Password	language:Go	line:29	signature:()	type:interface{}
+Region	geo/geocode.go	65;"	w	access:public	ctype:Request	language:Go	line:65	type:string
+ReportCount	response/response.go	72;"	w	access:public	ctype:ResponseReports_Type	language:Go	line:72	type:int
+ReportList	data/data.go	36;"	t	access:public	language:Go	line:36	type:[]*Report_Type
+Report_Type	data/report.go	22;"	t	access:public	language:Go	line:22	type:struct
+Reports	data/data.go	95;"	w	access:public	ctype:Data_Type	language:Go	line:95	type:ReportList
+Reports	response/response.go	58;"	w	access:public	ctype:ResponseReport_Type	language:Go	line:58	type:ResponseReports_Type
+Reports	response/response.go	73;"	w	access:public	ctype:ResponseReports_Type	language:Go	line:73	type:[]*data.Report_Type
+Request	geo/geocode.go	52;"	t	access:public	language:Go	line:52	type:struct
+RequestType	data/report.go	48;"	w	access:public	ctype:BaseReport_Type	language:Go	line:48	type:string
+RequestType	geo/geocode.go	18;"	t	access:public	language:Go	line:18	type:int
+RequestTypeId	data/report.go	49;"	w	access:public	ctype:BaseReport_Type	language:Go	line:49	type:string
+Request_Type	request/createthreeoneone.go	25;"	e	access:public	ctype:CreateThreeOneOne_Type	language:Go	line:25	type:Request_Type
+Request_Type	request/getreports.go	23;"	e	access:public	ctype:GetReportsByAddress_Type	language:Go	line:23	type:Request_Type
+Request_Type	request/request.go	66;"	t	access:public	language:Go	line:66	type:struct
+Response	geo/geocode.go	212;"	t	access:public	language:Go	line:212	type:struct
+ResponseAddress_Type	response/response.go	95;"	t	access:public	language:Go	line:95	type:struct
+ResponseReport_Type	response/response.go	56;"	t	access:public	language:Go	line:56	type:struct
+ResponseReports_Type	response/response.go	71;"	t	access:public	language:Go	line:71	type:struct
+ResponseTime	response/response.go	30;"	w	access:public	ctype:Response_Type	language:Go	line:30	type:string
+Response_Type	response/response.go	27;"	t	access:public	language:Go	line:27	type:struct
+Response_Type	response/response.go	57;"	e	access:public	ctype:ResponseReport_Type	language:Go	line:57	type:Response_Type
+Response_Type	response/response.go	96;"	e	access:public	ctype:ResponseAddress_Type	language:Go	line:96	type:Response_Type
+Results	geo/geocode.go	223;"	w	access:public	ctype:GoogleResponse	language:Go	line:223	type:[]*GoogleResult
+Role	copier/copier_test.go	13;"	w	access:public	ctype:User	language:Go	line:13	type:string
+Role	copier/copier_test.go	31;"	m	access:public	ctype:Employee	language:Go	line:31	signature:(role string)
+Round	common/common.go	24;"	f	access:public	language:Go	line:24	signature:(num float64)	type:int
+Route	geo/geocode.go	149;"	m	access:public	ctype:Request	language:Go	line:149	signature:(transport http.RoundTripper)	type:*Response, error
+SendAPIRequest	geo/geocode.go	156;"	m	access:public	ctype:Request	language:Go	line:156	signature:(transport http.RoundTripper)	type:*Response, error
+Sensor	geo/geocode.go	67;"	w	access:public	ctype:Request	language:Go	line:67	type:bool
+SetCurrentTime	common/common.go	93;"	m	access:public	ctype:UnixTimestamp_type	language:Go	line:93	signature:()
+ShortName	geo/geocode.go	300;"	w	access:public	ctype:GoogleAddressPart	language:Go	line:300	type:string
+SouthWest	geo/geocode.go	45;"	w	access:public	ctype:Bounds	language:Go	line:45	type:Point
+Start	request/request.go	74;"	m	access:public	ctype:Request_Type	language:Go	line:74	signature:()	type:time.Time
+State	data/report.go	57;"	w	access:public	ctype:BaseReport_Type	language:Go	line:57	type:string
+State	geo/geocode.go	344;"	w	access:public	ctype:OSMAddressPart	language:Go	line:344	type:string
+Status	geo/geocode.go	213;"	w	access:public	ctype:Response	language:Go	line:213	type:string
+StatusMsg	response/response.go	43;"	f	access:public	language:Go	line:43	signature:(message string, start time.Time)	type:string
+StatusType	data/report.go	73;"	w	access:public	ctype:BaseReport_Type	language:Go	line:73	type:string
+String	common/common.go	97;"	m	access:public	ctype:UnixTimestamp_type	language:Go	line:97	signature:()	type:string
+String	data/report.go	138;"	m	access:public	ctype:BaseReport_Type	language:Go	line:138	signature:()	type:string
+String	data/report.go	29;"	m	access:public	ctype:Report_Type	language:Go	line:29	signature:()	type:string
+String	geo/geocode.go	40;"	m	access:public	ctype:Point	language:Go	line:40	signature:()	type:string
+String	geo/geocode.go	48;"	m	access:public	ctype:Bounds	language:Go	line:48	signature:()	type:string
+String	request/createthreeoneone.go	54;"	m	access:public	ctype:CreateThreeOneOne_Type	language:Go	line:54	signature:()	type:string
+String	request/getreports.go	88;"	m	access:public	ctype:GetReportsByAddress_Type	language:Go	line:88	signature:()	type:string
+String	request/request.go	87;"	m	access:public	ctype:Request_Type	language:Go	line:87	signature:()	type:string
+SuperRule	copier/copier_test.go	27;"	w	access:public	ctype:Employee	language:Go	line:27	type:string
+TestAddReport	data/data_test.go	74;"	f	access:public	language:Go	line:74	signature:(t *testing.T)
+TestBasics	common/common_test.go	10;"	f	access:public	language:Go	line:10	signature:(t *testing.T)
+TestConsole	logs/logs_test.go	15;"	f	access:public	language:Go	line:15	signature:(t *testing.T)
+TestCopySlice	copier/copier_test.go	77;"	f	access:public	language:Go	line:77	signature:(t *testing.T)
+TestCopySliceWithPtr	copier/copier_test.go	138;"	f	access:public	language:Go	line:138	signature:(t *testing.T)
+TestCopyStruct	copier/copier_test.go	35;"	f	access:public	language:Go	line:35	signature:(t *testing.T)
+TestCreateThreeOneOne	request/request_test.go	104;"	f	access:public	language:Go	line:104	signature:(t *testing.T)
+TestDataValidity	data/data_test.go	40;"	f	access:public	language:Go	line:40	signature:(t *testing.T)
+TestDistance	data/data_test.go	145;"	f	access:public	language:Go	line:145	signature:(t *testing.T)
+TestFindAddress	data/data_test.go	130;"	f	access:public	language:Go	line:130	signature:(t *testing.T)
+TestFindDeviceId	data/data_test.go	110;"	f	access:public	language:Go	line:110	signature:(t *testing.T)
+TestGetAddress	geo/geocode_test.go	164;"	f	access:public	language:Go	line:164	signature:(t *testing.T)
+TestGetLatLng	geo/geocode_test.go	154;"	f	access:public	language:Go	line:154	signature:(t *testing.T)
+TestGetReportsByAddress	request/request_test.go	112;"	f	access:public	language:Go	line:112	signature:(t *testing.T)
+TestLookup	geo/geocode_test.go	9;"	f	access:public	language:Go	line:9	signature:(t *testing.T)
+TestLookup2	geo/geocode_test.go	32;"	f	access:public	language:Go	line:32	signature:(t *testing.T)
+TestLookupWithBounds	geo/geocode_test.go	73;"	f	access:public	language:Go	line:73	signature:(t *testing.T)
+TestLookupWithLanguage	geo/geocode_test.go	99;"	f	access:public	language:Go	line:99	signature:(t *testing.T)
+TestLookupWithRegion	geo/geocode_test.go	122;"	f	access:public	language:Go	line:122	signature:(t *testing.T)
+TestNewResponseReports	response/response_test.go	22;"	f	access:public	language:Go	line:22	signature:(t *testing.T)
+TestReadConfig	config/config_test.go	27;"	f	access:public	language:Go	line:27	signature:(t *testing.T)
+TestReadConfigInvalidJSON	config/config_test.go	18;"	f	access:public	language:Go	line:18	signature:(t *testing.T)
+TestReadConfigInvalidPath	config/config_test.go	9;"	f	access:public	language:Go	line:9	signature:(t *testing.T)
+TestReadData	data/data_test.go	29;"	f	access:public	language:Go	line:29	signature:(t *testing.T)
+TestReadDataInvalidJSON	data/data_test.go	20;"	f	access:public	language:Go	line:20	signature:(t *testing.T)
+TestReadDataInvalidPath	data/data_test.go	11;"	f	access:public	language:Go	line:11	signature:(t *testing.T)
+TestRepeatReadConfig	config/config_test.go	51;"	f	access:public	language:Go	line:51	signature:(t *testing.T)
+TestRepeatReadData	data/data_test.go	175;"	f	access:public	language:Go	line:175	signature:(t *testing.T)
+TestReverseLookup	geo/geocode_test.go	55;"	f	access:public	language:Go	line:55	signature:(t *testing.T)
+Title	docs/docs.go	4;"	w	access:public	ctype:Page	language:Go	line:4	type:string
+ToFixed	common/common.go	28;"	f	access:public	language:Go	line:28	signature:(num float64, precision int)	type:float64
+TravelTime	geo/geocode.go	380;"	w	access:public	ctype:YOURSProperties	language:Go	line:380	type:string
+Type	geo/geocode.go	307;"	w	access:public	ctype:Geometry	language:Go	line:307	type:string
+Type	geo/geocode.go	55;"	w	access:public	ctype:Request	language:Go	line:55	type:RequestType
+Types	geo/geocode.go	295;"	w	access:public	ctype:GoogleResult	language:Go	line:295	type:[]string
+Types	geo/geocode.go	301;"	w	access:public	ctype:GoogleAddressPart	language:Go	line:301	type:[]string
+UnixTimestamp_type	common/common.go	91;"	t	access:public	language:Go	line:91	type:int64
+UnmarshalJSON	data/customtime.go	23;"	m	access:public	ctype:CustomTime	language:Go	line:23	signature:(b []byte)	type:error
+UnmarshalText	data/customtime.go	44;"	m	access:public	ctype:CustomTime	language:Go	line:44	signature:(text []byte)	type:error
+UrlDetail	data/report.go	71;"	w	access:public	ctype:BaseReport_Type	language:Go	line:71	type:string
+UrlShortened	data/report.go	72;"	w	access:public	ctype:BaseReport_Type	language:Go	line:72	type:string
+User	copier/copier_test.go	11;"	t	access:public	language:Go	line:11	type:struct
+Validate	data/data.go	137;"	m	access:public	ctype:Data_Type	language:Go	line:137	signature:()	type:error
+Validate	data/report.go	89;"	m	access:public	ctype:BaseReport_Type	language:Go	line:89	signature:()	type:error
+Validate	request/createthreeoneone.go	30;"	m	access:public	ctype:CreateThreeOneOne_Type	language:Go	line:30	signature:()	type:error
+Value	request/createthreeoneone.go	20;"	w	access:public	ctype:KeyValuePair_Type	language:Go	line:20	type:string
+Values	geo/geocode.go	72;"	m	access:public	ctype:Request	language:Go	line:72	signature:()	type:url.Values
+VarNameToGo	common/common.go	36;"	f	access:public	language:Go	line:36	signature:(varName, EorP string)	type:string
+Verbose	config/config.go	58;"	w	access:public	ctype:DebugType	language:Go	line:58	type:bool
+Verbose	logs/logs.go	19;"	v	access:public	language:Go	line:19	type:bool
+Viewport	geo/geocode.go	308;"	w	access:public	ctype:Geometry	language:Go	line:308	type:Bounds
+XMLName	data/report.go	23;"	w	access:public	ctype:Report_Type	language:Go	line:23	type:xml.Name
+XMLName	request/request.go	68;"	w	access:public	ctype:Request_Type	language:Go	line:68	type:xml.Name
+XMLName	response/response.go	28;"	w	access:public	ctype:Response_Type	language:Go	line:28	type:xml.Name
+XmlHeader	response/response.go	15;"	c	access:public	language:Go	line:15	type:string
+YOURS	geo/geocode.go	32;"	c	access:public	language:Go	line:32
+YOURSProperties	geo/geocode.go	377;"	t	access:public	language:Go	line:377	type:struct
+YOURSResponse	geo/geocode.go	348;"	t	access:public	language:Go	line:348	type:struct
+YOURS_HEADER	geo/geocode.go	33;"	c	access:public	language:Go	line:33
+ZipCode	data/report.go	58;"	w	access:public	ctype:BaseReport_Type	language:Go	line:58	type:string
+apiHandler	cs_api.go	50;"	f	access:private	language:Go	line:50	signature:(w http.ResponseWriter, r *http.Request)
+auth	request/request.go	78;"	m	access:private	ctype:Request_Type	language:Go	line:78	signature:()	type:bool
+authorIsAnonymous	data/report.go	70;"	w	access:private	ctype:BaseReport_Type	language:Go	line:70	type:bool
+common	common/common.go	1;"	p	language:Go	line:1
+common	common/common_test.go	1;"	p	language:Go	line:1
+config	config/config.go	1;"	p	language:Go	line:1
+config_test	config/config_test.go	1;"	p	language:Go	line:1
+copier	copier/copier.go	1;"	p	language:Go	line:1
+copier	copier/copier_test.go	1;"	p	language:Go	line:1
+customDateFmt	data/customtime.go	10;"	c	access:private	language:Go	line:10
+data	data/customtime.go	1;"	p	language:Go	line:1
+data	data/data.go	1;"	p	language:Go	line:1
+data	data/haversin.go	1;"	p	language:Go	line:1
+data	data/report.go	1;"	p	language:Go	line:1
+data.BaseReport_Type	request/createthreeoneone.go	26;"	e	access:public	ctype:CreateThreeOneOne_Type	language:Go	line:26	type:data.BaseReport_Type
+data_test	data/data_test.go	1;"	p	language:Go	line:1
+debug	web/web.go	11;"	v	access:private	language:Go	line:11
+dfltAuthorIsAnonymous	data/report.go	14;"	c	access:private	language:Go	line:14
+dfltAuthorIsAnonymous	request/createthreeoneone.go	16;"	c	access:private	language:Go	line:16
+dfltFindAddressSearchRadius	request/getreports.go	17;"	c	access:private	language:Go	line:17	type:float64
+dfltIncludeDetails	request/getreports.go	19;"	c	access:private	language:Go	line:19
+dfltLatitude	data/report.go	12;"	c	access:private	language:Go	line:12	type:float64
+dfltLatitude	request/createthreeoneone.go	14;"	c	access:private	language:Go	line:14	type:float64
+dfltLongitude	data/report.go	13;"	c	access:private	language:Go	line:13	type:float64
+dfltLongitude	request/createthreeoneone.go	15;"	c	access:private	language:Go	line:15	type:float64
+dfltMaxResults	request/getreports.go	18;"	c	access:private	language:Go	line:18	type:int64
+docHandler	cs_api.go	35;"	f	access:private	language:Go	line:35	signature:(w http.ResponseWriter, r *http.Request)
+docs	docs/docs.go	1;"	p	language:Go	line:1
+encoding/json	config/config.go	6;"	i	language:Go	line:6
+encoding/json	copier/copier_test.go	4;"	i	language:Go	line:4
+encoding/json	data/data.go	7;"	i	language:Go	line:7
+encoding/json	geo/geocode.go	10;"	i	language:Go	line:10
+encoding/json	response/response.go	7;"	i	language:Go	line:7
+encoding/xml	data/report.go	5;"	i	language:Go	line:5
+encoding/xml	request/createthreeoneone.go	7;"	i	language:Go	line:7
+encoding/xml	request/getreports.go	8;"	i	language:Go	line:8
+encoding/xml	request/request.go	8;"	i	language:Go	line:8
+encoding/xml	response/response.go	8;"	i	language:Go	line:8
+errorHandler	cs_api.go	43;"	f	access:private	language:Go	line:43	signature:(w http.ResponseWriter, r *http.Request, status int)
+errors	config/config.go	7;"	i	language:Go	line:7
+errors	data/data.go	8;"	i	language:Go	line:8
+errors	data/report.go	6;"	i	language:Go	line:6
+errors	geo/mygeocode.go	4;"	i	language:Go	line:4
+errors	request/createthreeoneone.go	8;"	i	language:Go	line:8
+errors	request/getreports.go	9;"	i	language:Go	line:9
+fmt	common/common.go	4;"	i	language:Go	line:4
+fmt	common/common_test.go	4;"	i	language:Go	line:4
+fmt	config/config.go	8;"	i	language:Go	line:8
+fmt	config/config_test.go	5;"	i	language:Go	line:5
+fmt	cs_api.go	10;"	i	language:Go	line:10
+fmt	data/data.go	9;"	i	language:Go	line:9
+fmt	data/data_test.go	5;"	i	language:Go	line:5
+fmt	data/report.go	7;"	i	language:Go	line:7
+fmt	geo/geocode.go	11;"	i	language:Go	line:11
+fmt	geo/geocode_test.go	4;"	i	language:Go	line:4
+fmt	geo/mygeocode.go	5;"	i	language:Go	line:5
+fmt	logs/logs.go	4;"	i	language:Go	line:4
+fmt	logs/logs.go	68;"	w	access:private	ctype:LogString	language:Go	line:68	type:string
+fmt	request/createthreeoneone.go	9;"	i	language:Go	line:9
+fmt	request/getreports.go	10;"	i	language:Go	line:10
+fmt	request/request.go	10;"	i	language:Go	line:10
+fmt	request/request_test.go	6;"	i	language:Go	line:6
+fmt	response/response.go	9;"	i	language:Go	line:9
+fmt	response/response_test.go	6;"	i	language:Go	line:6
+geo	geo/geocode.go	7;"	p	language:Go	line:7
+geo	geo/geocode_test.go	1;"	p	language:Go	line:1
+geo	geo/mygeocode.go	1;"	p	language:Go	line:1
+github.com/davecgh/go-spew/spew	config/config.go	11;"	i	language:Go	line:11
+github.com/davecgh/go-spew/spew	data/data.go	13;"	i	language:Go	line:13
+github.com/davecgh/go-spew/spew	data/data_test.go	8;"	i	language:Go	line:8
+github.com/davecgh/go-spew/spew	geo/geocode_test.go	5;"	i	language:Go	line:5
+github.com/davecgh/go-spew/spew	geo/mygeocode.go	6;"	i	language:Go	line:6
+github.com/davecgh/go-spew/spew	request/getreports.go	11;"	i	language:Go	line:11
+github.com/davecgh/go-spew/spew	response/response.go	10;"	i	language:Go	line:10
+github.com/op/go-logging	logs/logs.go	8;"	i	language:Go	line:8
+homeHandler	cs_api.go	27;"	f	access:private	language:Go	line:27	signature:(w http.ResponseWriter, r *http.Request)
+hsin	data/haversin.go	12;"	f	access:private	language:Go	line:12	signature:(theta float64)	type:float64
+inCreateThreeOneOne	request/request_test.go	13;"	v	access:private	language:Go	line:13
+inGetReportsByAddress	request/request_test.go	40;"	v	access:private	language:Go	line:40
+inGetReportsByAddress2	request/request_test.go	55;"	v	access:private	language:Go	line:55
+includeDetails	request/getreports.go	30;"	w	access:private	ctype:GetReportsByAddress_Type	language:Go	line:30	type:bool
+indId	data/data.go	97;"	w	access:private	ctype:Data_Type	language:Go	line:97	type:map[int64]*Report_Type
+index	data/data.go	216;"	m	access:private	ctype:Data_Type	language:Go	line:216	signature:()	type:error
+init	cs_api.go	76;"	f	access:private	language:Go	line:76	signature:()
+init	logs/logs.go	33;"	f	access:private	language:Go	line:33	signature:()
+init	request/request.go	99;"	f	access:private	language:Go	line:99	signature:()
+init	request/request_test.go	72;"	f	access:private	language:Go	line:72	signature:()
+init	response/response.go	100;"	f	access:private	language:Go	line:100	signature:()
+init	response/response_test.go	11;"	f	access:private	language:Go	line:11	signature:()
+io/ioutil	config/config.go	9;"	i	language:Go	line:9
+io/ioutil	cs_api.go	11;"	i	language:Go	line:11
+io/ioutil	data/data.go	10;"	i	language:Go	line:10
+json	response/response.go	38;"	m	access:private	ctype:Response_Type	language:Go	line:38	signature:()	type:string, error
+json	response/response.go	66;"	m	access:private	ctype:ResponseReport_Type	language:Go	line:66	signature:()	type:string, error
+lastId	data/data.go	94;"	w	access:private	ctype:Data_Type	language:Go	line:94	type:int64
+latitude	data/report.go	60;"	w	access:private	ctype:BaseReport_Type	language:Go	line:60	type:float64
+log	config/config.go	15;"	v	access:private	language:Go	line:15
+log	cs_api.go	17;"	v	access:private	language:Go	line:17
+log	data/data.go	17;"	v	access:private	language:Go	line:17
+log	request/request.go	15;"	v	access:private	language:Go	line:15
+log	response/response.go	19;"	v	access:private	language:Go	line:19
+log	web/web.go	13;"	v	access:private	language:Go	line:13
+logPrinterType	logs/logs.go	129;"	t	access:private	language:Go	line:129	type:struct
+logs	logs/logs.go	1;"	p	language:Go	line:1
+logs_test	logs/logs_test.go	1;"	p	language:Go	line:1
+longitude	data/report.go	62;"	w	access:private	ctype:BaseReport_Type	language:Go	line:62	type:float64
+main	cs_api.go	1;"	p	language:Go	line:1
+main	cs_api.go	20;"	f	access:private	language:Go	line:20	signature:()
+math	common/common.go	5;"	i	language:Go	line:5
+math	data/haversin.go	4;"	i	language:Go	line:4
+maxResults	request/getreports.go	28;"	w	access:private	ctype:GetReportsByAddress_Type	language:Go	line:28	type:int64
+milesPerMeter	data/haversin.go	7;"	c	access:private	language:Go	line:7	type:float64
+modulename	logs/logs.go	15;"	v	access:private	language:Go	line:15	type:string
+net/http	cs_api.go	12;"	i	language:Go	line:12
+net/http	geo/geocode.go	12;"	i	language:Go	line:12
+net/http	web/web.go	8;"	i	language:Go	line:8
+net/url	geo/geocode.go	13;"	i	language:Go	line:13
+nilTime	data/customtime.go	57;"	v	access:private	language:Go	line:57
+os	logs/logs.go	5;"	i	language:Go	line:5
+parse	request/request.go	54;"	f	access:private	ctype:Request_Type	language:Go	line:54	signature:(input string, start time.Time)	type:*Request_Type, error
+processors	request/request.go	16;"	v	access:private	language:Go	line:16	type:map[string]func(string, time.Time) string, error
+programStartTime	common/common.go	15;"	v	access:private	language:Go	line:15
+radius	request/getreports.go	26;"	w	access:private	ctype:GetReportsByAddress_Type	language:Go	line:26	type:float64
+raw	logs/logs.go	67;"	w	access:private	ctype:LogString	language:Go	line:67	type:string
+readConfig	config/config.go	66;"	f	access:private	ctype:ConfigType	language:Go	line:66	signature:(filePath string)	type:*ConfigType, error
+readData	data/data.go	171;"	f	access:private	ctype:Data_Type	language:Go	line:171	signature:(filePath string)	type:*Data_Type, error
+reflect	copier/copier.go	3;"	i	language:Go	line:3
+reflect	copier/copier_test.go	6;"	i	language:Go	line:6
+request	request/createthreeoneone.go	1;"	p	language:Go	line:1
+request	request/getreports.go	1;"	p	language:Go	line:1
+request	request/request.go	1;"	p	language:Go	line:1
+request	request/request_test.go	1;"	p	language:Go	line:1
+response	response/response.go	1;"	p	language:Go	line:1
+response	response/response_test.go	1;"	p	language:Go	line:1
+responseMsg	response/response.go	20;"	v	access:private	language:Go	line:20	type:map[bool]string
+run	logs/logs.go	144;"	m	access:private	ctype:logPrinterType	language:Go	line:144	signature:()
+showData	request/request_test.go	83;"	f	access:private	language:Go	line:83	signature:(data CreateThreeOneOne_Type)
+start	request/request.go	67;"	w	access:private	ctype:Request_Type	language:Go	line:67	type:time.Time
+strconv	data/report.go	8;"	i	language:Go	line:8
+strconv	geo/geocode.go	14;"	i	language:Go	line:14
+strconv	request/getreports.go	12;"	i	language:Go	line:12
+strings	common/common.go	6;"	i	language:Go	line:6
+strings	logs/logs.go	6;"	i	language:Go	line:6
+sync	data/data.go	11;"	i	language:Go	line:11
+sync.Mutex	data/data.go	98;"	e	access:public	ctype:Data_Type	language:Go	line:98	type:sync.Mutex
+testing	common/common_test.go	5;"	i	language:Go	line:5
+testing	config/config_test.go	6;"	i	language:Go	line:6
+testing	copier/copier_test.go	8;"	i	language:Go	line:8
+testing	data/data_test.go	6;"	i	language:Go	line:6
+testing	geo/geocode_test.go	6;"	i	language:Go	line:6
+testing	logs/logs_test.go	8;"	i	language:Go	line:8
+testing	request/request_test.go	7;"	i	language:Go	line:7
+testing	response/response_test.go	7;"	i	language:Go	line:7
+time	common/common.go	7;"	i	language:Go	line:7
+time	cs_api.go	13;"	i	language:Go	line:13
+time	data/customtime.go	4;"	i	language:Go	line:4
+time	logs/logs_test.go	6;"	i	language:Go	line:6
+time	request/createthreeoneone.go	10;"	i	language:Go	line:10
+time	request/getreports.go	13;"	i	language:Go	line:13
+time	request/request.go	11;"	i	language:Go	line:11
+time	request/request_test.go	8;"	i	language:Go	line:8
+time	response/response.go	11;"	i	language:Go	line:11
+time.Time	data/customtime.go	15;"	e	access:public	ctype:CustomTime	language:Go	line:15	type:time.Time
+todo	logs/logs.go	130;"	w	access:private	ctype:logPrinterType	language:Go	line:130	type:chan string
+values	geo/geocode.go	69;"	w	access:private	ctype:Request	language:Go	line:69	type:url.Values
+verbose	web/web.go	12;"	v	access:private	language:Go	line:12
+web	web/web.go	1;"	p	language:Go	line:1
+xml	response/response.go	33;"	m	access:private	ctype:Response_Type	language:Go	line:33	signature:()	type:string, error
+xml	response/response.go	61;"	m	access:private	ctype:ResponseReport_Type	language:Go	line:61	signature:()	type:string, error
