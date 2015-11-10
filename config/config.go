@@ -27,8 +27,10 @@ func Init(fileName string) error {
 
 func Auth(ac string) bool {
 	if ac == C.API.AuthKey {
+		log.Debug("Auth OK - req: %q  key: %q", ac, C.API.AuthKey)
 		return true
 	}
+	log.Debug("Auth FAIL - req: %q  key: %q", ac, C.API.AuthKey)
 	return false
 }
 

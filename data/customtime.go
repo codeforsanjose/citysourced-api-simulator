@@ -7,13 +7,18 @@ import (
 // ==============================================================================================================================
 //                                      Custom Time Format
 // ==============================================================================================================================
+const customDateFmt = "2006-01-02T15:04:05"
+
 // CitySourced is not using standard RFC3339 time format, at least not in their examples...
 
 type CustomTime struct {
 	time.Time
 }
 
-const customDateFmt = "2006-01-02T15:04:05"
+func NewCustomTime(in string) CustomTime {
+	nt, _ := time.Parse(customDateFmt, in)
+	return CustomTime{nt}
+}
 
 func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
 	if b[0] == '"' && b[len(b)-1] == '"' {
@@ -22,7 +27,7 @@ func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
 	if len(b) == 0 {
 		ct.Time = *new(time.Time)
 		return
-	} 
+	}
 	ct.Time, err = time.Parse(customDateFmt, string(b))
 	return
 }

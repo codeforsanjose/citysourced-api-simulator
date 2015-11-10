@@ -5,7 +5,7 @@
     <databaseInfo>
         <version>134481920</version>
         <UUID>0F3B107E-7445-4A06-85B7-26A017E14C33</UUID>
-        <nextObjectID>116</nextObjectID>
+        <nextObjectID>123</nextObjectID>
         <metadata>
             <plist version="1.0">
                 <dict>
@@ -89,7 +89,7 @@
         <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n   \u3c00ApiAuthKey\u3e001234567890\u3c00\\/ApiAuthKey\u3e00\\n   \u3c00ApiRequestType\u3e00CreateThreeOneOne\u3c00\\/ApiRequestType\u3e00\\n   \u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n   \u3c00DateCreated\u3e001974-05-20T13:45:30\u3c00\\/DateCreated\u3e00\\n   \u3c00DeviceType\u3e00IPHONE\u3c00\\/DeviceType\u3e00\\n   \u3c00DeviceModel\u3e003GS\u3c00\\/DeviceModel\u3e00\\n   \u3c00DeviceId\u3e00987654321\u3c00\\/DeviceId\u3e00\\n   \u3c00RequestType\u3e00Graffiti Removal\u3c00\\/RequestType\u3e00\\n   \u3c00RequestTypeId\u3e0010\u3c00\\/RequestTypeId\u3e00\\n   \u3c00Latitude\u3e0034.0632809\u3c00\\/Latitude\u3e00\\n   \u3c00Longitude\u3e00-118.445211\u3c00\\/Longitude\u3e00\\n   \u3c00Directionality\u3e0025 N NW\u3c00\\/Directionality\u3e00\\n   \u3c00Description\u3e00This is my description.\u3c00\\/Description\u3e00\\n   \u3c00AuthorNameFirst\u3e00\u3c00\\/AuthorNameFirst\u3e00\\n   \u3c00AuthorNameLast\u3e00\u3c00\\/AuthorNameLast\u3e00\\n   \u3c00AuthorEmail\u3e00\u3c00\\/AuthorEmail\u3e00\\n   \u3c00AuthorTelephone\u3e00\u3c00\\/AuthorTelephone\u3e00\\n   \u3c00AuthorIsAnonymous\u3e00True\u3c00\\/AuthorIsAnonymous\u3e00\\n   \u3c00KeyValuePairs\u3e00\\n      \u3c00KeyValuePair Key=\\"Key1\\"\u3e00Value1\u3c00\\/KeyValuePair\u3e00\\n      \u3c00KeyValuePair Key=\\"Key2\\"\u3e00Value2\u3c00\\/KeyValuePair\u3e00\\n   \u3c00\\/KeyValuePairs\u3e00\\n\u3c00\\/CsRequest\u3e00"]</attribute>
         <attribute name="order" type="int64">0</attribute>
         <attribute name="name" type="string">Create311 - no author</attribute>
-        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z122"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z102"></relationship>
     </object>
@@ -139,7 +139,7 @@
         <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n   \u3c00ApiAuthKey\u3e001234567890\u3c00\\/ApiAuthKey\u3e00\\n   \u3c00ApiRequestType\u3e00CreateThreeOneOne\u3c00\\/ApiRequestType\u3e00\\n   \u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n   \u3c00DateCreated\u3e001974-05-20T13:45:30\u3c00\\/DateCreated\u3e00\\n   \u3c00DeviceType\u3e00IPHONE\u3c00\\/DeviceType\u3e00\\n   \u3c00DeviceModel\u3e003GS\u3c00\\/DeviceModel\u3e00\\n   \u3c00DeviceId\u3e00987654321\u3c00\\/DeviceId\u3e00\\n   \u3c00RequestType\u3e00Graffiti Removal\u3c00\\/RequestType\u3e00\\n   \u3c00RequestTypeId\u3e0010\u3c00\\/RequestTypeId\u3e00\\n   \u3c00Latitude\u3e0034.0632809\u3c00\\/Latitude\u3e00\\n   \u3c00Longitude\u3e00-118.445211\u3c00\\/Longitude\u3e00\\n   \u3c00Directionality\u3e0025 N NW\u3c00\\/Directionality\u3e00\\n   \u3c00Description\u3e00This is my description.\u3c00\\/Description\u3e00\\n   \u3c00AuthorNameFirst\u3e00James\u3c00\\/AuthorNameFirst\u3e00\\n   \u3c00AuthorNameLast\u3e00Haskell\u3c00\\/AuthorNameLast\u3e00\\n   \u3c00AuthorEmail\u3e00jh@xyz.com\u3c00\\/AuthorEmail\u3e00\\n   \u3c00AuthorTelephone\u3e002223334444\u3c00\\/AuthorTelephone\u3e00\\n   \u3c00AuthorIsAnonymous\u3e00False\u3c00\\/AuthorIsAnonymous\u3e00\\n   \u3c00KeyValuePairs\u3e00\\n      \u3c00KeyValuePair Key=\\"Key1\\"\u3e00Value1\u3c00\\/KeyValuePair\u3e00\\n      \u3c00KeyValuePair Key=\\"Key2\\"\u3e00Value2\u3c00\\/KeyValuePair\u3e00\\n   \u3c00\\/KeyValuePairs\u3e00\\n\u3c00\\/CsRequest\u3e00"]</attribute>
         <attribute name="order" type="int64">1</attribute>
         <attribute name="name" type="string">Create311 - author</attribute>
-        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z122"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z111"></relationship>
     </object>
@@ -162,10 +162,10 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n   \u3c00ApiAuthKey\u3e001234567890\u3c00\\/ApiAuthKey\u3e00\\n   \u3c00ApiRequestType\u3e00CreateSomething\u3c00\\/ApiRequestType\u3e00\\n   \u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n\u3c00\\/CsRequest\u3e00"]</attribute>
-        <attribute name="order" type="int64">2</attribute>
+        <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n   \u3c00ApiAuthKey\u3e00a01234567890z\u3c00\\/ApiAuthKey\u3e00\\n   \u3c00ApiRequestType\u3e00CreateSomething\u3c00\\/ApiRequestType\u3e00\\n   \u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n\u3c00\\/CsRequest\u3e00"]</attribute>
+        <attribute name="order" type="int64">1</attribute>
         <attribute name="name" type="string">Invalid Request</attribute>
-        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z123"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z113"></relationship>
     </object>
@@ -179,9 +179,9 @@
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n   \u3c00ApiAuthKey\u3e002222222\u3c00\\/ApiAuthKey\u3e00\\n   \u3c00ApiRequestType\u3e00CreateSomething\u3c00\\/ApiRequestType\u3e00\\n   \u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n\u3c00\\/CsRequest\u3e00"]</attribute>
-        <attribute name="order" type="int64">3</attribute>
+        <attribute name="order" type="int64">0</attribute>
         <attribute name="name" type="string">Invalid Auth</attribute>
-        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z123"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z116"></relationship>
     </object>
@@ -194,5 +194,87 @@
         <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z115"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z117">
+        <attribute name="uuid" type="string">4450E001-DB11-4AE1-8C47-EEE8D2D220D1</attribute>
+        <attribute name="url" type="string">http://localhost:5050/api/</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">POST</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n\\t\u3c00ApiAuthKey\u3e00a01234567890z\u3c00\\/ApiAuthKey\u3e00\\n\\t\u3c00ApiRequestType\u3e00GetReportsByAddress\u3c00\\/ApiRequestType\u3e00\\n\\t\u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n\\t\u3c00Address\u3e00200 E. Santa Clara St., San Jose, CA\u3c00\\/Address\u3e00\\n\\t\u3c00Radius\u3e00500\u3c00\\/Radius\u3e00\\n\\t\u3c00MaxResults\u3e00\u3c00\\/MaxResults\u3e00\\n\\t\u3c00IncludeDetails\u3e00False\u3c00\\/IncludeDetails\u3e00\\n\\t\u3c00DateRangeStart\u3e002015-05-20T13:45:30\u3c00\\/DateRangeStart\u3e00\\n\\t\u3c00DateRangeEnd\u3e002015-05-20T13:45:30\u3c00\\/DateRangeEnd\u3e00\\n\\t\u3c00CurrentStatus\u3e00\u3c00\\/CurrentStatus\u3e00\\n\u3c00\\/CsRequest\u3e00\\n"]</attribute>
+        <attribute name="order" type="int64">1</attribute>
+        <attribute name="name" type="string">500 Meters around SJ City Hall </attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z121"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z118"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z118">
+        <attribute name="value" type="string"></attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string"></attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z117"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z119">
+        <attribute name="uuid" type="string">1D0DDED4-38A9-45B3-9D9A-0709D2F342BB</attribute>
+        <attribute name="url" type="string">http://localhost:5050/api/</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">POST</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n\\t\u3c00ApiAuthKey\u3e00a01234567890z\u3c00\\/ApiAuthKey\u3e00\\n\\t\u3c00ApiRequestType\u3e00GetReportsByAddress\u3c00\\/ApiRequestType\u3e00\\n\\t\u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n\\t\u3c00Address\u3e00200 E. Santa Clara St., San Jose, CA\u3c00\\/Address\u3e00\\n\\t\u3c00Radius\u3e0010000\u3c00\\/Radius\u3e00\\n\\t\u3c00MaxResults\u3e00\u3c00\\/MaxResults\u3e00\\n\\t\u3c00IncludeDetails\u3e00\u3c00\\/IncludeDetails\u3e00\\n\\t\u3c00DateRangeStart\u3e00\u3c00\\/DateRangeStart\u3e00\\n\\t\u3c00DateRangeEnd\u3e00\u3c00\\/DateRangeEnd\u3e00\\n\\t\u3c00CurrentStatus\u3e00\u3c00\\/CurrentStatus\u3e00\\n\u3c00\\/CsRequest\u3e00\\n"]</attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string">10,000 Meters around SJ City Hall </attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z121"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z120"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z120">
+        <attribute name="value" type="string"></attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string"></attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z119"></relationship>
+    </object>
+    <object type="LMREQUESTGROUP" id="z121">
+        <attribute name="uuid" type="string">04BFB887-89AE-4BA0-B41F-A9541A8D9A13</attribute>
+        <attribute name="order" type="int64">1</attribute>
+        <attribute name="name" type="string">GetReportsByAddress</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z117 z119"></relationship>
+        <relationship name="bodyparameters" type="0/0" destination="LMKEYVALUE"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE"></relationship>
+        <relationship name="urlparameters" type="0/0" destination="LMKEYVALUE"></relationship>
+    </object>
+    <object type="LMREQUESTGROUP" id="z122">
+        <attribute name="uuid" type="string">9ED992D5-68C2-40CC-9FA0-DB3153CB9754</attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string">CreateThreeOneOne</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z112 z105"></relationship>
+        <relationship name="bodyparameters" type="0/0" destination="LMKEYVALUE"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE"></relationship>
+        <relationship name="urlparameters" type="0/0" destination="LMKEYVALUE"></relationship>
+    </object>
+    <object type="LMREQUESTGROUP" id="z123">
+        <attribute name="uuid" type="string">3F4D0299-F62E-41D0-99A8-CC9D5152CAE6</attribute>
+        <attribute name="order" type="int64">2</attribute>
+        <attribute name="name" type="string">Invalid</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z115 z114"></relationship>
+        <relationship name="bodyparameters" type="0/0" destination="LMKEYVALUE"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE"></relationship>
+        <relationship name="urlparameters" type="0/0" destination="LMKEYVALUE"></relationship>
     </object>
 </database>

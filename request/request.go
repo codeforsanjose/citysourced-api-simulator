@@ -3,70 +3,78 @@ package request
 import (
 	"CitySourcedAPI/config"
 	"CitySourcedAPI/logs"
+	"CitySourcedAPI/response"
 
 	"encoding/xml"
-	"errors"
+	// "errors"
 	"fmt"
+	"time"
 )
 
 var (
-	log = logs.Log
+	log        = logs.Log
+	processors map[string]func(string, time.Time) (string, error)
 )
 
 // ==============================================================================================================================
 //                                       PROCESS REQUEST
 // ==============================================================================================================================
 
-func Process(input string) (response string, err error) {
-	rt, e := newRequest(input)
+func Process(input string, start time.Time) (rsp string, err error) {
+	rt, e := parse(input, start)
 	if e != nil {
-		return "", e
+		return response.StatusMsg("Unable to parse request XML", start), e
 	}
 
-	switch rt.ApiRequestType {
-	case "CreateThreeOneOne":
-		response, err = CreateThreeOneOne(input)
+	if ok := rt.auth(); !ok {
+		return response.StatusMsg("Invalid Auth code", start), e
+	}
 
-	case "GetReportsByAddress":
-		response, err = GetReportsByAddress(input)
-
-	default:
+	f, ok := processors[rt.ApiRequestType]
+	if !ok {
 		msg := fmt.Sprintf("Unknown request received: %s", rt.ApiRequestType)
 		log.Warning(msg)
-		return "", errors.New(msg)
+		return response.StatusMsg(msg, start), e
 	}
 
-	log.Debug("Response:\n%s\n", response)
+	rsp, err = f(input, start)
+
+	log.Debug("Response:\n%s\n", rsp)
 	if err != nil {
-		log.Warning("CreateThreeOneOne failed - error: %s", err)
+		log.Warning("Request failed - error: %s", err)
 	}
 
-	return "", nil
+	return rsp, nil
 
 }
 
 // ==============================================================================================================================
 //                                       REQUEST
 // ==============================================================================================================================
-func newRequest(input string) (*Request_Type, error) {
+func parse(input string, start time.Time) (*Request_Type, error) {
 	log.Debug("New Request: \n%s\n", input)
 	rt := new(Request_Type)
 	if err := xml.Unmarshal([]byte(input), rt); err != nil {
 		log.Warning("Request XML cannot be unmarshaled: %s", err)
 		return nil, err
 	}
+	rt.start = start
 	log.Debug("rt:\n%+v", rt)
 	return rt, nil
 }
 
 type Request_Type struct {
+	start             time.Time
 	XMLName           xml.Name `xml:"CsRequest" json:"CsRequest"`
 	ApiAuthKey        string   `xml:"ApiAuthKey" json:"ApiAuthKey"`
 	ApiRequestType    string   `xml:"ApiRequestType" json:"ApiRequestType"`
 	ApiRequestVersion string   `xml:"ApiRequestVersion" json:"ApiRequestVersion"`
 }
 
-// Check auth code.
+func (r *Request_Type) Start() time.Time {
+	return r.start
+}
+
 func (r *Request_Type) auth() (ok bool) {
 	ok = config.Auth(r.ApiAuthKey)
 	if !ok {
@@ -76,10 +84,21 @@ func (r *Request_Type) auth() (ok bool) {
 	return ok
 }
 
-// Displays the contents of the Spec_Type custom type.
-func (s Request_Type) String() string {
+func (r Request_Type) String() string {
 	ls := new(logs.LogString)
 	ls.AddS("Request_Type\n")
-	ls.AddF("Request - type: %s  ver: %s\n", s.ApiRequestType, s.ApiRequestVersion)
+	ls.AddF("Start: %v\n", r.start)
+	ls.AddF("Request - type: %s  ver: %s\n", r.ApiRequestType, r.ApiRequestVersion)
 	return ls.BoxC(60)
+}
+
+// ==============================================================================================================================
+//                                       INIT
+// ==============================================================================================================================
+
+func init() {
+	processors = make(map[string]func(string, time.Time) (string, error))
+
+	processors["CreateThreeOneOne"] = CreateThreeOneOne
+	processors["GetReportsByAddress"] = GetReportsByAddress
 }

@@ -1,22 +1,21 @@
 package main
 
 import (
+	"CitySourcedAPI/config"
+	"CitySourcedAPI/data"
+	"CitySourcedAPI/docs"
+	"CitySourcedAPI/logs"
 	"CitySourcedAPI/request"
 
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
-var docs_home = `
-This is the documentation for the City Sourced test API System.
-Enter URL "docs" for more information.
-`
-var docs_detail = `
-This is detailed documentation for the City Sourced test API System.
-
-Path 
-`
+var (
+	log = logs.Log
+)
 
 func main() {
 	http.HandleFunc("/", homeHandler)
@@ -30,7 +29,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	fmt.Fprint(w, docs_home)
+	fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", docs.Home.Title, docs.Home.Body)
 }
 
 func docHandler(w http.ResponseWriter, r *http.Request) {
@@ -38,7 +37,7 @@ func docHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	fmt.Fprint(w, docs_detail)
+	fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", docs.Detail.Title, docs.Detail.Body)
 }
 
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
@@ -49,6 +48,7 @@ func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 }
 
 func apiHandler(w http.ResponseWriter, r *http.Request) {
+	start := time.Now()
 	if r.URL.Path != "/api/" || r.Method != "POST" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -68,7 +68,17 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	// }
 
 	fmt.Printf("api request - method: %v\n%#v\n", r.Method, string(req))
-	request.Process(string(req))
+	resp, err := request.Process(string(req), start)
 
-	fmt.Fprint(w, "call to api!")
+	fmt.Fprint(w, resp)
+}
+
+func init() {
+	if err := config.Init("config.json"); err != nil {
+		fmt.Printf("Error loading config file: %s\n", err)
+	}
+
+	if err := data.Init("data.json"); err != nil {
+		fmt.Printf("Error loading config file: %s\n", err)
+	}
 }

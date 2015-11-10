@@ -42,6 +42,26 @@ func (d *Data_Type) LastId() int64 {
 	return d.lastId
 }
 
+func (d *Data_Type) AddReport(st BaseReport_Type) error {
+	if err := st.Validate(); err != nil {
+		return err
+	}
+	// log.Debug("[AddReport] st: type: %T\n%s", st, spew.Sdump(st))
+	d.Lock()
+	d.lastId = d.lastId + 1
+	r := Report_Type{
+		Id:              d.lastId,
+		BaseReport_Type: st,
+	}
+	fmt.Printf("[AddReport2] st: type: %T\n%s\n", st, spew.Sdump(r))
+
+	d.Reports = append(d.Reports, &r)
+	d.indId[d.lastId] = &r
+	d.Unlock()
+	// log.Debug(d.Display())
+	return nil
+}
+
 func (d *Data_Type) FindDeviceId(id string) ([]*Report_Type, error) {
 	rlist := make([]*Report_Type, 0)
 	for _, v := range d.Reports {
@@ -60,6 +80,13 @@ func (d *Data_Type) FindId(id int64) (*Report_Type, error) {
 	return r, errors.New(fmt.Sprintf("Id: %v not found!", id))
 }
 
+func (d *Data_Type) Validate() error {
+	for _, r := range d.Reports {
+		r.Validate()
+	}
+	return nil
+}
+
 func (d *Data_Type) FindAddress(addr string, radius float64) ([]*Report_Type, error) {
 	rlist := make([]*Report_Type, 0)
 	log.Debug("FindAddress - addr: %s  radius: %v", addr, radius)
@@ -71,7 +98,7 @@ func (d *Data_Type) FindAddress(addr string, radius float64) ([]*Report_Type, er
 	}
 	log.Debug("Scanning Reports for reports within %v meters of: %v|%v", radius, alat, alng)
 	for _, v := range d.Reports {
-		dist := Distance(alat, alng, v.Latitude, v.Longitude)
+		dist := Distance(alat, alng, v.latitude, v.longitude)
 		fmt.Printf("Id: %v  dist: %v\n", v.Id, dist)
 		if dist < radius {
 			rlist = append(rlist, v)
@@ -104,6 +131,13 @@ func readData(filePath string) (*Data_Type, error) {
 	err = json.Unmarshal([]byte(file), &D)
 	if err != nil {
 		msg := fmt.Sprintf("Invalid JSON in the Data file %q: %s", filePath, err)
+		log.Critical(msg)
+		return nil, errors.New(msg)
+	}
+
+	err = D.Validate()
+	if err != nil {
+		msg := fmt.Sprintf("Unable to validate data (check lng, lat, etc): %q: %s", filePath, err)
 		log.Critical(msg)
 		return nil, errors.New(msg)
 	}

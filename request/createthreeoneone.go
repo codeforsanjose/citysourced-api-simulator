@@ -7,6 +7,13 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"time"
+)
+
+const (
+	dfltLatitude          float64 = 0.0
+	dfltLongitude         float64 = 0.0
+	dfltAuthorIsAnonymous         = true
 )
 
 type KeyValuePair_Type struct {
@@ -16,32 +23,31 @@ type KeyValuePair_Type struct {
 
 type CreateThreeOneOne_Type struct {
 	Request_Type
-	DateCreated       data.CustomTime     `xml:"DateCreated" json:"DateCreated"`
-	DeviceType        string              `xml:"DeviceType" json:"DeviceType"`
-	DeviceModel       string              `xml:"DeviceModel" json:"DeviceModel"`
-	DeviceId          string              `xml:"DeviceId" json:"DeviceId"`
-	RequestType       string              `xml:"RequestType" json:"RequestType"`
-	RequestTypeId     string              `xml:"RequestTypeId" json:"RequestTypeId"`
-	Latitude          float64             `xml:"Latitude" json:"Latitude"`
-	Longitude         float64             `xml:"Longitude" json:"Longitude"`
-	Directionality    string              `xml:"Directionality" json:"Directionality"`
-	Description       string              `xml:"Description" json:"Description"`
-	AuthorNameFirst   string              `xml:"AuthorNameFirst" json:"AuthorNameFirst"`
-	AuthorNameLast    string              `xml:"AuthorNameLast" json:"AuthorNameLast"`
-	AuthorEmail       string              `xml:"AuthorEmail" json:"AuthorEmail"`
-	AuthorTelephone   string              `xml:"AuthorTelephone" json:"AuthorTelephone"`
-	AuthorIsAnonymous bool                `xml:"AuthorIsAnonymous" json:"AuthorIsAnonymous"`
-	KeyValuePairs     []KeyValuePair_Type `xml:"KeyValuePairs>KeyValuePair"`
+	data.BaseReport_Type
+	KeyValuePairs []KeyValuePair_Type `xml:"KeyValuePairs>KeyValuePair"`
 }
 
-func CreateThreeOneOne(input string) (string, error) {
+func (st *CreateThreeOneOne_Type) Validate() error {
+	return st.BaseReport_Type.Validate()
+}
+
+func CreateThreeOneOne(input string, start time.Time) (string, error) {
 	st := new(CreateThreeOneOne_Type)
-	err := xml.Unmarshal([]byte(input), st)
-	if err != nil {
+	if err := xml.Unmarshal([]byte(input), st); err != nil {
 		msg := fmt.Sprintf("Unable to unmarshal CreateThreeOneOne request: %s", err)
 		log.Warning(msg)
 		return "", errors.New(msg)
 	}
+	st.start = start
+
+	if err := st.Validate(); err != nil {
+		return "", err
+	}
+
+	log.Debug("CreateThreeOneOne: \n%+v\n", st)
+
+	data.D.AddReport(st.BaseReport_Type)
+
 	return "", nil
 }
 

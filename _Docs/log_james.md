@@ -1,11 +1,20 @@
 # CitySourced Test API
 
+[2015.11.09 - Mon]
+
+* Merged all usages of the "generic" Report struct into data.report.go.  
+	* Created two structs: Report_Type (existing), and BaseReport_Type.
+	* BaseReport_Type will be used in both the "data" and "request" packages.
+	* Added the "copier" package into the project, but am not using it.  It didn't like the CustomTime type in the structs to be copied.
+	* Tests on data and request all OK.
+	* Saved to GIT.
+	* 
+
 [2015.11.06 - Fri]
 
 * Moved response.go out of the "request" package, and created it's own package "response".
 * Test: request_test.go passed OK.
 * Saved to GIT.
-* 
 
 [2015.11.05 - Thu]
 

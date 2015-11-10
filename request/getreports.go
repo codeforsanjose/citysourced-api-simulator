@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"github.com/davecgh/go-spew/spew"
 	"strconv"
+	"time"
 )
 
 const (
@@ -32,7 +33,7 @@ type GetReportsByAddress_Type struct {
 	CurrentStatus  string          `xml:"CurrentStatus" json:"CurrentStatus"`
 }
 
-func GetReportsByAddress(input string) (string, error) {
+func GetReportsByAddress(input string, start time.Time) (string, error) {
 	st := new(GetReportsByAddress_Type)
 	err := xml.Unmarshal([]byte(input), st)
 	if err != nil {
@@ -40,6 +41,7 @@ func GetReportsByAddress(input string) (string, error) {
 		log.Warning(msg)
 		return "", errors.New(msg)
 	}
+	st.start = start
 
 	// Validate
 	errmsg := ""
@@ -74,11 +76,11 @@ func GetReportsByAddress(input string) (string, error) {
 		}
 	}
 
-	fmt.Printf("GetReportsByAddress:\n%+v\n", st)
+	log.Debug("GetReportsByAddress:\n%+v\n", st)
 
 	rpts, _ := data.D.FindAddress(st.Address, st.radius)
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
-	resp, _ := response.NewResponseReports(true, 0.0, rpts)
+	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
 
 	return resp, nil
 }

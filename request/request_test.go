@@ -5,6 +5,7 @@ import (
 	"CitySourcedAPI/data"
 	"fmt"
 	"testing"
+	"time"
 	// "github.com/davecgh/go-spew/spew"
 )
 
@@ -12,7 +13,7 @@ var (
 	inCreateThreeOneOne = `
 		<?xml version="1.0" encoding="utf-8" ?>
 		<CsRequest>
-			<ApiAuthKey>a0124852109248523948z</ApiAuthKey>
+			<ApiAuthKey>a01234567890z</ApiAuthKey>
 			<ApiRequestType>CreateThreeOneOne</ApiRequestType>
 			<ApiRequestVersion>1</ApiRequestVersion>
 			<DateCreated>2015-05-20T13:45:30</DateCreated>
@@ -39,7 +40,7 @@ var (
 	inGetReportsByAddress = `
 	<?xml version="1.0" encoding="utf-8" ?>
 	<CsRequest>
-		<ApiAuthKey>{INSERT YOUR AUTH KEY HERE!}</ApiAuthKey>
+		<ApiAuthKey>a01234567890z</ApiAuthKey>
 		<ApiRequestType>GetReportsByAddress</ApiRequestType>
 		<ApiRequestVersion>1</ApiRequestVersion>
 		<Address>200 E. Santa Clara St., San Jose, CA</Address>
@@ -54,7 +55,7 @@ var (
 	inGetReportsByAddress2 = `
 	<?xml version="1.0" encoding="utf-8" ?>
 	<CsRequest>
-		<ApiAuthKey>{INSERT YOUR AUTH KEY HERE!}</ApiAuthKey>
+		<ApiAuthKey>a01234567890z</ApiAuthKey>
 		<ApiRequestType>GetReportsByAddress</ApiRequestType>
 		<ApiRequestVersion>1</ApiRequestVersion>
 		<Address>200 E. Santa Clara St., San Jose, CA</Address>
@@ -103,17 +104,20 @@ func showData(data CreateThreeOneOne_Type) {
 func TestCreateThreeOneOne(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestCreateThreeOneOne <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	input := inCreateThreeOneOne
-	data, _ := Process(input)
-	fmt.Printf("[ProcessRequest] returned: %q\n", data)
+	data, err := Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
+	// fmt.Printf("[Process] returned: %q\n", data)
 }
 
 func TestGetReportsByAddress(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestGetReportsByAddress <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	input := inGetReportsByAddress
-	data, _ := Process(input)
-	fmt.Printf("[ProcessRequest] returned: %q\n", data)
+	data, err := Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
+	// fmt.Printf("[Process] returned: %q\n", data)
 
 	input = inGetReportsByAddress2
-	data, _ = Process(input)
-	fmt.Printf("[ProcessRequest] returned: %q\n", data)
+	data, err = Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
+	// fmt.Printf("[Process] returned: %q\n", data)
 }

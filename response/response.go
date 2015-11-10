@@ -7,11 +7,12 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"time"
 	"github.com/davecgh/go-spew/spew"
 )
 
 const (
-	XmlHeader string = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>"
+	XmlHeader string = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n"
 )
 
 var (
@@ -39,12 +40,14 @@ func (r *Response_Type) json() (string, error) {
 	return string(b), err
 }
 
-func NewResponseShort(message string, rtime float64) (*Response_Type, error) {
+func StatusMsg(message string, start time.Time) string {
 	rt := Response_Type{
 		Message:      message,
-		ResponseTime: fmt.Sprintf("%v Seconds", rtime),
+		ResponseTime: fmt.Sprintf("%v Seconds", time.Since(start).Seconds()),
 	}
-	return &rt, nil
+	xmlout, _ := rt.xml()
+	xmlout = XmlHeader + xmlout
+	return xmlout
 }
 
 // ==============================================================================================================================
@@ -65,10 +68,10 @@ func (r *ResponseReports_Type) json() (string, error) {
 	return string(b), err
 }
 
-func NewResponseReports(success bool, rtime float64, reports []*data.Report_Type) (string, error) {
+func NewResponseReports(success bool, start time.Time, reports []*data.Report_Type) (string, error) {
 	rt := ResponseReports_Type{}
 	rt.Message = responseMsg[success]
-	rt.ResponseTime = fmt.Sprintf("%v Seconds", rtime)
+	rt.ResponseTime = fmt.Sprintf("%v Seconds", time.Since(start).Seconds())
 	rt.Reports = reports
 	log.Debug("rt: %s", spew.Sdump(rt))
 	xmlout, err := rt.xml()
