@@ -7,8 +7,8 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
-	"time"
 	"github.com/davecgh/go-spew/spew"
+	"time"
 )
 
 const (
@@ -16,7 +16,7 @@ const (
 )
 
 var (
-	log = logs.Log
+	log         = logs.Log
 	responseMsg map[bool]string
 )
 
@@ -53,26 +53,36 @@ func StatusMsg(message string, start time.Time) string {
 // ==============================================================================================================================
 //                                       REPORTS
 // ==============================================================================================================================
-type ResponseReports_Type struct {
+type ResponseReport_Type struct {
 	Response_Type
-	Reports []*data.Report_Type `xml:"Reports>Report"`
+	Reports ResponseReports_Type `xml:"Reports"`
 }
 
-func (r *ResponseReports_Type) xml() (string, error) {
+func (r *ResponseReport_Type) xml() (string, error) {
 	b, err := xml.MarshalIndent(r, "", "   ")
 	return string(b), err
 }
 
-func (r *ResponseReports_Type) json() (string, error) {
+func (r *ResponseReport_Type) json() (string, error) {
 	b, err := json.Marshal(r)
 	return string(b), err
 }
 
+type ResponseReports_Type struct {
+	ReportCount int               `xml:"ReportCount"`
+	Reports     []*data.Report_Type `xml:"Report"`
+}
+
 func NewResponseReports(success bool, start time.Time, reports []*data.Report_Type) (string, error) {
-	rt := ResponseReports_Type{}
+	rt := ResponseReport_Type{}
 	rt.Message = responseMsg[success]
 	rt.ResponseTime = fmt.Sprintf("%v Seconds", time.Since(start).Seconds())
-	rt.Reports = reports
+	
+	rts := ResponseReports_Type{}
+	rts.ReportCount = len(reports)
+	rts.Reports = reports
+	rt.Reports = rts
+	
 	log.Debug("rt: %s", spew.Sdump(rt))
 	xmlout, err := rt.xml()
 	xmlout = XmlHeader + xmlout

@@ -20,7 +20,7 @@ const (
 
 // ------------------------------- Report_Type -------------------------------
 type Report_Type struct {
-	XMLName xml.Name `xml:"Request" json:"Request"`
+	XMLName xml.Name `xml:"Report" json:"Report"`
 	Id      int64    `json:"Id" xml:"Id"`
 	BaseReport_Type
 }

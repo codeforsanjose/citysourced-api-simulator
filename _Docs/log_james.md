@@ -8,6 +8,7 @@
 	* Added the "copier" package into the project, but am not using it.  It didn't like the CustomTime type in the structs to be copied.
 	* Tests on data and request all OK.
 	* Saved to GIT.
+	* Modified "data" package to return "<Report>" tags within the response.  It was returning "<Request>".
 	* 
 
 [2015.11.06 - Fri]

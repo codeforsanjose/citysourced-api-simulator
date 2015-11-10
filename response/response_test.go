@@ -8,8 +8,6 @@ import (
 	// "github.com/davecgh/go-spew/spew"
 )
 
-
-
 func init() {
 	if err := config.Init("../config.json"); err != nil {
 		fmt.Printf("Error loading config file: %s\n", err)
@@ -21,9 +19,7 @@ func init() {
 
 }
 
-
 func TestNewResponseReports(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestNewResponseReports <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	fmt.Println("\n!!!CREATE SOME TEST CASES!!!!\n\n")
 }
-
