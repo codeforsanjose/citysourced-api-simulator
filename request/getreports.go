@@ -8,9 +8,10 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
 	"strconv"
 	"time"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 const (
@@ -19,7 +20,7 @@ const (
 	dfltIncludeDetails                  = true
 )
 
-type GetReportsByAddress_Type struct {
+type GetReportsByAddressType struct {
 	Request_Type
 	Address        string `xml:"Address" json:"Address"`
 	Radius         string `xml:"Radius" json:"Radius"`
@@ -34,7 +35,7 @@ type GetReportsByAddress_Type struct {
 }
 
 func GetReportsByAddress(input string, start time.Time) (string, error) {
-	st := new(GetReportsByAddress_Type)
+	st := new(GetReportsByAddressType)
 	err := xml.Unmarshal([]byte(input), st)
 	if err != nil {
 		msg := fmt.Sprintf("Unable to unmarshal GetReportsByAddress request: %s", err)
@@ -75,17 +76,17 @@ func GetReportsByAddress(input string, start time.Time) (string, error) {
 			errmsg = errmsg + fmt.Sprintf("Invalid Include Details: %s\n", st.IncludeDetails)
 		}
 	}
-
 	log.Debug("GetReportsByAddress:\n%+v\n", st)
 
-	rpts, _ := data.D.FindAddress(st.Address, st.radius)
+	rpts, _ := data.D.FindAddress(st.Address, st.radius, st.maxResults)
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
+
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
 
 	return resp, nil
 }
 
-func (s GetReportsByAddress_Type) String() string {
+func (s GetReportsByAddressType) String() string {
 	ls := new(logs.LogString)
 	ls.AddS("GetReportsByAddress\n")
 	ls.AddS(s.Request_Type.String())

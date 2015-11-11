@@ -20,6 +20,13 @@
 	* Reports.indId -> indID
 * Test OK.
 * Saved to GIT.
+* In "request":
+	* Renamed GetReportsByAddress_Type -> GetReportsByAddressType.
+* In "data":
+	* Added new type ReportListD.  This is a slice of Reports (ReportList type), and a slice of distances.  This will be used to sort and limit the returned values from any calls that search by distance from a center point, like FindAddress() and FindLL().  This type has sorting and limiting capability.
+	* In data_test.go, added an additional address, and limited the return report list to 2.  Works OK!
+* Test OK (data & request)
+* Saved to GIT.
 
 [2015.11.09 - Mon]
 

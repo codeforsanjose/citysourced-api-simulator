@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"sort"
 	"strconv"
 )
 
@@ -19,15 +20,16 @@ const (
 //                                      REPORT LIST
 // ==============================================================================================================================
 
+// ------------------------------- ReportList -------------------------------
 type ReportList []*Report
 
 func NewReportList() ReportList {
-	x := make([]*Report, 0)
+	var x []*Report
 	return x
 }
 
 func (rl *ReportList) Add(r *Report) error {
-	fmt.Printf("[Add] r:\n%s\n", spew.Sdump(r))
+	log.Debug("[ReportList.Add] r:\n%s\n", spew.Sdump(r))
 	*rl = append(*rl, r)
 	return nil
 }
@@ -37,41 +39,57 @@ func (rl *ReportList) AddBR(id int64, st *BaseReport) (*Report, error) {
 		ID:         id,
 		BaseReport: *st,
 	}
-	fmt.Printf("[Add] st: type: %T\n%s\n", st, spew.Sdump(r))
+	log.Debug("[Add] st: type: %T\n%s\n", st, spew.Sdump(r))
 	rl.Add(&r)
 	return &r, nil
 }
 
-/*
-func (bs *BufferSet_Type) Sort() error {
-	sort.Sort(ByTimestamp(bs.rows))
+// ------------------------------- ReportListD -------------------------------
+// Has "Distance" capabilities
+type ReportListD struct {
+	ReportList
+	dist []float64
+}
+
+func NewReportListD() ReportListD {
+	var x ReportListD
+	x.ReportList = make([]*Report, 0)
+	x.dist = make([]float64, 0)
+	return x
+}
+
+func (rl *ReportListD) Add(r *Report, d float64) error {
+	rl.ReportList.Add(r)
+	rl.dist = append(rl.dist, d)
+	log.Debug("[ReportListD.Add] r:\n%s\n", spew.Sdump(rl))
 	return nil
 }
 
-type ByTimestamp []*Buffer_Type
-
-func (bt ByTimestamp) Len() int {
-	return len(bt)
+func (rl *ReportListD) Len() int {
+	return len(rl.dist)
 }
 
-func (bt ByTimestamp) Swap(i, j int) {
-	bt[i], bt[j] = bt[j], bt[i]
+func (rl *ReportListD) Less(i, j int) bool {
+	return rl.dist[i] < rl.dist[j]
 }
 
-func (bt ByTimestamp) Less(i, j int) bool {
-	ti := bt[i].Spec.timestampIndex
-	ui := bt[i].Spec.uniqueIdIndex
-	switch {
-	case *(bt[i].Data[ti].(*int64)) < *(bt[j].Data[ti].(*int64)):
-		return true
-	case *(bt[i].Data[ti].(*int64)) > *(bt[j].Data[ti].(*int64)):
-		return false
-	case *(bt[i].Data[ti].(*int64)) == *(bt[j].Data[ti].(*int64)):
-		return *(bt[i].Data[ui].(*int64)) < *(bt[j].Data[ui].(*int64))
+func (rl *ReportListD) Swap(i, j int) {
+	rl.dist[i], rl.dist[j] = rl.dist[j], rl.dist[i]
+	rl.ReportList[i], rl.ReportList[j] = rl.ReportList[j], rl.ReportList[i]
+}
+
+func (rl *ReportListD) Sort() {
+	if len(rl.dist) > 0 {
+		sort.Sort(rl)
 	}
-	return false
 }
-*/
+
+func (rl *ReportListD) Limit(n int64) {
+	if (n > 0) && (n < int64(len(rl.ReportList))) {
+		rl.ReportList = rl.ReportList[:n]
+		rl.dist = rl.dist[:n]
+	}
+}
 
 // ==============================================================================================================================
 //                                      REPORT
@@ -197,7 +215,7 @@ func (s BaseReport) String() string {
 	ls := new(logs.LogString)
 	ls.AddS("Base Report\n")
 	ls.AddF("DateCreated \"%v\"\n", s.DateCreated)
-	ls.AddF("Device - type %s  model: %s  Id: %s\n", s.DeviceType, s.DeviceModel, s.DeviceID)
+	ls.AddF("Device - type %s  model: %s  ID: %s\n", s.DeviceType, s.DeviceModel, s.DeviceID)
 	ls.AddF("Request - type: %q  id: %q\n", s.RequestType, s.RequestTypeID)
 	ls.AddF("Location - lat: %v  lon: %v  directionality: %q\n", s.latitude, s.longitude, s.Directionality)
 	ls.AddF("          %s, %s   %s\n", s.City, s.State, s.ZipCode)

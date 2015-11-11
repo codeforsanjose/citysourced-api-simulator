@@ -19,7 +19,7 @@ var (
 )
 
 func Init(fileName string) error {
-	D.Reports = make([]*Report, 0)
+	D.Reports = NewReportList()
 	_, err := readData(fileName)
 	if err != nil {
 		return fmt.Errorf("Error loading config: %s", err)
@@ -45,6 +45,13 @@ func (d *Reports) LastID() int64 {
 	return d.lastID
 }
 
+func (d *Reports) Validate() error {
+	for _, r := range d.Reports {
+		r.Validate()
+	}
+	return nil
+}
+
 func (d *Reports) Append(st BaseReport) error {
 	if err := st.Validate(); err != nil {
 		return err
@@ -60,7 +67,7 @@ func (d *Reports) Append(st BaseReport) error {
 }
 
 func (d *Reports) FindDeviceID(id string) ([]*Report, error) {
-	rlist := make([]*Report, 0)
+	rlist := NewReportList()
 	for _, v := range d.Reports {
 		if v.DeviceID == id {
 			rlist = append(rlist, v)
@@ -77,32 +84,29 @@ func (d *Reports) FindID(id int64) (*Report, error) {
 	return r, errors.New(fmt.Sprintf("ID: %v not found!", id))
 }
 
-func (d *Reports) Validate() error {
-	for _, r := range d.Reports {
-		r.Validate()
-	}
-	return nil
-}
-
-func (d *Reports) FindAddress(addr string, radius float64) ([]*Report, error) {
-	rlist := NewReportList()
+func (d *Reports) FindAddress(addr string, radius float64, limit int64) ([]*Report, error) {
+	rlist := NewReportListD()
 	log.Debug("FindAddress - addr: %s  radius: %v", addr, radius)
 	alat, alng, e := geo.GetLatLng(addr)
 	if e != nil {
 		msg := fmt.Sprintf("GeoLoc failed for address: %s", e)
 		log.Warning(msg)
-		return rlist, errors.New(msg)
+		return rlist.ReportList, errors.New(msg)
 	}
 	log.Debug("Scanning Reports for reports within %v meters of: %v|%v", radius, alat, alng)
 	for _, v := range d.Reports {
 		dist := Distance(alat, alng, v.latitude, v.longitude)
 		fmt.Printf("ID: %v  dist: %v\n", v.ID, dist)
 		if dist < radius {
-			rlist.Add(v)
+			rlist.Add(v, dist)
 		}
 	}
+
+	rlist.Sort()
+	rlist.Limit(limit)
+
 	log.Debug(">>> rlist:\n%s\n", spew.Sdump(rlist))
-	return rlist, nil
+	return rlist.ReportList, nil
 }
 
 func (x *Reports) Display() string {

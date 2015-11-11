@@ -12,7 +12,7 @@ func TestReadDataInvalidPath(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestReadDataInvalidPath <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	// Load Data
 	if err := data.Init("../dataxxx.json"); err == nil {
-		t.Errorf("Attempting to load an invalid file should have caused an error", err)
+		t.Errorf("Attempting to load an invalid file should have caused an error: %q", err)
 	}
 	fmt.Println("   (Should have just received a CRIT error 'Failed to open...')")
 }
@@ -21,7 +21,7 @@ func TestReadDataInvalidJSON(t *testing.T) {
 	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestReadDataInvalidJSON <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	// Load Data
 	if err := data.Init("tests/data_faulty.json"); err == nil {
-		t.Errorf("Attempting to load a faulty file should have caused an error", err)
+		t.Errorf("Attempting to load a faulty file should have caused an error: %q", err)
 	}
 	fmt.Println("    (Should have just received a CRIT error 'Invalid JSON...')")
 }
@@ -40,8 +40,8 @@ func TestReadData(t *testing.T) {
 func TestDataValidity(t *testing.T) {
 	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestDataValidity <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	// Check lastID
-	if lId := data.D.LastID(); lId != 102 {
-		t.Errorf("LastId: %v is incorrect.", lId)
+	if lID := data.D.LastID(); lID != 102 {
+		t.Errorf("LastId: %v is incorrect.", lID)
 	}
 
 	// Make sure we've got the data we think we should have - check random data:
@@ -60,7 +60,7 @@ func TestDataValidity(t *testing.T) {
 	if r.DeviceID != sval {
 		t.Errorf("Invalid DeviceId: %s  should be: %s", r.DeviceID, sval)
 	}
-	var fval float64 = -121.886329
+	fval := -121.886329
 	if r.Lng() != fval {
 		t.Errorf("Invalid Longitude: %v  should be: %v", r.Lng(), fval)
 	}
@@ -90,12 +90,48 @@ func TestAddReport(t *testing.T) {
 		City:              "San Jose",
 		State:             "CA",
 		ZipCode:           "95101",
-		Latitude:          "37.338208",
-		Longitude:         "-121.886329",
+		Latitude:          "37.339541",
+		Longitude:         "-121.885229",
 		Directionality:    "25 N NW",
-		Description:       "New graffiti request",
+		Description:       "Spray paint art at Horace Mann school.",
 		AuthorNameFirst:   "Sylvester T.",
 		AuthorNameLast:    "Cat",
+		AuthorEmail:       "",
+		AuthorTelephone:   "",
+		AuthorIsAnonymous: "true",
+		UrlDetail:         "http://www.citysourced.com/report/100/graffiti",
+		UrlShortened:      "",
+		StatusType:        "Open",
+	}
+	data.D.Append(newRpt)
+	fmt.Printf("------ After add:\n%s\n", data.D.Display())
+}
+
+func TestAddReport2(t *testing.T) {
+	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestAddReport <<<<<<<<<<<<<<<<<<<<<<<<<<")
+	newRpt := data.BaseReport{
+		DateCreated:       data.NewCustomTime("2015-02-20T13:45:30"),
+		DateUpdated:       data.NewCustomTime("2015-02-25T09:00:01.000"),
+		DeviceType:        "IPHONE",
+		DeviceModel:       "5S",
+		DeviceID:          "new01",
+		RequestType:       "Graffiti Removal",
+		RequestTypeID:     "10",
+		ImageUrl:          "http://www.citysourced.com/image_200.png",
+		ImageUrlXl:        "http://www.citysourced.com/image_xl_200.png",
+		ImageUrlLg:        "http://www.citysourced.com/image_lg_200.png",
+		ImageUrlMd:        "http://www.citysourced.com/image_md_200.png",
+		ImageUrlSm:        "http://www.citysourced.com/image_sm_200.png",
+		ImageUrlXs:        "http://www.citysourced.com/image_xs_200.png",
+		City:              "San Jose",
+		State:             "CA",
+		ZipCode:           "95101",
+		Latitude:          "37.336240",
+		Longitude:         "-121.885862",
+		Directionality:    "25 N NW",
+		Description:       "New graffiti request - someone painted flames on Flames Restaurant",
+		AuthorNameFirst:   "Wiley",
+		AuthorNameLast:    "Coyote",
 		AuthorEmail:       "",
 		AuthorTelephone:   "",
 		AuthorIsAnonymous: "true",
@@ -130,11 +166,13 @@ func TestFindDeviceId(t *testing.T) {
 func TestFindAddress(t *testing.T) {
 	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestFindAddress <<<<<<<<<<<<<<<<<<<<<<<<<<")
 
-	addr := "200 E. Santa Clara St, San Jose, CA"
-	radius := 100.0
+	// addr := "200 E. Santa Clara St, San Jose, CA"
+	addr := "73 N 6th St., San Jose, CA"
+	radius := 500.0
 	reports := data.D
+	limit := int64(2)
 
-	rpts, err := reports.FindAddress(addr, radius)
+	rpts, err := reports.FindAddress(addr, radius, limit)
 	if err != nil {
 		t.Errorf("FindAddress failed - error: %q", err)
 	}
@@ -145,10 +183,10 @@ func TestFindAddress(t *testing.T) {
 func TestDistance(t *testing.T) {
 	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestDistance <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	fmt.Printf("------ Start TestDistance:\n%s\n", data.D.Display())
+	rlat := 37.151079
+	rlon := -121.602551
+	dist := 0.0
 	var (
-		rlat  float64 = 37.151079
-		rlon  float64 = -121.602551
-		dist  float64 = 0.0
 		dvals [4]float64
 	)
 
