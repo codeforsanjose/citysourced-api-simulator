@@ -67,6 +67,22 @@ var (
 		<CurrentStatus></CurrentStatus>
 	</CsRequest>
 	`
+	inGetReportsByLL01 = `
+	<?xml version="1.0" encoding="utf-8" ?>
+	<CsRequest>
+		<ApiAuthKey>a01234567890z</ApiAuthKey>
+		<ApiRequestType>GetReportsByLatLng</ApiRequestType>
+		<ApiRequestVersion>1</ApiRequestVersion>
+		<Latitude>37.339608</Latitude>
+		<Longitude>-121.886125</Longitude>
+		<Radius>500</Radius>
+		<MaxResults></MaxResults>
+		<IncludeDetails>False</IncludeDetails>
+		<DateRangeStart>2015-05-20T13:45:30</DateRangeStart>
+		<DateRangeEnd>2015-05-20T13:45:30</DateRangeEnd>
+		<CurrentStatus></CurrentStatus>
+	</CsRequest>
+	`
 )
 
 func init() {
@@ -112,6 +128,19 @@ func TestCreateThreeOneOne(t *testing.T) {
 func TestGetReportsByAddress(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestGetReportsByAddress <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	input := inGetReportsByAddress
+	data, err := Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
+	// fmt.Printf("[Process] returned: %q\n", data)
+
+	input = inGetReportsByAddress2
+	data, err = Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
+	// fmt.Printf("[Process] returned: %q\n", data)
+}
+
+func TestGetReportsByLL(t *testing.T) {
+	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestGetReportsByLL <<<<<<<<<<<<<<<<<<<<<<<<<<")
+	input := inGetReportsByLL01
 	data, err := Process(input, time.Now())
 	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
 	// fmt.Printf("[Process] returned: %q\n", data)

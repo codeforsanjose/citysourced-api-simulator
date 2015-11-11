@@ -187,13 +187,14 @@ func TestDistance(t *testing.T) {
 	rlon := -121.602551
 	dist := 0.0
 	var (
-		dvals [4]float64
+		dvals [5]float64
 	)
 
 	dvals[0] = 1788.1925774420406
 	dvals[1] = 32654.521037160826
 	dvals[2] = 24778.639830370197
-	dvals[3] = 32654.521037160826
+	dvals[3] = 32674.419251059397
+	dvals[4] = 32483.464206297744
 
 	for i, r := range data.D.Reports {
 		fmt.Printf("-- i: %d  lat: %v  lng: %v\n", i, r.Lat(), r.Lng())

@@ -10,12 +10,6 @@ import (
 	"time"
 )
 
-const (
-	dfltLatitude          float64 = 0.0
-	dfltLongitude         float64 = 0.0
-	dfltAuthorIsAnonymous         = true
-)
-
 type KeyValuePair_Type struct {
 	Value string `xml:",chardata"`
 	Key   string `xml:"Key,attr"`

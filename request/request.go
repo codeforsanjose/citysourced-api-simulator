@@ -101,4 +101,5 @@ func init() {
 
 	processors["CreateThreeOneOne"] = CreateThreeOneOne
 	processors["GetReportsByAddress"] = GetReportsByAddress
+	processors["GetReportsByLatLng"] = GetReportsByLatLng
 }

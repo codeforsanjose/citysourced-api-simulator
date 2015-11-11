@@ -87,15 +87,20 @@ func (d *Reports) FindID(id int64) (*Report, error) {
 func (d *Reports) FindAddress(addr string, radius float64, limit int64) ([]*Report, error) {
 	rlist := NewReportListD()
 	log.Debug("FindAddress - addr: %s  radius: %v", addr, radius)
-	alat, alng, e := geo.GetLatLng(addr)
+	lat, lng, e := geo.GetLatLng(addr)
 	if e != nil {
 		msg := fmt.Sprintf("GeoLoc failed for address: %s", e)
 		log.Warning(msg)
 		return rlist.ReportList, errors.New(msg)
 	}
-	log.Debug("Scanning Reports for reports within %v meters of: %v|%v", radius, alat, alng)
+	return d.FindLL(lat, lng, radius, limit)
+}
+
+func (d *Reports) FindLL(lat, lng, radius float64, limit int64) ([]*Report, error) {
+	rlist := NewReportListD()
+	log.Debug("Scanning Reports for reports within %v meters of: %v|%v", radius, lat, lng)
 	for _, v := range d.Reports {
-		dist := Distance(alat, alng, v.latitude, v.longitude)
+		dist := Distance(lat, lng, v.latitude, v.longitude)
 		fmt.Printf("ID: %v  dist: %v\n", v.ID, dist)
 		if dist < radius {
 			rlist.Add(v, dist)

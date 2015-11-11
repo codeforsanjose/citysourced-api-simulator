@@ -27,6 +27,11 @@
 	* In data_test.go, added an additional address, and limited the return report list to 2.  Works OK!
 * Test OK (data & request)
 * Saved to GIT.
+* Added a new file to the "request" package:
+	* validate.go handles all validation for the various request structs.  
+	* It validates and converts all necessary fields, and creates a consolidated error message.
+* Test OK
+* Saved to GIT.
 
 [2015.11.09 - Mon]
 
