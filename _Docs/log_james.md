@@ -1,5 +1,42 @@
 # CitySourced Test API
 
+[2015.11.12 - Thu]
+
+* Cleaned up the request processing by adding reflection to dynamically create the proper structure for the request, and then use an interface to process the request.
+* data/report.go:
+	* Needed to have all BaseReport fields exported, so they can be accessed when used in a Request.  So changed the names of the lowercased fields to uppercase, post-pended with a "V":
+		* latitude -> LatitudeV
+		* longitude -> LongitudeV
+		* authorIsAnonymous -> AuthorIsAnonymous
+	* Deleted the Lat() and Lng() methods from BaseReport
+* In "request" package:
+	* Renamed "Request_Type" -> "Request".
+	* getreports.go:
+		* Deleted GetReportsByAddress()
+		* Deleted GetReportsByLatLng()
+		* Added "Processor" interface to the GetReportsByAddress struct.
+		* Added "Processor" interface to the GetReportsByLatLng struct.
+		* Renamed the "GetReportsByAddressType" struct to "GetReportsByAddress".
+		* Renamed the "GetReportsByLatLngType" struct to "GetReportsByLatLng".
+		* In both request types:
+			* Added new style Validate()
+			* Moved append code to Run()
+	* createthreeoneone.go
+		* Deleted CreateThreeOneOne().
+		* Added new style Validate()
+		* Moved append code to Run()
+	* request.go
+		* Removed "processors" variable.
+		* Added "typeRegistry" variable.
+		* Rewrote Process() to use the reflection to dynamically create the appropriate request struct, then Validate() and Run().
+		* Standardized all the error and return handling in Process().
+* Test OK.
+* Saved to GIT.
+
+[2015.11.11 - Wed]
+
+* Figured out how to use reflection to create an instance of struct.
+
 [2015.11.10 - Tue]
 
 * Installed new Atom editor... looks like it has a lot of capabilities that VS Code doesn't...  although it does a bit slow.
@@ -59,7 +96,7 @@
 * Created "geocode" package.
 * Downloaded a geocode API using Google From: https://github.com/nf/geocode/blob/master/geocode.go, by Jonathan Ingram.
 * In package "geocode", added mygeocode.go, containing shortcuts:
-	* GetLatLng()
+	* GetLatLongitudeV
 	* GetAddress()
 * Expanded on Jonathan's test cases.
 * Converted Haversin function back to meters.  Everyone uses meters...

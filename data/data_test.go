@@ -61,8 +61,8 @@ func TestDataValidity(t *testing.T) {
 		t.Errorf("Invalid DeviceId: %s  should be: %s", r.DeviceID, sval)
 	}
 	fval := -121.886329
-	if r.Lng() != fval {
-		t.Errorf("Invalid Longitude: %v  should be: %v", r.Lng(), fval)
+	if r.LongitudeV != fval {
+		t.Errorf("Invalid Longitude: %v  should be: %v", r.LongitudeV, fval)
 	}
 
 	bval := true
@@ -197,9 +197,9 @@ func TestDistance(t *testing.T) {
 	dvals[4] = 32483.464206297744
 
 	for i, r := range data.D.Reports {
-		fmt.Printf("-- i: %d  lat: %v  lng: %v\n", i, r.Lat(), r.Lng())
+		fmt.Printf("-- i: %d  lat: %v  lng: %v\n", i, r.LatitudeV, r.LongitudeV)
 		dist = r.CalcDistance(rlat, rlon)
-		fmt.Printf("ID: %v at %v:%v - distance: %v\n", r.ID, r.Lat(), r.Lng(), dist)
+		fmt.Printf("ID: %v at %v:%v - distance: %v\n", r.ID, r.LatitudeV, r.LongitudeV, dist)
 		if i < len(dvals) {
 			if dist != dvals[i] {
 				t.Errorf("Wrong distance: %v  should be: %v", dist, dvals[i])

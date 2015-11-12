@@ -96,7 +96,7 @@ func init() {
 
 }
 
-func showData(data CreateThreeOneOne_Type) {
+func showData(data CreateThreeOneOne) {
 	fmt.Printf("ApiAuthKey: %s\n", data.ApiAuthKey)
 	fmt.Printf("ApiRequestType: %s\n", data.ApiRequestType)
 	fmt.Printf("ApiRequestVersion: %s\n", data.ApiRequestVersion)

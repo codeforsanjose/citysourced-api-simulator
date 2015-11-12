@@ -100,7 +100,7 @@ func (d *Reports) FindLL(lat, lng, radius float64, limit int64) ([]*Report, erro
 	rlist := NewReportListD()
 	log.Debug("Scanning Reports for reports within %v meters of: %v|%v", radius, lat, lng)
 	for _, v := range d.Reports {
-		dist := Distance(lat, lng, v.latitude, v.longitude)
+		dist := Distance(lat, lng, v.LatitudeV, v.LongitudeV)
 		fmt.Printf("ID: %v  dist: %v\n", v.ID, dist)
 		if dist < radius {
 			rlist.Add(v, dist)

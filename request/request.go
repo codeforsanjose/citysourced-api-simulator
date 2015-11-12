@@ -4,56 +4,98 @@ import (
 	"CitySourcedAPI/config"
 	"CitySourcedAPI/logs"
 	"CitySourcedAPI/response"
+	"errors"
 
 	"encoding/xml"
 	// "errors"
 	"fmt"
+	"reflect"
 	"time"
 )
 
 var (
-	log        = logs.Log
-	processors map[string]func(string, time.Time) (string, error)
+	log          = logs.Log
+	typeRegistry = make(map[string]reflect.Type)
 )
+
+// ==============================================================================================================================
+//                                       INIT
+// ==============================================================================================================================
+
+func init() {
+
+	typeRegistry["CreateThreeOneOne"] = reflect.TypeOf(CreateThreeOneOne{})
+	typeRegistry["GetReportsByAddress"] = reflect.TypeOf(GetReportsByAddress{})
+	typeRegistry["GetReportsByLatLng"] = reflect.TypeOf(GetReportsByLatLng{})
+}
 
 // ==============================================================================================================================
 //                                       PROCESS REQUEST
 // ==============================================================================================================================
 
-func Process(input string, start time.Time) (rsp string, err error) {
-	rt, e := parse(input, start)
+type Processor interface {
+	Validate(time.Time) string
+	Run() (string, error)
+}
+
+func Process(input string, start time.Time) (string, error) {
+	rt, e := newRequest(input, start)
 	if e != nil {
-		return response.StatusMsg("Unable to parse request XML", start), e
+		msg := fmt.Sprintf("Error while parsing the request: %q", e)
+		log.Error("%s", msg)
+		return response.StatusMsg(msg, start), errors.New(msg)
 	}
 
 	if ok := rt.auth(); !ok {
-		return response.StatusMsg("Invalid Auth code", start), e
+		msg := "Invalid auth code"
+		log.Warning("%s", msg)
+		return response.StatusMsg(msg, start), errors.New(msg)
 	}
 
-	f, ok := processors[rt.ApiRequestType]
+	// Create an instance of the request struct
+	svcName, ok := typeRegistry[rt.ApiRequestType]
 	if !ok {
 		msg := fmt.Sprintf("Unknown request received: %s", rt.ApiRequestType)
 		log.Warning(msg)
 		return response.StatusMsg(msg, start), e
 	}
+	svc := reflect.New(svcName).Interface()
 
-	rsp, err = f(input, start)
+	// Unmarshal into it
+	err := xml.Unmarshal([]byte(input), svc)
+	if err != nil {
+		msg := fmt.Sprintf("Unable to unmarshal GetReportsByLatLng request: %s", err)
+		log.Warning(msg)
+		return "", errors.New(msg)
+	}
+
+	// Validate
+	errmsg := svc.(Processor).Validate(start)
+	if errmsg != "" {
+		msg := fmt.Sprintf("Invalid request - %s", errmsg)
+		log.Warning(msg)
+		resp := response.StatusMsg(msg, start)
+		return resp, nil
+
+	}
+
+	// Run
+	rsp, err := svc.(Processor).Run()
 
 	log.Debug("Response:\n%s\n", rsp)
 	if err != nil {
 		log.Warning("Request failed - error: %s", err)
 	}
 
-	return rsp, nil
-
+	return rsp, err
 }
 
 // ==============================================================================================================================
 //                                       REQUEST
 // ==============================================================================================================================
-func parse(input string, start time.Time) (*Request_Type, error) {
+func newRequest(input string, start time.Time) (*Request, error) {
 	log.Debug("New Request: \n%s\n", input)
-	rt := new(Request_Type)
+	rt := new(Request)
 	if err := xml.Unmarshal([]byte(input), rt); err != nil {
 		log.Warning("Request XML cannot be unmarshaled: %s", err)
 		return nil, err
@@ -63,7 +105,7 @@ func parse(input string, start time.Time) (*Request_Type, error) {
 	return rt, nil
 }
 
-type Request_Type struct {
+type Request struct {
 	start             time.Time
 	XMLName           xml.Name `xml:"CsRequest" json:"CsRequest"`
 	ApiAuthKey        string   `xml:"ApiAuthKey" json:"ApiAuthKey"`
@@ -71,11 +113,15 @@ type Request_Type struct {
 	ApiRequestVersion string   `xml:"ApiRequestVersion" json:"ApiRequestVersion"`
 }
 
-func (r *Request_Type) Start() time.Time {
+func (r *Request) Start() time.Time {
 	return r.start
 }
 
-func (r *Request_Type) auth() (ok bool) {
+func (r *Request) SetStart(start time.Time) {
+	r.start = start
+}
+
+func (r *Request) auth() (ok bool) {
 	ok = config.Auth(r.ApiAuthKey)
 	if !ok {
 		msg := "Invalid auth code."
@@ -84,22 +130,10 @@ func (r *Request_Type) auth() (ok bool) {
 	return ok
 }
 
-func (r Request_Type) String() string {
+func (r Request) String() string {
 	ls := new(logs.LogString)
 	ls.AddS("Request_Type\n")
 	ls.AddF("Start: %v\n", r.start)
 	ls.AddF("Request - type: %s  ver: %s\n", r.ApiRequestType, r.ApiRequestVersion)
 	return ls.BoxC(60)
-}
-
-// ==============================================================================================================================
-//                                       INIT
-// ==============================================================================================================================
-
-func init() {
-	processors = make(map[string]func(string, time.Time) (string, error))
-
-	processors["CreateThreeOneOne"] = CreateThreeOneOne
-	processors["GetReportsByAddress"] = GetReportsByAddress
-	processors["GetReportsByLatLng"] = GetReportsByLatLng
 }

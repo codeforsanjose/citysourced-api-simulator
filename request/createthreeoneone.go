@@ -4,51 +4,47 @@ import (
 	"CitySourcedAPI/data"
 	"CitySourcedAPI/logs"
 
-	"encoding/xml"
-	"errors"
-	"fmt"
 	"time"
 )
+
+// ==============================================================================================================================
+//                                      GetReportsByLatLng
+// ==============================================================================================================================
+
+type CreateThreeOneOne struct {
+	Request
+	Processor
+	data.BaseReport
+	KeyValuePairs []KeyValuePair_Type `xml:"KeyValuePairs>KeyValuePair"`
+}
 
 type KeyValuePair_Type struct {
 	Value string `xml:",chardata"`
 	Key   string `xml:"Key,attr"`
 }
 
-type CreateThreeOneOne_Type struct {
-	Request_Type
-	data.BaseReport
-	KeyValuePairs []KeyValuePair_Type `xml:"KeyValuePairs>KeyValuePair"`
-}
-
-func (st *CreateThreeOneOne_Type) Validate() error {
+func (st *CreateThreeOneOne) validate() error {
 	return st.BaseReport.Validate()
 }
 
-func CreateThreeOneOne(input string, start time.Time) (string, error) {
-	st := new(CreateThreeOneOne_Type)
-	if err := xml.Unmarshal([]byte(input), st); err != nil {
-		msg := fmt.Sprintf("Unable to unmarshal CreateThreeOneOne request: %s", err)
-		log.Warning(msg)
-		return "", errors.New(msg)
-	}
+func (st *CreateThreeOneOne) Validate(start time.Time) string {
+	var v validate
 	st.start = start
-
-	if err := st.Validate(); err != nil {
-		return "", err
-	}
-
-	log.Debug("CreateThreeOneOne: \n%+v\n", st)
-
-	data.D.Append(st.BaseReport)
-
-	return "", nil
+	st.LatitudeV = v.float("Latitude", st.Latitude)
+	st.LongitudeV = v.float("Longitude", st.Longitude)
+	st.AuthorIsAnonymousV = v.bool("AuthorIsAnonymous", st.AuthorIsAnonymous)
+	return v.errmsg
 }
 
-func (s CreateThreeOneOne_Type) String() string {
+func (st *CreateThreeOneOne) Run() (string, error) {
+	data.D.Append(st.BaseReport)
+	return "New report created OK", nil
+}
+
+func (s CreateThreeOneOne) String() string {
 	ls := new(logs.LogString)
 	ls.AddS("CreateThreeOneOne_Type\n")
-	ls.AddS(s.Request_Type.String())
+	ls.AddS(s.Request.String())
 	ls.AddF("DateCreated \"%v\"\n", s.DateCreated)
 	ls.AddF("Device - type %s  model: %s  Id: %s\n", s.DeviceType, s.DeviceModel, s.DeviceID)
 	ls.AddF("Request - type: %q  id: %q\n", s.RequestType, s.RequestTypeID)
