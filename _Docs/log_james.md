@@ -33,6 +33,17 @@
 * Test OK.
 * Saved to GIT.
 
+* Implemented "FindDeviceId" request.
+	* Created struct and methods in request/getreports.go.
+	* Added test case to request/request_test.go.  Pass OK!
+* Added filtering of report output fields.  Previously we were outputing a direct copy of data/BaseReport.  This was outputing too many fields.  So created response/reports.go:
+	* response.Reports{} struct is a subset copy of "BaseReport" of the fields that should be output.
+	* Created two methods:
+		* ConvertReport() maps a data.Report{} to the new Report{}.
+		* ConvertReports() converts a slice of pointers to data.Report{} into a slice of pointers to response.Report{}.
+* Test OK (data, request)
+* Saved to GIT.
+
 [2015.11.11 - Wed]
 
 * Figured out how to use reflection to create an instance of struct.

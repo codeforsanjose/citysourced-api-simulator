@@ -43,7 +43,6 @@ func (st *GetReportsByAddress) Run() (string, error) {
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
 
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
-
 	return resp, nil
 }
 
@@ -96,7 +95,6 @@ func (st *GetReportsByLatLng) Run() (string, error) {
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
 
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
-
 	return resp, nil
 }
 
@@ -105,7 +103,52 @@ func (st GetReportsByLatLng) String() string {
 	ls.AddS("GetReportsByLatLng\n")
 	ls.AddS(st.Request.String())
 	ls.AddF("Loc \"%v:%v\"\n", st.LatitudeV, st.LongitudeV)
-	ls.AddF("Radius %s/%v   MaxResults: %s/%v\n", st.Radius, st.radius, st.MaxResults, st.maxResults)
+	ls.AddF("Radius %s/%v\n", st.Radius, st.radius)
+	ls.AddF("MaxResults: %s/%v\n", st.MaxResults, st.maxResults)
+	ls.AddF("IncludeDetails: %v/%t\n", st.IncludeDetails, st.includeDetails)
+	ls.AddF("Date Range: %v  to: %v \n", st.DateRangeStart, st.DateRangeEnd)
+	return ls.Box(90)
+}
+
+// ==============================================================================================================================
+//                                      GetReportsByDeviceId
+// ==============================================================================================================================
+
+type GetReportsByDeviceID struct {
+	Request
+	Processor
+	DeviceID       string `xml:"DeviceId" json:"DeviceId"`
+	MaxResults     string `xml:"MaxResults" json:"MaxResults"`
+	maxResults     int64
+	IncludeDetails string `xml:"IncludeDetails" json:"IncludeDetails"`
+	includeDetails bool
+	DateRangeStart data.CustomTime `xml:"DateRangeStart" json:"DateRangeStart"`
+	DateRangeEnd   data.CustomTime `xml:"DateRangeEnd" json:"DateRangeEnd"`
+	CurrentStatus  string          `xml:"CurrentStatus" json:"CurrentStatus"`
+}
+
+func (st *GetReportsByDeviceID) Validate(start time.Time) string {
+	var v validate
+	st.start = start
+	st.maxResults = v.int("MaxResults", st.MaxResults)
+	st.includeDetails = v.bool("IncludeDetails", st.IncludeDetails)
+	return v.errmsg
+}
+
+func (st *GetReportsByDeviceID) Run() (string, error) {
+	rpts, _ := data.D.FindDeviceID(st.DeviceID)
+	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
+
+	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
+	return resp, nil
+}
+
+func (st GetReportsByDeviceID) String() string {
+	ls := new(logs.LogString)
+	ls.AddS("GetReportsByDeviceID\n")
+	ls.AddS(st.Request.String())
+	ls.AddF("DeviceID: %q\n", st.DeviceID)
+	ls.AddF("MaxResults: %s/%v\n", st.MaxResults, st.maxResults)
 	ls.AddF("IncludeDetails: %v/%t\n", st.IncludeDetails, st.includeDetails)
 	ls.AddF("Date Range: %v  to: %v \n", st.DateRangeStart, st.DateRangeEnd)
 	return ls.Box(90)

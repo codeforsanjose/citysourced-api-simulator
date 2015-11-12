@@ -19,7 +19,7 @@ var (
 			<DateCreated>2015-05-20T13:45:30</DateCreated>
 			<DeviceType>IPHONE</DeviceType>
 			<DeviceModel>6</DeviceModel>
-			<DeviceId>103103103</DeviceId>
+			<DeviceId>2222</DeviceId>
 			<RequestType>Graffiti Removal</RequestType>
 			<RequestTypeId>10</RequestTypeId>
 			<Latitude>34.0632809</Latitude>
@@ -76,6 +76,21 @@ var (
 		<Latitude>37.339608</Latitude>
 		<Longitude>-121.886125</Longitude>
 		<Radius>500</Radius>
+		<MaxResults></MaxResults>
+		<IncludeDetails>False</IncludeDetails>
+		<DateRangeStart>2015-05-20T13:45:30</DateRangeStart>
+		<DateRangeEnd>2015-05-20T13:45:30</DateRangeEnd>
+		<CurrentStatus></CurrentStatus>
+	</CsRequest>
+	`
+	inGetReportsByDeviceID01 = `
+	<?xml version="1.0" encoding="utf-8" ?>
+	<CsRequest>
+		<ApiAuthKey>a01234567890z</ApiAuthKey>
+		<ApiRequestType>GetReportsByDeviceId</ApiRequestType>
+		<ApiRequestVersion>1</ApiRequestVersion>
+		<DeviceId>2222</DeviceId>
+	    <DeviceType>IPHONE</DeviceType>
 		<MaxResults></MaxResults>
 		<IncludeDetails>False</IncludeDetails>
 		<DateRangeStart>2015-05-20T13:45:30</DateRangeStart>
@@ -147,6 +162,13 @@ func TestGetReportsByLL(t *testing.T) {
 
 	input = inGetReportsByAddress2
 	data, err = Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
+	// fmt.Printf("[Process] returned: %q\n", data)
+}
+func TestGetReportsByDeviceID(t *testing.T) {
+	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestGetReportsByDeviceID <<<<<<<<<<<<<<<<<<<<<<<<<<")
+	input := inGetReportsByDeviceID01
+	data, err := Process(input, time.Now())
 	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
 	// fmt.Printf("[Process] returned: %q\n", data)
 }

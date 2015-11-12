@@ -56,7 +56,7 @@ func TestDataValidity(t *testing.T) {
 	if r.DateCreated != cdval {
 		t.Errorf("Invalid DateCreated: %s  should be: %s", r.DateCreated, cdval)
 	}
-	sval := "101101101"
+	sval := "2222"
 	if r.DeviceID != sval {
 		t.Errorf("Invalid DeviceId: %s  should be: %s", r.DeviceID, sval)
 	}
@@ -78,7 +78,7 @@ func TestAddReport(t *testing.T) {
 		DateUpdated:       data.NewCustomTime("2015-02-25T09:00:01.000"),
 		DeviceType:        "IPHONE",
 		DeviceModel:       "5S",
-		DeviceID:          "new01",
+		DeviceID:          "3333",
 		RequestType:       "Graffiti Removal",
 		RequestTypeID:     "10",
 		ImageUrl:          "http://www.citysourced.com/image_200.png",
@@ -114,7 +114,7 @@ func TestAddReport2(t *testing.T) {
 		DateUpdated:       data.NewCustomTime("2015-02-25T09:00:01.000"),
 		DeviceType:        "IPHONE",
 		DeviceModel:       "5S",
-		DeviceID:          "new01",
+		DeviceID:          "1111",
 		RequestType:       "Graffiti Removal",
 		RequestTypeID:     "10",
 		ImageUrl:          "http://www.citysourced.com/image_200.png",
@@ -145,7 +145,7 @@ func TestAddReport2(t *testing.T) {
 
 func TestFindDeviceId(t *testing.T) {
 	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestFindDeviceId <<<<<<<<<<<<<<<<<<<<<<<<<<")
-	di := "100102100102"
+	di := "1111"
 	reports := data.D
 
 	rpts, err := reports.FindDeviceID(di)
@@ -154,7 +154,7 @@ func TestFindDeviceId(t *testing.T) {
 	}
 	fmt.Printf("Reports found for device ID %q:\n%s", di, spew.Sdump(rpts))
 
-	di = "101101101"
+	di = "2222"
 	rpts, err = reports.FindDeviceID(di)
 	if err != nil {
 		t.Errorf("FindDeviceId failed - error: %q", err)
