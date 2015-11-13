@@ -1,7 +1,7 @@
 {
     "reports": [
         {
-            "Comment": "Dunne and Hill in Morgan Hill",
+            "MyComment": "Dunne and Hill in Morgan Hill",
             "Id": 100,
             "DateCreated": "2015-05-20T08:30:30",
             "DateUpdated": "2015-05-20T08:30:30",
@@ -30,10 +30,11 @@
             "AuthorIsAnonymous": "true",
             "UrlDetail": "http://www.citysourced.com/report/100/graffiti",
             "UrlShortened": "",
+            "Votes": "2",
             "StatusType": "Open"
         },
         {
-            "Comment": "City Hall, San Jose",
+            "MyComment": "City Hall, San Jose",
             "Id": 101,
             "DateCreated": "2015-10-20T13:45:30",
             "DateUpdated": "2015-10-25T09:00:01",
@@ -62,10 +63,11 @@
             "AuthorIsAnonymous": "true",
             "UrlDetail": "http://www.citysourced.com/report/100/graffiti",
             "UrlShortened": "",
+            "Votes": "0",
             "StatusType": "Open"
         },
         {
-            "Comment": "159 Sweetberry Ct., San Jose, CA 95136",
+            "MyComment": "159 Sweetberry Ct., San Jose, CA 95136",
             "Id": 102,
             "DateCreated": "2015-05-20T10:17:00",
             "DateUpdated": "2015-05-30T10:13:45",
@@ -94,7 +96,28 @@
             "AuthorIsAnonymous": "false",
             "UrlDetail": "http://www.citysourced.com/report/100/graffiti",
             "UrlShortened": "",
+            "Votes": "5",
             "StatusType": "Open"
+        }
+    ],
+    "comments": [
+        {
+            "Id": 1,
+            "ReportId": 100,
+            "DateCreated": "2015-05-20T08:30:30",
+            "Comment": "Test comment for report 100"
+        },
+        {
+            "Id": 2,
+            "ReportId": 101,
+            "DateCreated": "2015-05-20T10:30:30",
+            "Comment": "Test comment for report 101"
+        },
+        {
+            "Id": 3,
+            "ReportId": 101,
+            "DateCreated": "2015-05-21T11:30:30",
+            "Comment": "The second test comment for report 101"
         }
     ]
 }

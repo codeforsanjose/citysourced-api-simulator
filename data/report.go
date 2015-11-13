@@ -23,7 +23,7 @@ const (
 // ------------------------------- ReportList -------------------------------
 type ReportList []*Report
 
-func NewReportList() ReportList {
+func newReportList() ReportList {
 	var x []*Report
 	return x
 }

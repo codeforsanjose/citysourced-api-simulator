@@ -19,11 +19,19 @@ var (
 )
 
 func Init(fileName string) error {
-	D.Reports = NewReportList()
-	_, err := readData(fileName)
+	// Reports
+	D.Reports = newReportList()
+	_, err := readReportData(fileName)
 	if err != nil {
-		return fmt.Errorf("Error loading config: %s", err)
+		return fmt.Errorf("Error loading Report Data: %s", err)
 	}
+
+	// Comments
+	_, err = readCommentData(fileName)
+	if err != nil {
+		return fmt.Errorf("Error loading Comment Data: %s", err)
+	}
+
 	return nil
 }
 
@@ -67,7 +75,7 @@ func (d *Reports) Append(st BaseReport) error {
 }
 
 func (d *Reports) FindDeviceID(id string) ([]*Report, error) {
-	rlist := NewReportList()
+	rlist := newReportList()
 	for _, v := range d.Reports {
 		if v.DeviceID == id {
 			rlist = append(rlist, v)
@@ -81,7 +89,7 @@ func (d *Reports) FindID(id int64) (*Report, error) {
 	if r != nil {
 		return r, nil
 	}
-	return r, errors.New(fmt.Sprintf("ID: %v not found!", id))
+	return r, fmt.Errorf("ID: %v not found", id)
 }
 
 func (d *Reports) FindAddress(addr string, radius float64, limit int64) ([]*Report, error) {
@@ -114,15 +122,15 @@ func (d *Reports) FindLL(lat, lng, radius float64, limit int64) ([]*Report, erro
 	return rlist.ReportList, nil
 }
 
-func (x *Reports) Display() string {
+func (d *Reports) Display() string {
 	s := fmt.Sprintf("\n==================================== DATA ==================================\n")
-	s += spew.Sdump(x)
+	s += spew.Sdump(d)
 	return s
 }
 
-func readData(filePath string) (*Reports, error) {
+func readReportData(filePath string) (*Reports, error) {
 	if D.Loaded {
-		msg := "Duplicate calls to load Data file!"
+		msg := "Duplicate calls to load Report Data file!"
 		log.Warning(msg)
 		return &D, errors.New(msg)
 	}
@@ -153,7 +161,7 @@ func readData(filePath string) (*Reports, error) {
 	fmt.Println(spew.Sdump(D.indID))
 
 	// Update Last ID
-	var lastID int64 = 0
+	var lastID int64
 	for _, v := range D.Reports {
 		if v.ID > lastID {
 			lastID = v.ID

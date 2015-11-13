@@ -37,8 +37,8 @@ func TestReadData(t *testing.T) {
 }
 
 // NOTE: if the test input data is changed, this must be updated!
-func TestDataValidity(t *testing.T) {
-	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestDataValidity <<<<<<<<<<<<<<<<<<<<<<<<<<")
+func TestReportValidity(t *testing.T) {
+	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestReportValidity <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	// Check lastID
 	if lID := data.D.LastID(); lID != 102 {
 		t.Errorf("LastId: %v is incorrect.", lID)
@@ -69,6 +69,37 @@ func TestDataValidity(t *testing.T) {
 	if r.AuthIsAnon() != bval {
 		t.Errorf("Invalid AuthorIsAnonymous: %v  should be: %v", r.AuthIsAnon(), bval)
 	}
+}
+
+// NOTE: if the test input data is changed, this must be updated!
+func TestCommentValidity(t *testing.T) {
+	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestCommentValidity <<<<<<<<<<<<<<<<<<<<<<<<<<")
+	// Check lastID
+	if lID := data.LastCommentID(); lID != 3 {
+		t.Errorf("LastId: %v is incorrect.", lID)
+	}
+
+	// Make sure we've got the data we think we should have - check random data:
+	r, e := data.FindReportComments(101)
+	fmt.Println(r)
+	if e != nil {
+		t.Errorf("FindId failed: %q.", e)
+	}
+	if l := len(r); l != 1 {
+		t.Errorf("Size of comments for report 101 is %d should be %d.", l, 2)
+	}
+
+	sExp := "The second test comment for report 101"
+	if cmt := r[1].Comment; cmt != sExp {
+		t.Errorf("The text of the second comment for report 101 is %q should be %q.", cmt, sExp)
+	}
+
+	var cdval data.CustomTime
+	cdval.UnmarshalText([]byte("2015-05-21T11:30:30"))
+	if r[1].DateCreated != cdval {
+		t.Errorf("Invalid DateCreated: %s  should be: %s", r[1].DateCreated, cdval)
+	}
+
 }
 
 func TestAddReport(t *testing.T) {
@@ -141,6 +172,14 @@ func TestAddReport2(t *testing.T) {
 	}
 	data.D.Append(newRpt)
 	fmt.Printf("------ After add:\n%s\n", data.D.Display())
+}
+
+func TestAddComment1(t *testing.T) {
+	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestAddComment1 <<<<<<<<<<<<<<<<<<<<<<<<<<")
+	if e := data.NewComment(102, data.NewCustomTime("2015-11-08T08:08:08"), "Comment created by test case"); e != nil {
+		t.Errorf("NewComment() failed - error: %q", e)
+	}
+	fmt.Printf("------ After add:\n%s\n", data.DisplayCommentData())
 }
 
 func TestFindDeviceId(t *testing.T) {

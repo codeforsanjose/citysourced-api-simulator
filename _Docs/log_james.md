@@ -1,5 +1,14 @@
 # CitySourced Test API
 
+[2015.11.13 - Fri]
+
+* Comments are loading properly now.
+	* Added "comments.go" to "data" package.
+	* Test "NewComment()" = OK!
+	* Test checks on comments are OK.
+* TestOK (data, request)
+* Saved to GIT.
+
 [2015.11.12 - Thu]
 
 * Cleaned up the request processing by adding reflection to dynamically create the proper structure for the request, and then use an interface to process the request.
