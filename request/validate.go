@@ -91,6 +91,7 @@ func init() {
 	vparms["Radius"] = vparm{"float", false, "100.0"}
 	vparms["MaxResults"] = vparm{"int", false, "10"}
 	vparms["IncludeDetails"] = vparm{"bool", false, "false"}
+	vparms["Votes"] = vparm{"int", false, "0"}
 
 	fmt.Printf("vparms: %+v\n", vparms)
 }

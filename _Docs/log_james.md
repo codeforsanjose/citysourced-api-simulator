@@ -1,5 +1,9 @@
 # CitySourced Test API
 
+[2015.11.14 - Sat]
+
+* 
+
 [2015.11.13 - Fri]
 
 * Comments are loading properly now.
@@ -52,6 +56,9 @@
 		* ConvertReports() converts a slice of pointers to data.Report{} into a slice of pointers to response.Report{}.
 * Test OK (data, request)
 * Saved to GIT.
+* Added Votes to all structs and test data.
+	* Added validation for Votes/VotesV.
+* Rearranged some of the fields... moved the image URLs down to the bottom of all the structs.
 
 [2015.11.11 - Wed]
 

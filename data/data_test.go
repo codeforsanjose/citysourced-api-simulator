@@ -85,7 +85,7 @@ func TestCommentValidity(t *testing.T) {
 	if e != nil {
 		t.Errorf("FindId failed: %q.", e)
 	}
-	if l := len(r); l != 1 {
+	if l := len(r); l != 2 {
 		t.Errorf("Size of comments for report 101 is %d should be %d.", l, 2)
 	}
 

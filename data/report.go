@@ -14,6 +14,7 @@ const (
 	dfltLatitude          float64 = 0.0
 	dfltLongitude         float64 = 0.0
 	dfltAuthorIsAnonymous         = true
+	dfltVotes             int64   = 0
 )
 
 // ==============================================================================================================================
@@ -147,6 +148,8 @@ type BaseReport struct {
 	AuthorIsAnonymousV bool       //
 	UrlDetail          string     `json:"UrlDetail" xml:"UrlDetail"`
 	UrlShortened       string     `json:"UrlShortened" xml:"UrlShortened"`
+	Votes              string     `json:"Votes" xml:"Votes"`
+	VotesV             int64      //
 	StatusType         string     `json:"StatusType" xml:"StatusType"`
 }
 
@@ -192,6 +195,19 @@ func (st *BaseReport) Validate() error {
 		}
 		st.AuthorIsAnonymousV = x
 	}
+
+	// Votes
+	if st.Votes == "" {
+		st.VotesV = dfltVotes
+	} else {
+		x, err := strconv.ParseInt(st.Votes, 10, 64)
+		if err != nil {
+			errmsg = errmsg + fmt.Sprintf("Invalid Votes: %s\n", st.Votes)
+			st.VotesV = dfltVotes
+		}
+		st.VotesV = x
+	}
+
 	if errmsg != "" {
 		return errors.New(errmsg)
 	}
@@ -211,6 +227,7 @@ func (s BaseReport) String() string {
 	ls.AddF("Request - type: %q  id: %q\n", s.RequestType, s.RequestTypeID)
 	ls.AddF("Location - lat: %v  lon: %v  directionality: %q\n", s.LatitudeV, s.LongitudeV, s.Directionality)
 	ls.AddF("          %s, %s   %s\n", s.City, s.State, s.ZipCode)
+	ls.AddF("Votes: %d\n", s.VotesV)
 	ls.AddF("Description: %q\n", s.Description)
 	ls.AddF("Images - std: %s\n", s.ImageUrl)
 	ls.AddF("          XS: %s\n", s.ImageUrlXs)
