@@ -92,6 +92,16 @@ func (d *Reports) FindID(id int64) (*Report, error) {
 	return r, fmt.Errorf("ID: %v not found", id)
 }
 
+func (d *Reports) FindZipCode(zip string) ([]*Report, error) {
+	rlist := newReportList()
+	for _, v := range d.Reports {
+		if v.ZipCode == zip {
+			rlist = append(rlist, v)
+		}
+	}
+	return rlist, nil
+}
+
 func (d *Reports) FindAddress(addr string, radius float64, limit int64) ([]*Report, error) {
 	rlist := NewReportListD()
 	log.Debug("FindAddress - addr: %s  radius: %v", addr, radius)

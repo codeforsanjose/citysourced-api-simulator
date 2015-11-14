@@ -98,6 +98,20 @@ var (
 		<CurrentStatus></CurrentStatus>
 	</CsRequest>
 	`
+	inGetReportsByZipCode01 = `
+	<?xml version="1.0" encoding="utf-8" ?>
+	<CsRequest>
+		<ApiAuthKey>a01234567890z</ApiAuthKey>
+		<ApiRequestType>GetReportsByZipCode</ApiRequestType>
+		<ApiRequestVersion>1</ApiRequestVersion>
+		<ZipCode>95101</ZipCode>
+		<MaxResults></MaxResults>
+		<IncludeDetails>False</IncludeDetails>
+		<DateRangeStart>2015-05-20T13:45:30</DateRangeStart>
+		<DateRangeEnd>2015-05-20T13:45:30</DateRangeEnd>
+		<CurrentStatus></CurrentStatus>
+	</CsRequest>
+	`
 )
 
 func init() {
@@ -118,7 +132,7 @@ func showData(data CreateThreeOneOne) {
 	fmt.Printf("DateCreated: %s\n", data.DateCreated)
 	fmt.Printf("DeviceType: %s\n", data.DeviceType)
 	fmt.Printf("DeviceModel: %s\n", data.DeviceModel)
-	fmt.Printf("DeviceId: %s\n", data.DeviceID)
+	fmt.Printf("DeviceId: %s\n", data.ZipCode)
 	fmt.Printf("RequestType: %s\n", data.RequestType)
 	fmt.Printf("RequestTypeId: %s\n", data.RequestTypeID)
 	fmt.Printf("Latitude: %s\n", data.Latitude)
@@ -165,9 +179,18 @@ func TestGetReportsByLL(t *testing.T) {
 	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
 	// fmt.Printf("[Process] returned: %q\n", data)
 }
+
 func TestGetReportsByDeviceID(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestGetReportsByDeviceID <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	input := inGetReportsByDeviceID01
+	data, err := Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
+	// fmt.Printf("[Process] returned: %q\n", data)
+}
+
+func TestGetReportsByZipCode(t *testing.T) {
+	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestGetReportsByZipCode <<<<<<<<<<<<<<<<<<<<<<<<<<")
+	input := inGetReportsByZipCode01
 	data, err := Process(input, time.Now())
 	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
 	// fmt.Printf("[Process] returned: %q\n", data)

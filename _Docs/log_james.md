@@ -2,7 +2,9 @@
 
 [2015.11.14 - Sat]
 
-* 
+* GetReportsByZipCode() working.
+* Test OK.
+* Saved to GIT.
 
 [2015.11.13 - Fri]
 

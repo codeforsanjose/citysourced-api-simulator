@@ -153,3 +153,43 @@ func (st GetReportsByDeviceID) String() string {
 	ls.AddF("Date Range: %v  to: %v \n", st.DateRangeStart, st.DateRangeEnd)
 	return ls.Box(90)
 }
+
+// ==============================================================================================================================
+//                                      GetReportsByDeviceId
+// ==============================================================================================================================
+
+type GetReportsByZipCode struct {
+	Request
+	Processor
+	ZipCode        string `xml:"ZipCode" json:"ZipCode"`
+	MaxResults     string `xml:"MaxResults" json:"MaxResults"`
+	maxResults     int64
+	IncludeDetails string `xml:"IncludeDetails" json:"IncludeDetails"`
+	includeDetails bool
+	DateRangeStart data.CustomTime `xml:"DateRangeStart" json:"DateRangeStart"`
+	DateRangeEnd   data.CustomTime `xml:"DateRangeEnd" json:"DateRangeEnd"`
+	CurrentStatus  string          `xml:"CurrentStatus" json:"CurrentStatus"`
+}
+
+func (st *GetReportsByZipCode) Validate(start time.Time) string {
+	return ""
+}
+
+func (st *GetReportsByZipCode) Run() (string, error) {
+	rpts, _ := data.D.FindZipCode(st.ZipCode)
+	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
+
+	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
+	return resp, nil
+}
+
+func (st GetReportsByZipCode) String() string {
+	ls := new(logs.LogString)
+	ls.AddS("GetReportsByZipCode\n")
+	ls.AddS(st.Request.String())
+	ls.AddF("ZipCode: %q\n", st.ZipCode)
+	ls.AddF("MaxResults: %s/%v\n", st.MaxResults, st.maxResults)
+	ls.AddF("IncludeDetails: %v/%t\n", st.IncludeDetails, st.includeDetails)
+	ls.AddF("Date Range: %v  to: %v \n", st.DateRangeStart, st.DateRangeEnd)
+	return ls.Box(90)
+}
