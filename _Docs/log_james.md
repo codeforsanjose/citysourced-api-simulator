@@ -5,6 +5,11 @@
 * GetReportsByZipCode() working.
 * Test OK.
 * Saved to GIT.
+* GetReport() working.
+	* Does NOT use the "IncludeDetails", "IncludeComments", or "IncludeVotes" fields.  It will always return the above.
+* Test OK.
+* Saved to GIT.
+* 
 
 [2015.11.13 - Fri]
 

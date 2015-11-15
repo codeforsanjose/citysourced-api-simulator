@@ -44,6 +44,7 @@ type Report struct {
 
 func ConvertReport(src *data.Report) *Report {
 	r := Report{
+		ID:           src.ID,
 		DateCreated:  src.DateCreated,
 		DateUpdated:  src.DateUpdated,
 		RequestType:  src.RequestType,

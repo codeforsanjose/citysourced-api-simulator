@@ -112,6 +112,18 @@ var (
 		<CurrentStatus></CurrentStatus>
 	</CsRequest>
 	`
+	inGetReport01 = `
+	<?xml version="1.0" encoding="utf-8" ?>
+	<CsRequest>
+		<ApiAuthKey>a01234567890z</ApiAuthKey>
+		<ApiRequestType>GetReport</ApiRequestType>
+		<ApiRequestVersion>1</ApiRequestVersion>
+		<ReportId>102</ReportId>
+		<IncludeComments>True</IncludeComments>
+	    <IncludeDetails>True</IncludeDetails>
+	    <IncludeVotes>True</IncludeVotes>
+	</CsRequest>
+	`
 )
 
 func init() {
@@ -191,6 +203,14 @@ func TestGetReportsByDeviceID(t *testing.T) {
 func TestGetReportsByZipCode(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestGetReportsByZipCode <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	input := inGetReportsByZipCode01
+	data, err := Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
+	// fmt.Printf("[Process] returned: %q\n", data)
+}
+
+func TestGetReport(t *testing.T) {
+	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestGetReport <<<<<<<<<<<<<<<<<<<<<<<<<<")
+	input := inGetReport01
 	data, err := Process(input, time.Now())
 	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
 	// fmt.Printf("[Process] returned: %q\n", data)

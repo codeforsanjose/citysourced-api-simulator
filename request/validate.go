@@ -85,13 +85,16 @@ var vparms map[string]vparm
 func init() {
 	vparms = make(map[string]vparm)
 
+	vparms["ReportID"] = vparm{"int", true, "0"}
 	vparms["Latitude"] = vparm{"float", true, "0.0"}
 	vparms["Longitude"] = vparm{"float", true, "0.0"}
 	vparms["AuthorIsAnonymous"] = vparm{"bool", false, "true"}
 	vparms["Radius"] = vparm{"float", false, "100.0"}
 	vparms["MaxResults"] = vparm{"int", false, "10"}
 	vparms["IncludeDetails"] = vparm{"bool", false, "false"}
-	vparms["Votes"] = vparm{"int", false, "0"}
+	vparms["IncludeComments"] = vparm{"bool", false, "false"}
+	vparms["IncludeVotes"] = vparm{"bool", false, "false"}
+	vparms["Votes"] = vparm{"bool", false, "0"}
 
 	fmt.Printf("vparms: %+v\n", vparms)
 }

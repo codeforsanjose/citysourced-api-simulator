@@ -45,7 +45,7 @@ func TestReportValidity(t *testing.T) {
 	}
 
 	// Make sure we've got the data we think we should have - check random data:
-	r, e := data.D.FindID(101)
+	r, e := data.D.GetID(101)
 	if e != nil {
 		t.Errorf("FindId failed: %q.", e)
 	}
@@ -199,6 +199,27 @@ func TestFindDeviceId(t *testing.T) {
 		t.Errorf("FindDeviceId failed - error: %q", err)
 	}
 	fmt.Printf("Reports found for device ID %q:\n%s", di, spew.Sdump(rpts))
+
+}
+
+func TestFindID(t *testing.T) {
+	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestFindID <<<<<<<<<<<<<<<<<<<<<<<<<<")
+
+	reports := data.D
+
+	var id int64 = 100
+	rpts, err := reports.FindID(id)
+	if err != nil {
+		t.Errorf("FindDeviceId failed - error: %q", err)
+	}
+	fmt.Printf("Report ID [%d]:\n%s", id, spew.Sdump(rpts))
+
+	id = 102
+	rpts, err = reports.FindID(id)
+	if err != nil {
+		t.Errorf("FindDeviceId failed - error: %q", err)
+	}
+	fmt.Printf("Report ID [%d]:\n%s", id, spew.Sdump(rpts))
 
 }
 

@@ -74,6 +74,22 @@ func (d *Reports) Append(st BaseReport) error {
 	return nil
 }
 
+func (d *Reports) GetID(id int64) (*Report, error) {
+	r := d.indID[id]
+	if r != nil {
+		return r, nil
+	}
+	return r, fmt.Errorf("ID: %v not found", id)
+}
+
+func (d *Reports) FindID(id int64) ([]*Report, error) {
+	rlist := newReportList()
+	if r, ok := d.indID[id]; ok {
+		rlist = append(rlist, r)
+	}
+	return rlist, nil
+}
+
 func (d *Reports) FindDeviceID(id string) ([]*Report, error) {
 	rlist := newReportList()
 	for _, v := range d.Reports {
@@ -82,14 +98,6 @@ func (d *Reports) FindDeviceID(id string) ([]*Report, error) {
 		}
 	}
 	return rlist, nil
-}
-
-func (d *Reports) FindID(id int64) (*Report, error) {
-	r := d.indID[id]
-	if r != nil {
-		return r, nil
-	}
-	return r, fmt.Errorf("ID: %v not found", id)
 }
 
 func (d *Reports) FindZipCode(zip string) ([]*Report, error) {
