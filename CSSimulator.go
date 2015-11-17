@@ -6,6 +6,7 @@ import (
 	"CitySourcedAPI/docs"
 	"CitySourcedAPI/logs"
 	"CitySourcedAPI/request"
+	"flag"
 	"os"
 	"os/signal"
 
@@ -16,24 +17,35 @@ import (
 )
 
 var (
-	log = logs.Log
+	log   = logs.Log
+	Debug = false
 )
 
 func main() {
+	// setOptions()
+
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/docs/", docHandler)
 	http.HandleFunc("/api/", apiHandler)
-	http.ListenAndServe(":5050", nil)
+	http.ListenAndServe(fmt.Sprintf(":%d", config.Port()), nil)
 }
 
 func init() {
-	if err := config.Init("config.json"); err != nil {
+	var port int64
+	flag.BoolVar(&Debug, "debug", false, "Activate debug prints to the console.  Active if either this or the value in 'config.json' are set.")
+	flag.Int64Var(&port, "port", 0, "Port.  If set, this flag will override the value in 'config.json'.")
+	flag.Parse()
+
+	logs.Init(Debug)
+
+	if err := config.Init("config.json", port); err != nil {
 		log.Error("Error loading config file: %s\n", err)
 	}
 
 	if err := data.Init("data.json"); err != nil {
 		log.Error("Error loading config file: %s\n", err)
 	}
+	log.Info("Running on port: %d", config.Port())
 
 	go SignalHandler(make(chan os.Signal, 1))
 	fmt.Println("Press Ctrl-C to shutdown...")

@@ -2,7 +2,15 @@
 
 [2015.11.17 - Tue]
 
-* Saved to GIT. 
+* Saved to GIT.
+* Cleaned up debug prints and log formatting.
+* Added response to CreateThreeOneOne()
+* Renamed files in request:
+	* request/createthreeoneone.go -> request/create.go
+	* request/getreports.go -> get.go
+* Started adding request/update.go (for UpdateThreeOneOne).
+* Test OK.
+* Saved to GIT.
 
 [2015.11.16 - Mon]
 

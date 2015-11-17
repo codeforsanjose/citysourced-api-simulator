@@ -15,37 +15,32 @@ var (
 	modulename string = "CSSimulator"
 	Log               = logging.MustGetLogger(modulename)
 	LogPrinter *logPrinterType
-	Debug      bool = false
-	Verbose    bool = false
 )
 
-func Init(debug, verbose bool) error {
-	Debug, Verbose = debug, verbose
-	return nil
-}
-
-type Password string
-
-func (p Password) Redacted() interface{} {
-	return logging.Redact(string(p))
-}
-
-func init() {
-	var syslogformat = logging.MustStringFormatter(
-		"[%{shortpkg}: %{shortfile}: %{shortfunc}] %{message}",
-	)
+func Init(debug bool) {
+	var syslogfmtstr, logfmtstr string
+	if debug {
+		syslogfmtstr = "[%{shortpkg}: %{shortfile}: %{shortfunc}] %{message}"
+		logfmtstr = "%{color}%{time:15:04:05} [%{shortpkg}: %{shortfile}: %{shortfunc}()] ▶ %{level:.4s} ◀  %{color:reset} %{message}"
+	} else {
+		syslogfmtstr = "[%{shortpkg}: %{shortfile}: %{shortfunc}] %{message}"
+		logfmtstr = "%{color}%{time:15:04:05} [%{shortpkg}] ▶ %{level:.4s} ◀  %{color:reset} %{message}"
+	}
+	syslogformat := logging.MustStringFormatter(syslogfmtstr)
 	syslog, _ := logging.NewSyslogBackend(modulename)
 	syslogF := logging.NewBackendFormatter(syslog, syslogformat)
 	syslogL := logging.AddModuleLevel(syslogF)
 	syslogL.SetLevel(logging.WARNING, "")
 
-	var logformat = logging.MustStringFormatter(
-		"%{color}%{time:15:04:05} [%{shortpkg}: %{shortfile}: %{shortfunc}()] ▶ %{level:.4s} ◀  %{color:reset} %{message}",
-	)
+	logformat := logging.MustStringFormatter(logfmtstr)
 	console := logging.NewLogBackend(os.Stderr, "", 0)
 	consoleF := logging.NewBackendFormatter(console, logformat)
 	consoleFLev := logging.AddModuleLevel(consoleF)
-	consoleFLev.SetLevel(logging.INFO, modulename)
+	if debug {
+		consoleFLev.SetLevel(logging.DEBUG, modulename)
+	} else {
+		consoleFLev.SetLevel(logging.INFO, modulename)
+	}
 
 	logging.SetBackend(syslogL, consoleFLev)
 
@@ -53,12 +48,10 @@ func init() {
 	go LogPrinter.run()
 }
 
-func LogDebug(format string, args ...interface{}) {
-	if Verbose {
-		Log.Debug(format, args...)
-	} else if Debug {
-		Log.Debug(format, args...)
-	}
+type Password string
+
+func (p Password) Redacted() interface{} {
+	return logging.Redact(string(p))
 }
 
 // ==============================================================================================================================

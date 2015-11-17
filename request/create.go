@@ -3,6 +3,7 @@ package request
 import (
 	"CitySourcedAPI/data"
 	"CitySourcedAPI/logs"
+	"CitySourcedAPI/response"
 
 	"time"
 )
@@ -38,7 +39,7 @@ func (st *CreateThreeOneOne) Validate(start time.Time) string {
 
 func (st *CreateThreeOneOne) Run() (string, error) {
 	data.D.Append(st.BaseReport)
-	return "New report created OK", nil
+	return response.StatusMsg("New report created OK", st.start), nil
 }
 
 func (s CreateThreeOneOne) String() string {

@@ -19,6 +19,8 @@ var (
 )
 
 func Init(fileName string) error {
+	log.Info("Loading data file: %q", fileName)
+
 	// Reports
 	D.Reports = newReportList()
 	_, err := readReportData(fileName)

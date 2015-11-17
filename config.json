@@ -1,9 +1,8 @@
 {
-    "instrumentation": {
-        "debug": true,
-        "verbose": false
-    },
     "api": {
         "authkey": "a01234567890z"
+    },
+    "server": {
+        "port": 5050
     }
 }

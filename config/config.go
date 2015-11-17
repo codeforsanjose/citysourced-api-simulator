@@ -16,11 +16,14 @@ var (
 	C   ConfigType
 )
 
-func Init(fileName string) error {
-	log.Info("Loading configuration file - Config: %q", fileName)
+func Init(fileName string, port int64) error {
+	log.Info("Loading config: %q", fileName)
 	_, err := readConfig(fileName)
 	if err != nil {
 		return errors.New(fmt.Sprintf("Error loading config: %s", err))
+	}
+	if port > 0 {
+		C.Server.Port = port
 	}
 	return nil
 }
@@ -34,34 +37,13 @@ func Auth(ac string) bool {
 	return false
 }
 
+func Port() int64 {
+	return C.Server.Port
+}
+
 // ==============================================================================================================================
 //                                      CONFIG
 // ==============================================================================================================================
-
-// ------------------------------- ConfigType -------------------------------
-type ConfigType struct {
-	Loaded          bool
-	Instrumentation DebugType `json:"instrumentation"`
-	API             API_Type  `json:"api"`
-}
-
-func (x *ConfigType) Display() string {
-	s := fmt.Sprintf("\n==================================== CONFIG ==================================\n")
-	s += spew.Sdump(x)
-	s += fmt.Sprintf("==============================================================================\n")
-	return s
-}
-
-// ------------------------------- DebugType -------------------------------
-type DebugType struct {
-	Debug   bool `json:"debug"`
-	Verbose bool `json:"verbose"`
-}
-
-// ------------------------------- API_Type -------------------------------
-type API_Type struct {
-	AuthKey string `json:"authkey"`
-}
 
 func readConfig(filePath string) (*ConfigType, error) {
 	if C.Loaded {
@@ -86,4 +68,28 @@ func readConfig(filePath string) (*ConfigType, error) {
 
 	C.Loaded = true
 	return &C, nil
+}
+
+// ------------------------------- ConfigType -------------------------------
+type ConfigType struct {
+	Loaded bool
+	Server ServerType `json:"server"`
+	API    API_Type   `json:"api"`
+}
+
+func (x *ConfigType) Display() string {
+	s := fmt.Sprintf("\n==================================== CONFIG ==================================\n")
+	s += spew.Sdump(x)
+	s += fmt.Sprintf("==============================================================================\n")
+	return s
+}
+
+// ------------------------------- API_Type -------------------------------
+type API_Type struct {
+	AuthKey string `json:"authkey"`
+}
+
+// ------------------------------- ServerType -------------------------------
+type ServerType struct {
+	Port int64 `json:"port"`
 }

@@ -95,6 +95,4 @@ func init() {
 	vparms["IncludeComments"] = vparm{"bool", false, "false"}
 	vparms["IncludeVotes"] = vparm{"bool", false, "false"}
 	vparms["Votes"] = vparm{"bool", false, "0"}
-
-	log.Debug("vparms: %+v\n", vparms)
 }

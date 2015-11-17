@@ -126,10 +126,6 @@ func (r *Request) SetStart(start time.Time) {
 
 func (r *Request) auth() (ok bool) {
 	ok = config.Auth(r.ApiAuthKey)
-	if !ok {
-		msg := "Invalid auth code."
-		log.Warning(msg)
-	}
 	return ok
 }
 
