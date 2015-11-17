@@ -1,5 +1,16 @@
 # CitySourced Test API
 
+[2015.11.17 - Tue]
+
+* Saved to GIT. 
+
+[2015.11.16 - Mon]
+
+* Wrote up documentation and added to docs/docs.go.
+* Removed copier code.  It is not being used.
+* Converted all fmt.PrintXX() debug statements to "log.Debug()".
+* Additional testing.  Everything looks good so far.
+
 [2015.11.14 - Sat]
 
 * GetReportsByZipCode() working.

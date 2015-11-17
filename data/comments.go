@@ -54,7 +54,7 @@ func readCommentData(filePath string) (*Comments, error) {
 
 	// Build Indexes
 	cmtData.indexAll()
-	fmt.Println(spew.Sdump(cmtData.indID))
+	log.Debug(spew.Sdump(cmtData.indID))
 
 	// Update Last ID
 	var lastID int64

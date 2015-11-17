@@ -12,7 +12,7 @@ import (
 //                                      LOGS
 // ==============================================================================================================================
 var (
-	modulename string = "iDirectStat"
+	modulename string = "CSSimulator"
 	Log               = logging.MustGetLogger(modulename)
 	LogPrinter *logPrinterType
 	Debug      bool = false
@@ -44,8 +44,10 @@ func init() {
 	)
 	console := logging.NewLogBackend(os.Stderr, "", 0)
 	consoleF := logging.NewBackendFormatter(console, logformat)
+	consoleFLev := logging.AddModuleLevel(consoleF)
+	consoleFLev.SetLevel(logging.INFO, modulename)
 
-	logging.SetBackend(syslogL, consoleF)
+	logging.SetBackend(syslogL, consoleFLev)
 
 	LogPrinter = NewLogPrinter()
 	go LogPrinter.run()

@@ -127,7 +127,7 @@ func (d *Reports) FindLL(lat, lng, radius float64, limit int64) ([]*Report, erro
 	log.Debug("Scanning Reports for reports within %v meters of: %v|%v", radius, lat, lng)
 	for _, v := range d.Reports {
 		dist := Distance(lat, lng, v.LatitudeV, v.LongitudeV)
-		fmt.Printf("ID: %v  dist: %v\n", v.ID, dist)
+		log.Debug("ID: %v  dist: %v\n", v.ID, dist)
 		if dist < radius {
 			rlist.Add(v, dist)
 		}
@@ -176,7 +176,7 @@ func readReportData(filePath string) (*Reports, error) {
 
 	// Build Indexes
 	D.index()
-	fmt.Println(spew.Sdump(D.indID))
+	log.Debug(spew.Sdump(D.indID))
 
 	// Update Last ID
 	var lastID int64

@@ -6,6 +6,8 @@ import (
 	"CitySourcedAPI/docs"
 	"CitySourcedAPI/logs"
 	"CitySourcedAPI/request"
+	"os"
+	"os/signal"
 
 	"fmt"
 	"io/ioutil"
@@ -22,6 +24,19 @@ func main() {
 	http.HandleFunc("/docs/", docHandler)
 	http.HandleFunc("/api/", apiHandler)
 	http.ListenAndServe(":5050", nil)
+}
+
+func init() {
+	if err := config.Init("config.json"); err != nil {
+		log.Error("Error loading config file: %s\n", err)
+	}
+
+	if err := data.Init("data.json"); err != nil {
+		log.Error("Error loading config file: %s\n", err)
+	}
+
+	go SignalHandler(make(chan os.Signal, 1))
+	fmt.Println("Press Ctrl-C to shutdown...")
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
@@ -63,22 +78,32 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	// var stReq request.Request_Type
 	// err := decoder.Decode(&stReq)
 	// if err != nil {
-	// 	fmt.Printf("Error decoding\n")
+	// 	log.Error("Error decoding\n")
 	// 	errorHandler(w, r, http.StatusNotFound)
 	// }
 
-	fmt.Printf("api request - method: %v\n%#v\n", r.Method, string(req))
+	log.Debug("api request - method: %v\n%#v\n", r.Method, string(req))
 	resp, err := request.Process(string(req), start)
 
 	fmt.Fprint(w, resp)
 }
 
-func init() {
-	if err := config.Init("config.json"); err != nil {
-		fmt.Printf("Error loading config file: %s\n", err)
+func SignalHandler(c chan os.Signal) {
+	signal.Notify(c, os.Interrupt)
+	for s := <-c; ; s = <-c {
+		switch s {
+		case os.Interrupt:
+			fmt.Println("Ctrl-C Received!")
+			stop()
+			os.Exit(0)
+		case os.Kill:
+			fmt.Println("SIGKILL Received!")
+			stop()
+			os.Exit(1)
+		}
 	}
+}
 
-	if err := data.Init("data.json"); err != nil {
-		fmt.Printf("Error loading config file: %s\n", err)
-	}
+func stop() error {
+	return nil
 }
