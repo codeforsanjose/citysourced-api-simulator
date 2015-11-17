@@ -39,7 +39,7 @@ func (st *GetReportsByAddress) Validate(start time.Time) string {
 }
 
 func (st *GetReportsByAddress) Run() (string, error) {
-	rpts, _ := data.D.FindAddress(st.Address, st.radius, st.maxResults)
+	rpts, _ := data.FindAddress(st.Address, st.radius, st.maxResults)
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
 
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
@@ -91,7 +91,7 @@ func (st *GetReportsByLatLng) Validate(start time.Time) string {
 }
 
 func (st *GetReportsByLatLng) Run() (string, error) {
-	rpts, _ := data.D.FindLL(st.LatitudeV, st.LongitudeV, st.radius, st.maxResults)
+	rpts, _ := data.FindLL(st.LatitudeV, st.LongitudeV, st.radius, st.maxResults)
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
 
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
@@ -136,7 +136,7 @@ func (st *GetReportsByDeviceID) Validate(start time.Time) string {
 }
 
 func (st *GetReportsByDeviceID) Run() (string, error) {
-	rpts, _ := data.D.FindDeviceID(st.DeviceID)
+	rpts, _ := data.FindDeviceID(st.DeviceID)
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
 
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
@@ -180,7 +180,7 @@ func (st *GetReportsByZipCode) Validate(start time.Time) string {
 }
 
 func (st *GetReportsByZipCode) Run() (string, error) {
-	rpts, _ := data.D.FindZipCode(st.ZipCode)
+	rpts, _ := data.FindZipCode(st.ZipCode)
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
 
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
@@ -229,7 +229,7 @@ func (st *GetReport) Validate(start time.Time) string {
 }
 
 func (st *GetReport) Run() (string, error) {
-	rpts, _ := data.D.FindID(st.ReportIDV)
+	rpts, _ := data.FindID(st.ReportIDV)
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
 
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)

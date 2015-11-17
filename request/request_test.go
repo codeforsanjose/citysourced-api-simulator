@@ -127,7 +127,7 @@ var (
 )
 
 func init() {
-	if err := config.Init("../config.json"); err != nil {
+	if err := config.Init("../config.json", 0); err != nil {
 		fmt.Printf("Error loading config file: %s\n", err)
 	}
 

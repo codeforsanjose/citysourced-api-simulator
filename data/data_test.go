@@ -40,12 +40,12 @@ func TestReadData(t *testing.T) {
 func TestReportValidity(t *testing.T) {
 	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestReportValidity <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	// Check lastID
-	if lID := data.D.LastID(); lID != 102 {
+	if lID := data.LastID(); lID != 102 {
 		t.Errorf("LastId: %v is incorrect.", lID)
 	}
 
 	// Make sure we've got the data we think we should have - check random data:
-	r, e := data.D.GetID(101)
+	r, e := data.GetID(101)
 	if e != nil {
 		t.Errorf("FindId failed: %q.", e)
 	}
@@ -134,7 +134,7 @@ func TestAddReport(t *testing.T) {
 		UrlShortened:      "",
 		StatusType:        "Open",
 	}
-	data.D.Append(newRpt)
+	data.Append(newRpt)
 	fmt.Printf("------ After add:\n%s\n", data.D.Display())
 }
 
@@ -170,7 +170,7 @@ func TestAddReport2(t *testing.T) {
 		UrlShortened:      "",
 		StatusType:        "Open",
 	}
-	data.D.Append(newRpt)
+	data.Append(newRpt)
 	fmt.Printf("------ After add:\n%s\n", data.D.Display())
 }
 
@@ -185,16 +185,15 @@ func TestAddComment1(t *testing.T) {
 func TestFindDeviceId(t *testing.T) {
 	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestFindDeviceId <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	di := "1111"
-	reports := data.D
 
-	rpts, err := reports.FindDeviceID(di)
+	rpts, err := data.FindDeviceID(di)
 	if err != nil {
 		t.Errorf("FindDeviceId failed - error: %q", err)
 	}
 	fmt.Printf("Reports found for device ID %q:\n%s", di, spew.Sdump(rpts))
 
 	di = "2222"
-	rpts, err = reports.FindDeviceID(di)
+	rpts, err = data.FindDeviceID(di)
 	if err != nil {
 		t.Errorf("FindDeviceId failed - error: %q", err)
 	}
@@ -205,17 +204,15 @@ func TestFindDeviceId(t *testing.T) {
 func TestFindID(t *testing.T) {
 	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestFindID <<<<<<<<<<<<<<<<<<<<<<<<<<")
 
-	reports := data.D
-
 	var id int64 = 100
-	rpts, err := reports.FindID(id)
+	rpts, err := data.FindID(id)
 	if err != nil {
 		t.Errorf("FindDeviceId failed - error: %q", err)
 	}
 	fmt.Printf("Report ID [%d]:\n%s", id, spew.Sdump(rpts))
 
 	id = 102
-	rpts, err = reports.FindID(id)
+	rpts, err = data.FindID(id)
 	if err != nil {
 		t.Errorf("FindDeviceId failed - error: %q", err)
 	}
@@ -229,10 +226,9 @@ func TestFindAddress(t *testing.T) {
 	// addr := "200 E. Santa Clara St, San Jose, CA"
 	addr := "73 N 6th St., San Jose, CA"
 	radius := 500.0
-	reports := data.D
 	limit := int64(2)
 
-	rpts, err := reports.FindAddress(addr, radius, limit)
+	rpts, err := data.FindAddress(addr, radius, limit)
 	if err != nil {
 		t.Errorf("FindAddress failed - error: %q", err)
 	}

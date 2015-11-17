@@ -1,19 +1,10 @@
 package request
 
-import (
-	"CitySourcedAPI/data"
-	"CitySourcedAPI/logs"
-	"CitySourcedAPI/response"
-
-	"time"
-
-	"github.com/davecgh/go-spew/spew"
-)
-
 // ==============================================================================================================================
 //                                      UpdateThreeOneOne
 // ==============================================================================================================================
 
+/*
 type UpdateThreeOneOne struct {
 	Request
 	Processor
@@ -31,7 +22,7 @@ func (st *UpdateThreeOneOne) Validate(start time.Time) string {
 }
 
 func (st *UpdateThreeOneOne) Run() (string, error) {
-	rpts, _ := data.D.FindAddress(st.Address, st.radius, st.maxResults)
+	rpts, _ := data.FindAddress(st.Address, st.radius, st.maxResults)
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
 
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
@@ -48,3 +39,4 @@ func (st UpdateThreeOneOne) String() string {
 	ls.AddF("Date Range: %v  to: %v \n", st.DateRangeStart, st.DateRangeEnd)
 	return ls.Box(90)
 }
+*/

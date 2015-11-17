@@ -11,6 +11,10 @@
 * Started adding request/update.go (for UpdateThreeOneOne).
 * Test OK.
 * Saved to GIT.
+* In data/data.go:
+	* Since the data MUST be a singleton, I moved most functions that were methods on the Report struct out and made them exported methods.  This removes the necessity to use "data.D" when calling them... now they are simply "data.FindLL()", for example, rather than "data.D.FindLL()".
+* Test OK.
+* Saved to GIT.
 
 [2015.11.16 - Mon]
 
