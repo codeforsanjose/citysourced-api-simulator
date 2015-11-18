@@ -31,7 +31,8 @@
             "UrlDetail": "http://www.citysourced.com/report/100/graffiti",
             "UrlShortened": "",
             "Votes": "2",
-            "StatusType": "Open"
+            "StatusType": "Open",
+            "TicketSla": "The city's goal is to respond within 1 calendar days"
         },
         {
             "MyComment": "City Hall, San Jose",

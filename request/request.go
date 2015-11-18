@@ -30,6 +30,7 @@ func init() {
 	typeRegistry["GetReportsByDeviceId"] = reflect.TypeOf(GetReportsByDeviceID{})
 	typeRegistry["GetReportsByZipCode"] = reflect.TypeOf(GetReportsByZipCode{})
 	typeRegistry["GetReport"] = reflect.TypeOf(GetReport{})
+	typeRegistry["UpdateThreeOneOne"] = reflect.TypeOf(UpdateThreeOneOne{})
 }
 
 // ==============================================================================================================================

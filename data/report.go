@@ -103,12 +103,17 @@ type Report struct {
 	BaseReport
 }
 
+func (r *Report) updateSLA(sla string) error {
+	r.TicketSLA = sla
+	return nil
+}
+
 // Displays the contents of the Spec_Type custom type.
-func (s Report) String() string {
+func (r Report) String() string {
 	ls := new(logs.LogString)
 	ls.AddS("Report\n")
-	ls.AddF("ID: %v\n", s.ID)
-	ls.AddS(s.BaseReport.String())
+	ls.AddF("ID: %v\n", r.ID)
+	ls.AddS(r.BaseReport.String())
 	return ls.Box(90)
 }
 
@@ -151,6 +156,7 @@ type BaseReport struct {
 	Votes              string     `json:"Votes" xml:"Votes"`
 	VotesV             int64      //
 	StatusType         string     `json:"StatusType" xml:"StatusType"`
+	TicketSLA          string     `json:"TicketSla" xml:"TicketSla"`
 }
 
 func (st *BaseReport) AuthIsAnon() bool {
@@ -236,5 +242,6 @@ func (s BaseReport) String() string {
 	ls.AddF("          LG: %s\n", s.ImageUrlLg)
 	ls.AddF("          XL: %s\n", s.ImageUrlXl)
 	ls.AddF("Author(anon: %t) %s %s  Email: %s  Tel: %s\n", s.AuthorIsAnonymousV, s.AuthorNameFirst, s.AuthorNameLast, s.AuthorEmail, s.AuthorTelephone)
+	ls.AddF("SLA: %s\n", s.TicketSLA)
 	return ls.Box(80)
 }

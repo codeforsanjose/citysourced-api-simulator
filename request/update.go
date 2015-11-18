@@ -1,42 +1,45 @@
 package request
 
+import (
+	"CitySourcedAPI/data"
+	"CitySourcedAPI/logs"
+	"CitySourcedAPI/response"
+	"fmt"
+	"time"
+)
+
 // ==============================================================================================================================
 //                                      UpdateThreeOneOne
 // ==============================================================================================================================
 
-/*
 type UpdateThreeOneOne struct {
 	Request
 	Processor
-	ID string `xml:"TicketId" json:"TicketId"`
-	id int64
-
+	ReportID  string `xml:"TicketId" json:"TicketId"`
+	reportID  int64
 	TicketSLA string `xml:"TicketSla" json:"TicketSla"`
 }
 
 func (st *UpdateThreeOneOne) Validate(start time.Time) string {
 	var v validate
 	st.start = start
-	st.id = v.int("ID", st.ID)
+	st.reportID = v.int("ReportID", st.ReportID)
 	return v.errmsg
 }
 
 func (st *UpdateThreeOneOne) Run() (string, error) {
-	rpts, _ := data.FindAddress(st.Address, st.radius, st.maxResults)
-	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
-
-	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
-	return resp, nil
+	err := data.UpdateSLA(st.reportID, st.TicketSLA)
+	if err != nil {
+		return response.StatusMsg(fmt.Sprintf("Update failed: %q", err), st.start), nil
+	}
+	return response.StatusMsg("Report updated.", st.start), nil
 }
 
 func (st UpdateThreeOneOne) String() string {
 	ls := new(logs.LogString)
 	ls.AddS("UpdateThreeOneOne\n")
 	ls.AddS(st.Request.String())
-	ls.AddF("Address \"%v\"\n", st.Address)
-	ls.AddF("Radius %s/%v   MaxResults: %s/%v\n", st.Radius, st.radius, st.MaxResults, st.maxResults)
-	ls.AddF("IncludeDetails: %v/%t\n", st.IncludeDetails, st.includeDetails)
-	ls.AddF("Date Range: %v  to: %v \n", st.DateRangeStart, st.DateRangeEnd)
+	ls.AddF("ID %s/%d\n", st.ReportID, st.reportID)
+	ls.AddF("SLA %q\n", st.TicketSLA)
 	return ls.Box(90)
 }
-*/

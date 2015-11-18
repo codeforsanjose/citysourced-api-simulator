@@ -3,6 +3,7 @@ package request
 import (
 	"CitySourcedAPI/config"
 	"CitySourcedAPI/data"
+	"CitySourcedAPI/logs"
 	"fmt"
 	"testing"
 	"time"
@@ -124,9 +125,22 @@ var (
 	    <IncludeVotes>True</IncludeVotes>
 	</CsRequest>
 	`
+	inUpdate01 = `
+	<?xml version="1.0" encoding="utf-8" ?>
+	<CsRequest>
+		<ApiAuthKey>a01234567890z</ApiAuthKey>
+		<ApiRequestType>UpdateThreeOneOne</ApiRequestType>
+		<ApiRequestVersion>1</ApiRequestVersion>
+		<StatusType>Received</StatusType>
+		<TicketId>102</TicketId>
+		<TicketSla>Every attempt will be made to remove this graffiti within 2 weeks.</TicketSla>
+	</CsRequest>
+	`
 )
 
 func init() {
+	logs.Init(true)
+
 	if err := config.Init("../config.json", 0); err != nil {
 		fmt.Printf("Error loading config file: %s\n", err)
 	}
@@ -161,57 +175,67 @@ func showData(data CreateThreeOneOne) {
 func TestCreateThreeOneOne(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestCreateThreeOneOne <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	input := inCreateThreeOneOne
-	data, err := Process(input, time.Now())
-	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
-	// fmt.Printf("[Process] returned: %q\n", data)
+	dt, err := Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(dt), err)
+	// fmt.Printf("[Process] returned: %q\n", dt)
 }
 
 func TestGetReportsByAddress(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestGetReportsByAddress <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	input := inGetReportsByAddress
-	data, err := Process(input, time.Now())
-	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
-	// fmt.Printf("[Process] returned: %q\n", data)
+	dt, err := Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(dt), err)
+	// fmt.Printf("[Process] returned: %q\n", dt)
 
 	input = inGetReportsByAddress2
-	data, err = Process(input, time.Now())
-	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
-	// fmt.Printf("[Process] returned: %q\n", data)
+	dt, err = Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(dt), err)
+	// fmt.Printf("[Process] returned: %q\n", dt)
 }
 
 func TestGetReportsByLL(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestGetReportsByLL <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	input := inGetReportsByLL01
-	data, err := Process(input, time.Now())
-	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
-	// fmt.Printf("[Process] returned: %q\n", data)
+	dt, err := Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(dt), err)
+	// fmt.Printf("[Process] returned: %q\n", dt)
 
 	input = inGetReportsByAddress2
-	data, err = Process(input, time.Now())
-	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
-	// fmt.Printf("[Process] returned: %q\n", data)
+	dt, err = Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(dt), err)
+	// fmt.Printf("[Process] returned: %q\n", dt)
 }
 
 func TestGetReportsByDeviceID(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestGetReportsByDeviceID <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	input := inGetReportsByDeviceID01
-	data, err := Process(input, time.Now())
-	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
-	// fmt.Printf("[Process] returned: %q\n", data)
+	dt, err := Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(dt), err)
+	// fmt.Printf("[Process] returned: %q\n", dt)
 }
 
 func TestGetReportsByZipCode(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestGetReportsByZipCode <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	input := inGetReportsByZipCode01
-	data, err := Process(input, time.Now())
-	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
-	// fmt.Printf("[Process] returned: %q\n", data)
+	dt, err := Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(dt), err)
+	// fmt.Printf("[Process] returned: %q\n", dt)
 }
 
 func TestGetReport(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestGetReport <<<<<<<<<<<<<<<<<<<<<<<<<<")
 	input := inGetReport01
-	data, err := Process(input, time.Now())
-	fmt.Printf("[Process] msg len: %d  err: %v\n", len(data), err)
-	// fmt.Printf("[Process] returned: %q\n", data)
+	dt, err := Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(dt), err)
+	// fmt.Printf("[Process] returned: %q\n", dt)
+}
+
+func TestUpdate(t *testing.T) {
+	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestUpdate <<<<<<<<<<<<<<<<<<<<<<<<<<")
+	input := inUpdate01
+	dt, err := Process(input, time.Now())
+	fmt.Printf("[Process] msg len: %d  err: %v\n", len(dt), err)
+	rpts, _ := data.FindID(102)
+	fmt.Printf("Updated report: %s\n", rpts)
+	// fmt.Printf("[Process] returned: %q\n", dt)
 }

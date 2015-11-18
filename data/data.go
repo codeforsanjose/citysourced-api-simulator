@@ -121,6 +121,10 @@ func FindLL(lat, lng, radius float64, limit int64) ([]*Report, error) {
 	return rlist.ReportList, nil
 }
 
+func UpdateSLA(id int64, sla string) error {
+	return D.updateSLA(id, sla)
+}
+
 // ==============================================================================================================================
 //                                      DATA
 // ==============================================================================================================================
@@ -142,18 +146,29 @@ func (d *Reports) validate() error {
 	return nil
 }
 
-func (d *Reports) Display() string {
-	s := fmt.Sprintf("\n==================================== DATA ==================================\n")
-	s += spew.Sdump(d)
-	return s
-}
-
 func (d *Reports) index() error {
 	d.indID = make(map[int64]*Report)
 	for _, r := range d.Reports {
 		d.indID[r.ID] = r
 	}
 	return nil
+}
+
+func (d *Reports) updateSLA(id int64, sla string) error {
+	rpt, ok := d.indID[id]
+	if !ok {
+		msg := fmt.Sprintf("ID: %d does not exist", id)
+		log.Error(msg)
+		return errors.New(msg)
+	}
+	rpt.updateSLA(sla)
+	return nil
+}
+
+func (d *Reports) Display() string {
+	s := fmt.Sprintf("\n==================================== DATA ==================================\n")
+	s += spew.Sdump(d)
+	return s
 }
 
 func readReportData(filePath string) (*Reports, error) {

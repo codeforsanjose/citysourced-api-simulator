@@ -2,11 +2,16 @@ package data_test
 
 import (
 	"CitySourcedAPI/data"
+	"CitySourcedAPI/logs"
 	"fmt"
 	"testing"
 
 	"github.com/davecgh/go-spew/spew"
 )
+
+func init() {
+	logs.Init(true)
+}
 
 func TestReadDataInvalidPath(t *testing.T) {
 	fmt.Println("\n>>>>>>>>>>>>>>>>>>> TestReadDataInvalidPath <<<<<<<<<<<<<<<<<<<<<<<<<<")

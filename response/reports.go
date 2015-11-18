@@ -40,6 +40,7 @@ type Report struct {
 	UrlDetail      string          `json:"UrlDetail" xml:"UrlDetail"`
 	UrlShortened   string          `json:"UrlShortened" xml:"UrlShortened"`
 	StatusType     string          `json:"StatusType" xml:"StatusType"`
+	TicketSLA      string          `json:"TicketSla" xml:"TicketSla"`
 }
 
 func ConvertReport(src *data.Report) *Report {
@@ -64,6 +65,7 @@ func ConvertReport(src *data.Report) *Report {
 		UrlDetail:    src.UrlDetail,
 		UrlShortened: src.UrlShortened,
 		StatusType:   src.StatusType,
+		TicketSLA:    src.TicketSLA,
 	}
 	return &r
 }
