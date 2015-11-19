@@ -2,12 +2,14 @@ package data
 
 import (
 	"CitySourcedAPI/logs"
-	"_sketches/spew"
+	// "_sketches/spew"
 	"encoding/xml"
 	"errors"
 	"fmt"
 	"sort"
 	"strconv"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 const (

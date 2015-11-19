@@ -37,7 +37,7 @@ func TestReadData(t *testing.T) {
 	if err := data.Init("../data.json"); err != nil {
 		t.Errorf("Error %q occurred when loading the data.", err)
 	}
-	fmt.Printf("%v", data.D.Display())
+	fmt.Printf("%v", data.DisplayReports())
 
 }
 
@@ -140,7 +140,7 @@ func TestAddReport(t *testing.T) {
 		StatusType:        "Open",
 	}
 	data.Append(newRpt)
-	fmt.Printf("------ After add:\n%s\n", data.D.Display())
+	fmt.Printf("------ After add:\n%s\n", data.DisplayReports())
 }
 
 func TestAddReport2(t *testing.T) {
@@ -176,7 +176,7 @@ func TestAddReport2(t *testing.T) {
 		StatusType:        "Open",
 	}
 	data.Append(newRpt)
-	fmt.Printf("------ After add:\n%s\n", data.D.Display())
+	fmt.Printf("------ After add:\n%s\n", data.DisplayReports())
 }
 
 func TestAddComment1(t *testing.T) {
@@ -243,7 +243,7 @@ func TestFindAddress(t *testing.T) {
 
 func TestDistance(t *testing.T) {
 	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestDistance <<<<<<<<<<<<<<<<<<<<<<<<<<")
-	fmt.Printf("------ Start TestDistance:\n%s\n", data.D.Display())
+	fmt.Printf("------ Start TestDistance:\n%s\n", data.DisplayReports())
 	rlat := 37.151079
 	rlon := -121.602551
 	dist := 0.0
@@ -257,7 +257,7 @@ func TestDistance(t *testing.T) {
 	dvals[3] = 32674.419251059397
 	dvals[4] = 32483.464206297744
 
-	for i, r := range data.D.Reports {
+	for i, r := range *data.ReportDataTEST() {
 		fmt.Printf("-- i: %d  lat: %v  lng: %v\n", i, r.LatitudeV, r.LongitudeV)
 		dist = r.CalcDistance(rlat, rlon)
 		fmt.Printf("ID: %v at %v:%v - distance: %v\n", r.ID, r.LatitudeV, r.LongitudeV, dist)

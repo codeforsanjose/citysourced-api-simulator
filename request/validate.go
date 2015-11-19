@@ -5,6 +5,32 @@ import (
 	"strconv"
 )
 
+func init() {
+	vparms = make(map[string]vparm)
+
+	vparms["ReportID"] = vparm{"int", true, "0"}
+	vparms["Latitude"] = vparm{"float", true, "0.0"}
+	vparms["Longitude"] = vparm{"float", true, "0.0"}
+	vparms["AuthorIsAnonymous"] = vparm{"bool", false, "true"}
+	vparms["Radius"] = vparm{"float", false, "100.0"}
+	vparms["MaxResults"] = vparm{"int", false, "10"}
+	vparms["IncludeDetails"] = vparm{"bool", false, "false"}
+	vparms["IncludeComments"] = vparm{"bool", false, "false"}
+	vparms["IncludeVotes"] = vparm{"bool", false, "false"}
+	vparms["Votes"] = vparm{"bool", false, "0"}
+}
+
+// ==============================================================================================================================
+//                                      Validation Parameters
+// ==============================================================================================================================
+type vparm struct {
+	vtype    string
+	required bool
+	dflt     string
+}
+
+var vparms map[string]vparm
+
 // ==============================================================================================================================
 //                                      Validate
 // ==============================================================================================================================
@@ -72,27 +98,4 @@ func (v *validate) bool(name, val string) bool {
 		v.errmsg = v.errmsg + fmt.Sprintf("Error %q converting %s: %q\n", err, name, val)
 	}
 	return out
-}
-
-type vparm struct {
-	vtype    string
-	required bool
-	dflt     string
-}
-
-var vparms map[string]vparm
-
-func init() {
-	vparms = make(map[string]vparm)
-
-	vparms["ReportID"] = vparm{"int", true, "0"}
-	vparms["Latitude"] = vparm{"float", true, "0.0"}
-	vparms["Longitude"] = vparm{"float", true, "0.0"}
-	vparms["AuthorIsAnonymous"] = vparm{"bool", false, "true"}
-	vparms["Radius"] = vparm{"float", false, "100.0"}
-	vparms["MaxResults"] = vparm{"int", false, "10"}
-	vparms["IncludeDetails"] = vparm{"bool", false, "false"}
-	vparms["IncludeComments"] = vparm{"bool", false, "false"}
-	vparms["IncludeVotes"] = vparm{"bool", false, "false"}
-	vparms["Votes"] = vparm{"bool", false, "0"}
 }

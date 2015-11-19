@@ -6,10 +6,10 @@ import "CitySourcedAPI/data"
 //                                      Reports
 // ==============================================================================================================================
 
-func ConvertReports(src []*data.Report) []*Report {
+func prepResponse(src []*data.Report) []*Report {
 	cr := make([]*Report, 0)
 	for _, r := range src {
-		cr = append(cr, ConvertReport(r))
+		cr = append(cr, convertReport(r))
 	}
 	return cr
 }
@@ -43,7 +43,7 @@ type Report struct {
 	TicketSLA      string          `json:"TicketSla" xml:"TicketSla"`
 }
 
-func ConvertReport(src *data.Report) *Report {
+func convertReport(src *data.Report) *Report {
 	r := Report{
 		ID:           src.ID,
 		DateCreated:  src.DateCreated,

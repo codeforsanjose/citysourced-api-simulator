@@ -46,7 +46,7 @@ func Process(input string, start time.Time) (string, error) {
 	rt, e := newRequest(input, start)
 	if e != nil {
 		msg := fmt.Sprintf("Error while parsing the request: %q", e)
-		log.Error("%s", msg)
+		log.Warning("%s", msg)
 		return response.StatusMsg(msg, start), errors.New(msg)
 	}
 

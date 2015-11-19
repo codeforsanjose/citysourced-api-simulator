@@ -18,8 +18,6 @@ func GetLatLng(addr string) (float64, float64, error) {
 		Provider: GOOGLE,
 	}
 	resp, err := req.Lookup(nil)
-	// log.Debug(">>>Found: %s\n", resp.Found)
-	// log.Debug(">>>Response:\n%s\n", spew.Sdump(resp))
 	if err != nil || resp.Status != "OK" {
 		return 0.0, 0.0, errors.New(fmt.Sprintf("Unable to determine GeoLoc for %q", addr))
 	}

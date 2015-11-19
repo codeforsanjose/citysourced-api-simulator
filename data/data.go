@@ -14,15 +14,15 @@ import (
 )
 
 var (
-	log = logs.Log
-	D   Reports
+	log     = logs.Log
+	rptData Reports
 )
 
 func Init(fileName string) error {
 	log.Info("Loading data file: %q", fileName)
 
 	// Reports
-	D.Reports = newReportList()
+	rptData.Reports = newReportList()
 	_, err := readReportData(fileName)
 	if err != nil {
 		return fmt.Errorf("Error loading Report Data: %s", err)
@@ -38,7 +38,7 @@ func Init(fileName string) error {
 }
 
 func LastID() int64 {
-	return D.lastID
+	return rptData.lastID
 }
 
 func Append(st BaseReport) error {
@@ -46,17 +46,17 @@ func Append(st BaseReport) error {
 		return err
 	}
 	// log.Debug("[AddReport] st: type: %T\n%s", st, spew.Sdump(st))
-	D.Lock()
-	D.lastID = D.lastID + 1
-	r, _ := D.Reports.AddBR(D.lastID, &st)
-	D.indID[D.lastID] = r
-	D.Unlock()
-	log.Debug(D.Display())
+	rptData.Lock()
+	rptData.lastID = rptData.lastID + 1
+	r, _ := rptData.Reports.AddBR(rptData.lastID, &st)
+	rptData.indID[rptData.lastID] = r
+	rptData.Unlock()
+	log.Debug(DisplayReports())
 	return nil
 }
 
 func GetID(id int64) (*Report, error) {
-	r := D.indID[id]
+	r := rptData.indID[id]
 	if r != nil {
 		return r, nil
 	}
@@ -65,7 +65,7 @@ func GetID(id int64) (*Report, error) {
 
 func FindID(id int64) ([]*Report, error) {
 	rlist := newReportList()
-	if r, ok := D.indID[id]; ok {
+	if r, ok := rptData.indID[id]; ok {
 		rlist = append(rlist, r)
 	}
 	return rlist, nil
@@ -73,7 +73,7 @@ func FindID(id int64) ([]*Report, error) {
 
 func FindDeviceID(id string) ([]*Report, error) {
 	rlist := newReportList()
-	for _, v := range D.Reports {
+	for _, v := range rptData.Reports {
 		if v.DeviceID == id {
 			rlist = append(rlist, v)
 		}
@@ -83,7 +83,7 @@ func FindDeviceID(id string) ([]*Report, error) {
 
 func FindZipCode(zip string) ([]*Report, error) {
 	rlist := newReportList()
-	for _, v := range D.Reports {
+	for _, v := range rptData.Reports {
 		if v.ZipCode == zip {
 			rlist = append(rlist, v)
 		}
@@ -106,7 +106,7 @@ func FindAddress(addr string, radius float64, limit int64) ([]*Report, error) {
 func FindLL(lat, lng, radius float64, limit int64) ([]*Report, error) {
 	rlist := NewReportListD()
 	log.Debug("Scanning Reports for reports within %v meters of: %v|%v", radius, lat, lng)
-	for _, v := range D.Reports {
+	for _, v := range rptData.Reports {
 		dist := Distance(lat, lng, v.LatitudeV, v.LongitudeV)
 		log.Debug("ID: %v  dist: %v\n", v.ID, dist)
 		if dist < radius {
@@ -122,7 +122,18 @@ func FindLL(lat, lng, radius float64, limit int64) ([]*Report, error) {
 }
 
 func UpdateSLA(id int64, sla string) error {
-	return D.updateSLA(id, sla)
+	return rptData.updateSLA(id, sla)
+}
+
+func DisplayReports() string {
+	s := fmt.Sprintf("\n==================================== DATA ==================================\n")
+	s += spew.Sdump(rptData)
+	return s
+}
+
+// This is for running "go test" only.  It should be commented out after testing.
+func ReportDataTEST() *ReportList {
+	return &rptData.Reports
 }
 
 // ==============================================================================================================================
@@ -158,24 +169,18 @@ func (d *Reports) updateSLA(id int64, sla string) error {
 	rpt, ok := d.indID[id]
 	if !ok {
 		msg := fmt.Sprintf("ID: %d does not exist", id)
-		log.Error(msg)
+		log.Warning(msg)
 		return errors.New(msg)
 	}
 	rpt.updateSLA(sla)
 	return nil
 }
 
-func (d *Reports) Display() string {
-	s := fmt.Sprintf("\n==================================== DATA ==================================\n")
-	s += spew.Sdump(d)
-	return s
-}
-
 func readReportData(filePath string) (*Reports, error) {
-	if D.Loaded {
+	if rptData.Loaded {
 		msg := "Duplicate calls to load Report Data file!"
 		log.Warning(msg)
-		return &D, errors.New(msg)
+		return &rptData, errors.New(msg)
 	}
 
 	file, err := ioutil.ReadFile(filePath)
@@ -185,14 +190,14 @@ func readReportData(filePath string) (*Reports, error) {
 		return nil, errors.New(msg)
 	}
 
-	err = json.Unmarshal([]byte(file), &D)
+	err = json.Unmarshal([]byte(file), &rptData)
 	if err != nil {
 		msg := fmt.Sprintf("Invalid JSON in the Data file %q: %s", filePath, err)
 		log.Critical(msg)
 		return nil, errors.New(msg)
 	}
 
-	err = D.validate()
+	err = rptData.validate()
 	if err != nil {
 		msg := fmt.Sprintf("Unable to validate data (check lng, lat, etc): %q: %s", filePath, err)
 		log.Critical(msg)
@@ -200,18 +205,18 @@ func readReportData(filePath string) (*Reports, error) {
 	}
 
 	// Build Indexes
-	D.index()
-	log.Debug(spew.Sdump(D.indID))
+	rptData.index()
+	log.Debug(spew.Sdump(rptData.indID))
 
 	// Update Last ID
 	var lastID int64
-	for _, v := range D.Reports {
+	for _, v := range rptData.Reports {
 		if v.ID > lastID {
 			lastID = v.ID
 		}
 	}
-	D.lastID = lastID
+	rptData.lastID = lastID
 
-	D.Loaded = true
-	return &D, nil
+	rptData.Loaded = true
+	return &rptData, nil
 }

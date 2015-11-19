@@ -21,28 +21,8 @@ var (
 	responseMsg map[bool]string
 )
 
-// ==============================================================================================================================
-//                                       RESPONSE
-// ==============================================================================================================================
-
-type Response_Type struct {
-	XMLName      xml.Name `xml:"CsResponse"`
-	Message      string   `xml:"Message"`
-	ResponseTime string   `xml:"ResponseTime"`
-}
-
-func (r *Response_Type) xml() (string, error) {
-	b, err := xml.MarshalIndent(r, "", "   ")
-	return string(b), err
-}
-
-func (r *Response_Type) json() (string, error) {
-	b, err := json.Marshal(r)
-	return string(b), err
-}
-
 func StatusMsg(message string, start time.Time) string {
-	rt := Response_Type{
+	rt := Response{
 		Message:      message,
 		ResponseTime: fmt.Sprintf("%v Seconds", time.Since(start).Seconds()),
 	}
@@ -52,36 +32,56 @@ func StatusMsg(message string, start time.Time) string {
 }
 
 // ==============================================================================================================================
-//                                       REPORTS
+//                                       RESPONSE
 // ==============================================================================================================================
-type ResponseReport_Type struct {
-	Response_Type
-	Reports ResponseReports_Type `xml:"Reports"`
+
+type Response struct {
+	XMLName      xml.Name `xml:"CsResponse"`
+	Message      string   `xml:"Message"`
+	ResponseTime string   `xml:"ResponseTime"`
 }
 
-func (r *ResponseReport_Type) xml() (string, error) {
+func (r *Response) xml() (string, error) {
 	b, err := xml.MarshalIndent(r, "", "   ")
 	return string(b), err
 }
 
-func (r *ResponseReport_Type) json() (string, error) {
+func (r *Response) json() (string, error) {
 	b, err := json.Marshal(r)
 	return string(b), err
 }
 
-type ResponseReports_Type struct {
+// ==============================================================================================================================
+//                                       REPORTS
+// ==============================================================================================================================
+type ResponseReport struct {
+	Response
+	Reports ResponseReports `xml:"Reports"`
+}
+
+func (r *ResponseReport) xml() (string, error) {
+	b, err := xml.MarshalIndent(r, "", "   ")
+	return string(b), err
+}
+
+func (r *ResponseReport) json() (string, error) {
+	b, err := json.Marshal(r)
+	return string(b), err
+}
+
+type ResponseReports struct {
 	ReportCount int       `xml:"ReportCount"`
 	Reports     []*Report `xml:"Report"`
 }
 
 func NewResponseReports(success bool, start time.Time, reports []*data.Report) (string, error) {
-	rt := ResponseReport_Type{}
+	rt := ResponseReport{}
 	rt.Message = responseMsg[success]
 	rt.ResponseTime = fmt.Sprintf("%v Seconds", time.Since(start).Seconds())
 
-	rts := ResponseReports_Type{}
+	rts := ResponseReports{}
 	rts.ReportCount = len(reports)
-	rts.Reports = ConvertReports(reports)
+	rts.Reports = prepResponse(reports)
 	rt.Reports = rts
 
 	log.Debug("rt: %s", spew.Sdump(rt))
@@ -93,8 +93,8 @@ func NewResponseReports(success bool, start time.Time, reports []*data.Report) (
 // ==============================================================================================================================
 //                                       Address
 // ==============================================================================================================================
-type ResponseAddress_Type struct {
-	Response_Type
+type ResponseAddress struct {
+	Response
 	Address string `xml:"Address"`
 }
 
