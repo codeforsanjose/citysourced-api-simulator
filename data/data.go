@@ -145,8 +145,7 @@ type Reports struct {
 	Loaded  bool
 	lastID  int64
 	Reports ReportList `json:"reports" xml:"reports"`
-	// Reports []*Report_Type `json:"reports" xml:"reports"`
-	indID map[int64]*Report
+	indID   map[int64]*Report
 	sync.Mutex
 }
 

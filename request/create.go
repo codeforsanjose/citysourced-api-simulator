@@ -16,10 +16,10 @@ type CreateThreeOneOne struct {
 	Request
 	Processor
 	data.BaseReport
-	KeyValuePairs []KeyValuePair_Type `xml:"KeyValuePairs>KeyValuePair"`
+	KeyValuePairs []KeyValuePair `xml:"KeyValuePairs>KeyValuePair"`
 }
 
-type KeyValuePair_Type struct {
+type KeyValuePair struct {
 	Value string `xml:",chardata"`
 	Key   string `xml:"Key,attr"`
 }

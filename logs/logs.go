@@ -14,7 +14,7 @@ import (
 var (
 	modulename string = "CSSimulator"
 	Log               = logging.MustGetLogger(modulename)
-	LogPrinter *logPrinterType
+	LogPrinter *logPrinter
 )
 
 func Init(debug bool) {
@@ -121,23 +121,23 @@ func (l *LogString) Raw() string {
 	return l.raw
 }
 
-type logPrinterType struct {
+type logPrinter struct {
 	todo chan string
 }
 
-func NewLogPrinter() *logPrinterType {
+func NewLogPrinter() *logPrinter {
 	Log.Debug("NewLogPrinter()... ")
-	l := new(logPrinterType)
+	l := new(logPrinter)
 	l.todo = make(chan string, 100)
 	return l
 }
 
-func (l *logPrinterType) Con(s string) {
+func (l *logPrinter) Con(s string) {
 	l.todo <- s
 }
 
-func (l *logPrinterType) run() {
-	Log.Debug("logPrinterType.run()... ")
+func (l *logPrinter) run() {
+	Log.Debug("logPrinter.run()... ")
 	for msg := range l.todo {
 		fmt.Println(msg)
 	}

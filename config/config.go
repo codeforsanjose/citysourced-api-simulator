@@ -13,7 +13,7 @@ import (
 
 var (
 	log = logs.Log
-	C   ConfigType
+	C   Config
 )
 
 func Init(fileName string, port int64) error {
@@ -45,7 +45,7 @@ func Port() int64 {
 //                                      CONFIG
 // ==============================================================================================================================
 
-func readConfig(filePath string) (*ConfigType, error) {
+func readConfig(filePath string) (*Config, error) {
 	if C.Loaded {
 		msg := "Duplicate calls to load Config file!"
 		log.Warning(msg)
@@ -70,26 +70,26 @@ func readConfig(filePath string) (*ConfigType, error) {
 	return &C, nil
 }
 
-// ------------------------------- ConfigType -------------------------------
-type ConfigType struct {
+// ------------------------------- Config -------------------------------
+type Config struct {
 	Loaded bool
-	Server ServerType `json:"server"`
-	API    API_Type   `json:"api"`
+	Server Server `json:"server"`
+	API    API    `json:"api"`
 }
 
-func (x *ConfigType) Display() string {
+func (x *Config) Display() string {
 	s := fmt.Sprintf("\n==================================== CONFIG ==================================\n")
 	s += spew.Sdump(x)
 	s += fmt.Sprintf("==============================================================================\n")
 	return s
 }
 
-// ------------------------------- API_Type -------------------------------
-type API_Type struct {
+// ------------------------------- API -------------------------------
+type API struct {
 	AuthKey string `json:"authkey"`
 }
 
-// ------------------------------- ServerType -------------------------------
-type ServerType struct {
+// ------------------------------- Server -------------------------------
+type Server struct {
 	Port int64 `json:"port"`
 }
