@@ -25,7 +25,7 @@ func main() {
 	// setOptions()
 
 	http.HandleFunc("/", homeHandler)
-	http.HandleFunc("/docs/", docHandler)
+	http.HandleFunc("/docs", docHandler)
 	http.HandleFunc("/api/", apiHandler)
 	http.ListenAndServe(fmt.Sprintf(":%d", config.Port()), nil)
 }
@@ -52,6 +52,7 @@ func init() {
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
+	log.Info("[root] request")
 	if r.URL.Path != "/" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -60,7 +61,8 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func docHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/docs/" {
+	log.Info("[doc] request @ path %q\n", r.URL.Path)
+	if r.URL.Path != "/docs" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
@@ -68,6 +70,7 @@ func docHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
+	log.Info("Error for request: %#v", r)
 	w.WriteHeader(status)
 	if status == http.StatusNotFound {
 		fmt.Fprint(w, "custom 404")
@@ -75,6 +78,7 @@ func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 }
 
 func apiHandler(w http.ResponseWriter, r *http.Request) {
+	log.Info("API Handler Request (%s)", r.Method)
 	start := time.Now()
 	if r.URL.Path != "/api/" || r.Method != "POST" {
 		errorHandler(w, r, http.StatusNotFound)

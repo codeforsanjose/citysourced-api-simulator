@@ -58,6 +58,7 @@ func Process(input string, start time.Time) (string, error) {
 
 	// Create an instance of the request struct
 	svcName, ok := typeRegistry[rt.ApiRequestType]
+	log.Info("[%s] received", svcName)
 	if !ok {
 		msg := fmt.Sprintf("Unknown request received: %s", rt.ApiRequestType)
 		log.Warning(msg)
