@@ -41,9 +41,9 @@ func LastID() int64 {
 	return rptData.lastID
 }
 
-func Append(st BaseReport) error {
+func Append(st BaseReport) (int64, int64, error) {
 	if err := st.Validate(); err != nil {
-		return err
+		return 0, 0, err
 	}
 	// log.Debug("[AddReport] st: type: %T\n%s", st, spew.Sdump(st))
 	rptData.Lock()
@@ -52,7 +52,7 @@ func Append(st BaseReport) error {
 	rptData.indID[rptData.lastID] = r
 	rptData.Unlock()
 	log.Debug(DisplayReports())
-	return nil
+	return rptData.lastID, 99, nil
 }
 
 func GetID(id int64) (*Report, error) {

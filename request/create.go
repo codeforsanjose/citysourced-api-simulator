@@ -38,8 +38,8 @@ func (st *CreateThreeOneOne) Validate(start time.Time) string {
 }
 
 func (st *CreateThreeOneOne) Run() (string, error) {
-	data.Append(st.BaseReport)
-	return response.StatusMsg("New report created OK", st.start), nil
+	reportid, authorid, _ := data.Append(st.BaseReport)
+	return response.NewResponseReport("New report created OK", st.start, reportid, authorid)
 }
 
 func (s CreateThreeOneOne) String() string {

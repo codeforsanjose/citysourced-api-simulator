@@ -52,6 +52,40 @@ func (r *Response) json() (string, error) {
 }
 
 // ==============================================================================================================================
+//                                       NEW REPORT
+// ==============================================================================================================================
+
+type ResponseNewReport struct {
+	XMLName      xml.Name `xml:"CsResponse"`
+	Message      string   `xml:"Message"`
+	ReportID     int64    `xml:"ReportId"`
+	AuthorID     int64    `xml:"AuthorId"`
+	ResponseTime string   `xml:"ResponseTime"`
+}
+
+func (r *ResponseNewReport) xml() (string, error) {
+	b, err := xml.MarshalIndent(r, "", "   ")
+	return string(b), err
+}
+
+func (r *ResponseNewReport) json() (string, error) {
+	b, err := json.Marshal(r)
+	return string(b), err
+}
+
+func NewResponseReport(message string, start time.Time, reportID, authorID int64) (string, error) {
+	rt := ResponseNewReport{
+		Message:      message,
+		ReportID:     reportID,
+		AuthorID:     authorID,
+		ResponseTime: fmt.Sprintf("%v Seconds", time.Since(start).Seconds()),
+	}
+	xmlout, _ := rt.xml()
+	xmlout = XmlHeader + xmlout
+	return xmlout, nil
+}
+
+// ==============================================================================================================================
 //                                       REPORTS
 // ==============================================================================================================================
 type ResponseReport struct {
