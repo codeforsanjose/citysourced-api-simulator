@@ -5,7 +5,7 @@
     <databaseInfo>
         <version>134481920</version>
         <UUID>0F3B107E-7445-4A06-85B7-26A017E14C33</UUID>
-        <nextObjectID>164</nextObjectID>
+        <nextObjectID>166</nextObjectID>
         <metadata>
             <plist version="1.0">
                 <dict>
@@ -416,7 +416,7 @@
         <attribute name="order" type="int64">2</attribute>
         <attribute name="name" type="string">GetReportsByDeviceID</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z141"></relationship>
-        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z146 z137 z136"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z136 z137 z146 z165"></relationship>
         <relationship name="bodyparameters" type="0/0" destination="LMKEYVALUE"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE"></relationship>
         <relationship name="urlparameters" type="0/0" destination="LMKEYVALUE"></relationship>
@@ -447,7 +447,7 @@
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n\\t\u3c00ApiAuthKey\u3e00a01234567890z\u3c00\\/ApiAuthKey\u3e00\\n\\t\u3c00ApiRequestType\u3e00GetReportsByDeviceId\u3c00\\/ApiRequestType\u3e00\\n\\t\u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n\\t\u3c00DeviceId\u3e001111\u3c00\\/DeviceId\u3e00\\n    \u3c00DeviceType\u3e00IPHONE\u3c00\\/DeviceType\u3e00\\n\\t\u3c00MaxResults\u3e00\u3c00\\/MaxResults\u3e00\\n\\t\u3c00IncludeDetails\u3e00False\u3c00\\/IncludeDetails\u3e00\\n\\t\u3c00DateRangeStart\u3e002015-05-20T13:45:30\u3c00\\/DateRangeStart\u3e00\\n\\t\u3c00DateRangeEnd\u3e002015-05-20T13:45:30\u3c00\\/DateRangeEnd\u3e00\\n\\t\u3c00CurrentStatus\u3e00\u3c00\\/CurrentStatus\u3e00\\n\u3c00\\/CsRequest\u3e00\\n"]</attribute>
-        <attribute name="order" type="int64">2</attribute>
+        <attribute name="order" type="int64">3</attribute>
         <attribute name="name" type="string">DeviceID 1111</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z135"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -539,7 +539,7 @@
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n\\t\u3c00ApiAuthKey\u3e00a01234567890z\u3c00\\/ApiAuthKey\u3e00\\n\\t\u3c00ApiRequestType\u3e00GetReportsByDeviceId\u3c00\\/ApiRequestType\u3e00\\n\\t\u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n\\t\u3c00DeviceId\u3e003333\u3c00\\/DeviceId\u3e00\\n    \u3c00DeviceType\u3e00IPHONE\u3c00\\/DeviceType\u3e00\\n\\t\u3c00MaxResults\u3e00\u3c00\\/MaxResults\u3e00\\n\\t\u3c00IncludeDetails\u3e00False\u3c00\\/IncludeDetails\u3e00\\n\\t\u3c00DateRangeStart\u3e002015-05-20T13:45:30\u3c00\\/DateRangeStart\u3e00\\n\\t\u3c00DateRangeEnd\u3e002015-05-20T13:45:30\u3c00\\/DateRangeEnd\u3e00\\n\\t\u3c00CurrentStatus\u3e00\u3c00\\/CurrentStatus\u3e00\\n\u3c00\\/CsRequest\u3e00\\n"]</attribute>
-        <attribute name="order" type="int64">1</attribute>
+        <attribute name="order" type="int64">2</attribute>
         <attribute name="name" type="string">DeviceID 3333</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z135"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -764,5 +764,31 @@
         <relationship name="bodyparameters" type="0/0" destination="LMKEYVALUE"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE"></relationship>
         <relationship name="urlparameters" type="0/0" destination="LMKEYVALUE"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z165">
+        <attribute name="uuid" type="string">196DA1ED-4E4E-4FAE-9451-12F22F342B5C</attribute>
+        <attribute name="url" type="string">http://localhost:5050/api/</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">POST</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n\\t\u3c00ApiAuthKey\u3e00a01234567890z\u3c00\\/ApiAuthKey\u3e00\\n\\t\u3c00ApiRequestType\u3e00GetReportsByDeviceId\u3c00\\/ApiRequestType\u3e00\\n\\t\u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n\\t\u3c00DeviceId\u3e00test1\u3c00\\/DeviceId\u3e00\\n    \u3c00DeviceType\u3e00IPHONE\u3c00\\/DeviceType\u3e00\\n\\t\u3c00MaxResults\u3e00\u3c00\\/MaxResults\u3e00\\n\\t\u3c00IncludeDetails\u3e00False\u3c00\\/IncludeDetails\u3e00\\n\\t\u3c00DateRangeStart\u3e002015-05-20T13:45:30\u3c00\\/DateRangeStart\u3e00\\n\\t\u3c00DateRangeEnd\u3e002015-05-20T13:45:30\u3c00\\/DateRangeEnd\u3e00\\n\\t\u3c00CurrentStatus\u3e00\u3c00\\/CurrentStatus\u3e00\\n\u3c00\\/CsRequest\u3e00\\n"]</attribute>
+        <attribute name="order" type="int64">1</attribute>
+        <attribute name="name" type="string">DeviceID test1</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z135"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z166"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z166">
+        <attribute name="value" type="string"></attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string"></attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z165"></relationship>
     </object>
 </database>

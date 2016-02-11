@@ -1,3 +1,4 @@
-*.zip
-_Exe
+_Exe/linux
+_Exe/mac
+_Exe/win
 .idea
