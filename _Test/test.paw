@@ -5,7 +5,7 @@
     <databaseInfo>
         <version>134481920</version>
         <UUID>0F3B107E-7445-4A06-85B7-26A017E14C33</UUID>
-        <nextObjectID>168</nextObjectID>
+        <nextObjectID>171</nextObjectID>
         <metadata>
             <plist version="1.0">
                 <dict>
@@ -303,7 +303,7 @@
     </object>
     <object type="LMREQUESTGROUP" id="z127">
         <attribute name="uuid" type="string">B23C675E-4AE7-409B-9F6C-CF2B416D322F</attribute>
-        <attribute name="order" type="int64">4</attribute>
+        <attribute name="order" type="int64">5</attribute>
         <attribute name="name" type="string">Root</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z154 z140"></relationship>
@@ -313,7 +313,7 @@
     </object>
     <object type="LMREQUESTGROUP" id="z128">
         <attribute name="uuid" type="string">3F4D0299-F62E-41D0-99A8-CC9D5152CAE6</attribute>
-        <attribute name="order" type="int64">5</attribute>
+        <attribute name="order" type="int64">6</attribute>
         <attribute name="name" type="string">Invalid</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z157 z150"></relationship>
@@ -767,7 +767,7 @@
     </object>
     <object type="LMREQUEST" id="z161">
         <attribute name="uuid" type="string">F68F9833-AE0A-4938-A6BF-810BCF1CF290</attribute>
-        <attribute name="url" type="string">http://localhost:5050/api/</attribute>
+        <attribute name="url" type="string">http://localhost:5051/api/</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -852,5 +852,41 @@
         <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z167"></relationship>
+    </object>
+    <object type="LMREQUESTGROUP" id="z169">
+        <attribute name="uuid" type="string">4F84660A-334F-402C-A872-F9472F013666</attribute>
+        <attribute name="order" type="int64">4</attribute>
+        <attribute name="name" type="string">Vote</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z170"></relationship>
+        <relationship name="bodyparameters" type="0/0" destination="LMKEYVALUE"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE"></relationship>
+        <relationship name="urlparameters" type="0/0" destination="LMKEYVALUE"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z170">
+        <attribute name="uuid" type="string">CD9F9E6E-F9EC-4F1C-AE09-704F8163C74F</attribute>
+        <attribute name="url" type="string">http://localhost:5051/api/</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">POST</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="body" type="string">["\u3c00?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?\u3e00\\n\u3c00CsRequest\u3e00\\n\\t\u3c00ApiAuthKey\u3e00a01234567890z\u3c00\\/ApiAuthKey\u3e00\\n\\t\u3c00ApiRequestType\u3e00CreateReportVote\u3c00\\/ApiRequestType\u3e00\\n\\t\u3c00ApiRequestVersion\u3e001\u3c00\\/ApiRequestVersion\u3e00\\n\\t\u3c00ReportId\u3e00100\u3c00\\/ReportId\u3e00\\n\u3c00\\/CsRequest\u3e00"]</attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string">Vote 100</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z169"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z171"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z171">
+        <attribute name="value" type="string"></attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string"></attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z170"></relationship>
     </object>
 </database>

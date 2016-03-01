@@ -111,6 +111,11 @@ func (r *Report) updateSLA(sla string) error {
 	return nil
 }
 
+func (r *Report) vote() error {
+	r.VotesV++
+	return nil
+}
+
 func (r *Report) loadComments() error {
 	c, err := FindReportComments(r.ID)
 	if err == nil {

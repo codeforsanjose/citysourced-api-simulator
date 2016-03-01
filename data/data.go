@@ -133,6 +133,10 @@ func UpdateSLA(id int64, sla string) error {
 	return rptData.updateSLA(id, sla)
 }
 
+func Vote(id int64) error {
+	return rptData.vote(id)
+}
+
 func DisplayReports() string {
 	s := fmt.Sprintf("\n==================================== DATA ==================================\n")
 	s += spew.Sdump(rptData)
@@ -180,6 +184,17 @@ func (d *Reports) updateSLA(id int64, sla string) error {
 		return errors.New(msg)
 	}
 	rpt.updateSLA(sla)
+	return nil
+}
+
+func (d *Reports) vote(id int64) error {
+	rpt, ok := d.indID[id]
+	if !ok {
+		msg := fmt.Sprintf("ID: %d does not exist", id)
+		log.Warning(msg)
+		return errors.New(msg)
+	}
+	rpt.vote()
 	return nil
 }
 

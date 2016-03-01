@@ -32,6 +32,7 @@ func init() {
 	typeRegistry["GetReport"] = reflect.TypeOf(GetReport{})
 	typeRegistry["UpdateThreeOneOne"] = reflect.TypeOf(UpdateThreeOneOne{})
 	typeRegistry["CreateReportComment"] = reflect.TypeOf(CreateReportComment{})
+	typeRegistry["CreateReportVote"] = reflect.TypeOf(CreateReportVote{})
 }
 
 // ==============================================================================================================================
