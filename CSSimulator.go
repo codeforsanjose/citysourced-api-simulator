@@ -18,7 +18,7 @@ import (
 
 var (
 	log   = logs.Log
-	Debug = false
+	Debug = true
 )
 
 func main() {

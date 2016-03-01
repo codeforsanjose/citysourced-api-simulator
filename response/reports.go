@@ -41,6 +41,7 @@ type Report struct {
 	UrlShortened   string          `json:"UrlShortened" xml:"UrlShortened"`
 	StatusType     string          `json:"StatusType" xml:"StatusType"`
 	TicketSLA      string          `json:"TicketSla" xml:"TicketSla"`
+	Comments       Comments        `json:"Comments,omitempty" xml:"Comments,omitempty"`
 }
 
 func convertReport(src *data.Report) *Report {
@@ -67,5 +68,19 @@ func convertReport(src *data.Report) *Report {
 		StatusType:   src.StatusType,
 		TicketSLA:    src.TicketSLA,
 	}
+	for _, c := range src.Comments {
+		r.Comments.Comments = append(r.Comments.Comments, Comment{DateCreated: c.DateCreated, Comment: c.Comment})
+	}
+	r.Comments.CommentCount = len(src.Comments)
 	return &r
+}
+
+type Comments struct {
+	CommentCount int       `xml:"CommentCount"`
+	Comments     []Comment `json:"Comment,omitempty" xml:"Comment,omitempty"`
+}
+
+type Comment struct {
+	DateCreated data.CustomTime `json:"DateCreated" xml:"DateCreated"`
+	Comment     string          `json:"Text" xml:"Text"`
 }

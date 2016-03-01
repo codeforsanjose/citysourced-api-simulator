@@ -38,7 +38,7 @@ func (st *CreateThreeOneOne) Validate(start time.Time) string {
 }
 
 func (st *CreateThreeOneOne) Run() (string, error) {
-	reportid, authorid, _ := data.Append(st.BaseReport)
+	reportid, authorid, _ := data.Append(st.BaseReport, false)
 	return response.NewResponseReport("New report created OK", st.start, reportid, authorid)
 }
 

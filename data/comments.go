@@ -2,13 +2,14 @@ package data
 
 import (
 	"CitySourcedAPI/logs"
-	"_sketches/spew"
 	"encoding/json"
 	"encoding/xml"
 	"errors"
 	"fmt"
 	"io/ioutil"
 	"sync"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 var (
@@ -20,6 +21,7 @@ func NewComment(rid int64, dc CustomTime, cmt string) error {
 }
 
 func FindReportComments(id int64) ([]*Comment, error) {
+	log.Debug(spew.Sdump(cmtData.indReportID[id]))
 	return cmtData.indReportID[id], nil
 }
 
@@ -169,11 +171,11 @@ func (c Comments) String() string {
 // ==============================================================================================================================
 
 type Comment struct {
-	XMLName     xml.Name   `xml:"comment" json:"comment"`
+	XMLName     xml.Name   `xml:"Comment" json:"Comment"`
 	ID          int64      `json:"Id" xml:"Id"`
 	ReportID    int64      `json:"ReportID" xml:"ReportID"`
 	DateCreated CustomTime `json:"DateCreated" xml:"DateCreated"`
-	Comment     string     `json:"Comment" xml:"Comment"`
+	Comment     string     `json:"Text" xml:"Text"`
 }
 
 func (c Comment) String() string {

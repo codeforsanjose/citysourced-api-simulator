@@ -26,24 +26,24 @@ const (
 // ------------------------------- ReportList -------------------------------
 type ReportList []*Report
 
-func newReportList() ReportList {
+func newReportList(comments bool) ReportList {
 	var x []*Report
 	return x
 }
 
-func (rl *ReportList) Add(r *Report) error {
+func (rl *ReportList) Add(r *Report, comments bool) error {
 	log.Debug("[ReportList.Add] r:\n%s\n", spew.Sdump(r))
 	*rl = append(*rl, r)
 	return nil
 }
 
-func (rl *ReportList) AddBR(id int64, st *BaseReport) (*Report, error) {
+func (rl *ReportList) AddBR(id int64, st *BaseReport, comments bool) (*Report, error) {
 	r := Report{
 		ID:         id,
 		BaseReport: *st,
 	}
 	log.Debug("[Add] st: type: %T\n%s\n", st, spew.Sdump(r))
-	rl.Add(&r)
+	rl.Add(&r, comments)
 	return &r, nil
 }
 
@@ -54,15 +54,15 @@ type ReportListD struct {
 	dist []float64
 }
 
-func NewReportListD() ReportListD {
+func newReportListD(comments bool) ReportListD {
 	var x ReportListD
 	x.ReportList = make([]*Report, 0)
 	x.dist = make([]float64, 0)
 	return x
 }
 
-func (rl *ReportListD) Add(r *Report, d float64) error {
-	rl.ReportList.Add(r)
+func (rl *ReportListD) Add(r *Report, d float64, comments bool) error {
+	rl.ReportList.Add(r, comments)
 	rl.dist = append(rl.dist, d)
 	log.Debug("[ReportListD.Add] r:\n%s\n", spew.Sdump(rl))
 	return nil
@@ -103,11 +103,20 @@ type Report struct {
 	XMLName xml.Name `xml:"Report" json:"Report"`
 	ID      int64    `json:"Id" xml:"Id"`
 	BaseReport
+	Comments []*Comment `json:"Comments,omitempty" xml:"Comments,omitempty"`
 }
 
 func (r *Report) updateSLA(sla string) error {
 	r.TicketSLA = sla
 	return nil
+}
+
+func (r *Report) loadComments() error {
+	c, err := FindReportComments(r.ID)
+	if err == nil {
+		r.Comments = c
+	}
+	return err
 }
 
 // Displays the contents of the Spec_Type custom type.
@@ -116,6 +125,9 @@ func (r Report) String() string {
 	ls.AddS("Report\n")
 	ls.AddF("ID: %v\n", r.ID)
 	ls.AddS(r.BaseReport.String())
+	for _, c := range r.Comments {
+		ls.AddF("%5d  %20s %s\n", c.ID, c.DateCreated, c.Comment)
+	}
 	return ls.Box(90)
 }
 

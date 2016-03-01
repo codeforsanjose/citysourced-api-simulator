@@ -17,16 +17,18 @@ import (
 type GetReportsByAddress struct {
 	Request
 	Processor
-	Address        string          `xml:"Address" json:"Address"`
-	Radius         string          `xml:"Radius" json:"Radius"`
-	radius         float64         //
-	MaxResults     string          `xml:"MaxResults" json:"MaxResults"`
-	maxResults     int64           //
-	IncludeDetails string          `xml:"IncludeDetails" json:"IncludeDetails"`
-	includeDetails bool            //
-	DateRangeStart data.CustomTime `xml:"DateRangeStart" json:"DateRangeStart"`
-	DateRangeEnd   data.CustomTime `xml:"DateRangeEnd" json:"DateRangeEnd"`
-	CurrentStatus  string          `xml:"CurrentStatus" json:"CurrentStatus"`
+	Address         string          `xml:"Address" json:"Address"`
+	Radius          string          `xml:"Radius" json:"Radius"`
+	radius          float64         //
+	MaxResults      string          `xml:"MaxResults" json:"MaxResults"`
+	maxResults      int64           //
+	IncludeDetails  string          `xml:"IncludeDetails" json:"IncludeDetails"`
+	includeDetails  bool            //
+	IncludeComments string          `xml:"IncludeComments" json:"IncludeComments"`
+	includeComments bool            //
+	DateRangeStart  data.CustomTime `xml:"DateRangeStart" json:"DateRangeStart"`
+	DateRangeEnd    data.CustomTime `xml:"DateRangeEnd" json:"DateRangeEnd"`
+	CurrentStatus   string          `xml:"CurrentStatus" json:"CurrentStatus"`
 }
 
 func (st *GetReportsByAddress) Validate(start time.Time) string {
@@ -35,11 +37,12 @@ func (st *GetReportsByAddress) Validate(start time.Time) string {
 	st.radius = v.float("Radius", st.Radius)
 	st.maxResults = v.int("MaxResults", st.MaxResults)
 	st.includeDetails = v.bool("IncludeDetails", st.IncludeDetails)
+	st.includeComments = v.bool("IncludeComments", st.IncludeComments)
 	return v.errmsg
 }
 
 func (st *GetReportsByAddress) Run() (string, error) {
-	rpts, _ := data.FindAddress(st.Address, st.radius, st.maxResults)
+	rpts, _ := data.FindAddress(st.Address, st.radius, st.maxResults, st.includeComments)
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
 
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
@@ -52,6 +55,7 @@ func (st GetReportsByAddress) String() string {
 	ls.AddS(st.Request.String())
 	ls.AddF("Address \"%v\"\n", st.Address)
 	ls.AddF("Radius %s/%v   MaxResults: %s/%v\n", st.Radius, st.radius, st.MaxResults, st.maxResults)
+	ls.AddF("IncludeComments: %s/%v\n", st.IncludeComments, st.includeComments)
 	ls.AddF("IncludeDetails: %v/%t\n", st.IncludeDetails, st.includeDetails)
 	ls.AddF("Date Range: %v  to: %v \n", st.DateRangeStart, st.DateRangeEnd)
 	return ls.Box(90)
@@ -64,19 +68,21 @@ func (st GetReportsByAddress) String() string {
 type GetReportsByLatLng struct {
 	Request
 	Processor
-	Latitude       string          `xml:"Latitude" json:"Latitude"`
-	LatitudeV      float64         //
-	Longitude      string          `xml:"Longitude" json:"Longitude"`
-	LongitudeV     float64         //
-	Radius         string          `xml:"Radius" json:"Radius"`
-	radius         float64         //
-	MaxResults     string          `xml:"MaxResults" json:"MaxResults"`
-	maxResults     int64           //
-	IncludeDetails string          `xml:"IncludeDetails" json:"IncludeDetails"`
-	includeDetails bool            //
-	DateRangeStart data.CustomTime `xml:"DateRangeStart" json:"DateRangeStart"`
-	DateRangeEnd   data.CustomTime `xml:"DateRangeEnd" json:"DateRangeEnd"`
-	CurrentStatus  string          `xml:"CurrentStatus" json:"CurrentStatus"`
+	Latitude        string          `xml:"Latitude" json:"Latitude"`
+	LatitudeV       float64         //
+	Longitude       string          `xml:"Longitude" json:"Longitude"`
+	LongitudeV      float64         //
+	Radius          string          `xml:"Radius" json:"Radius"`
+	radius          float64         //
+	MaxResults      string          `xml:"MaxResults" json:"MaxResults"`
+	maxResults      int64           //
+	IncludeDetails  string          `xml:"IncludeDetails" json:"IncludeDetails"`
+	includeDetails  bool            //
+	IncludeComments string          `xml:"IncludeComments" json:"IncludeComments"`
+	includeComments bool            //
+	DateRangeStart  data.CustomTime `xml:"DateRangeStart" json:"DateRangeStart"`
+	DateRangeEnd    data.CustomTime `xml:"DateRangeEnd" json:"DateRangeEnd"`
+	CurrentStatus   string          `xml:"CurrentStatus" json:"CurrentStatus"`
 }
 
 func (st *GetReportsByLatLng) Validate(start time.Time) string {
@@ -87,11 +93,12 @@ func (st *GetReportsByLatLng) Validate(start time.Time) string {
 	st.radius = v.float("Radius", st.Radius)
 	st.maxResults = v.int("MaxResults", st.MaxResults)
 	st.includeDetails = v.bool("IncludeDetails", st.IncludeDetails)
+	st.includeComments = v.bool("IncludeComments", st.IncludeComments)
 	return v.errmsg
 }
 
 func (st *GetReportsByLatLng) Run() (string, error) {
-	rpts, _ := data.FindLL(st.LatitudeV, st.LongitudeV, st.radius, st.maxResults)
+	rpts, _ := data.FindLL(st.LatitudeV, st.LongitudeV, st.radius, st.maxResults, st.includeComments)
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
 
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
@@ -105,6 +112,7 @@ func (st GetReportsByLatLng) String() string {
 	ls.AddF("Loc \"%v:%v\"\n", st.LatitudeV, st.LongitudeV)
 	ls.AddF("Radius %s/%v\n", st.Radius, st.radius)
 	ls.AddF("MaxResults: %s/%v\n", st.MaxResults, st.maxResults)
+	ls.AddF("IncludeComments: %s/%v\n", st.IncludeComments, st.includeComments)
 	ls.AddF("IncludeDetails: %v/%t\n", st.IncludeDetails, st.includeDetails)
 	ls.AddF("Date Range: %v  to: %v \n", st.DateRangeStart, st.DateRangeEnd)
 	return ls.Box(90)
@@ -117,14 +125,16 @@ func (st GetReportsByLatLng) String() string {
 type GetReportsByDeviceID struct {
 	Request
 	Processor
-	DeviceID       string          `xml:"DeviceId" json:"DeviceId"`
-	MaxResults     string          `xml:"MaxResults" json:"MaxResults"`
-	maxResults     int64           //
-	IncludeDetails string          `xml:"IncludeDetails" json:"IncludeDetails"`
-	includeDetails bool            //
-	DateRangeStart data.CustomTime `xml:"DateRangeStart" json:"DateRangeStart"`
-	DateRangeEnd   data.CustomTime `xml:"DateRangeEnd" json:"DateRangeEnd"`
-	CurrentStatus  string          `xml:"CurrentStatus" json:"CurrentStatus"`
+	DeviceID        string          `xml:"DeviceId" json:"DeviceId"`
+	MaxResults      string          `xml:"MaxResults" json:"MaxResults"`
+	maxResults      int64           //
+	IncludeDetails  string          `xml:"IncludeDetails" json:"IncludeDetails"`
+	includeDetails  bool            //
+	IncludeComments string          `xml:"IncludeComments" json:"IncludeComments"`
+	includeComments bool            //
+	DateRangeStart  data.CustomTime `xml:"DateRangeStart" json:"DateRangeStart"`
+	DateRangeEnd    data.CustomTime `xml:"DateRangeEnd" json:"DateRangeEnd"`
+	CurrentStatus   string          `xml:"CurrentStatus" json:"CurrentStatus"`
 }
 
 func (st *GetReportsByDeviceID) Validate(start time.Time) string {
@@ -132,11 +142,12 @@ func (st *GetReportsByDeviceID) Validate(start time.Time) string {
 	st.start = start
 	st.maxResults = v.int("MaxResults", st.MaxResults)
 	st.includeDetails = v.bool("IncludeDetails", st.IncludeDetails)
+	st.includeComments = v.bool("IncludeComments", st.IncludeComments)
 	return v.errmsg
 }
 
 func (st *GetReportsByDeviceID) Run() (string, error) {
-	rpts, _ := data.FindDeviceID(st.DeviceID)
+	rpts, _ := data.FindDeviceID(st.DeviceID, st.includeComments)
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
 
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
@@ -149,6 +160,7 @@ func (st GetReportsByDeviceID) String() string {
 	ls.AddS(st.Request.String())
 	ls.AddF("DeviceID: %q\n", st.DeviceID)
 	ls.AddF("MaxResults: %s/%v\n", st.MaxResults, st.maxResults)
+	ls.AddF("IncludeComments: %s/%v\n", st.IncludeComments, st.includeComments)
 	ls.AddF("IncludeDetails: %v/%t\n", st.IncludeDetails, st.includeDetails)
 	ls.AddF("Date Range: %v  to: %v \n", st.DateRangeStart, st.DateRangeEnd)
 	return ls.Box(90)
@@ -161,14 +173,16 @@ func (st GetReportsByDeviceID) String() string {
 type GetReportsByZipCode struct {
 	Request
 	Processor
-	ZipCode        string          `xml:"ZipCode" json:"ZipCode"`
-	MaxResults     string          `xml:"MaxResults" json:"MaxResults"`
-	maxResults     int64           //
-	IncludeDetails string          `xml:"IncludeDetails" json:"IncludeDetails"`
-	includeDetails bool            //
-	DateRangeStart data.CustomTime `xml:"DateRangeStart" json:"DateRangeStart"`
-	DateRangeEnd   data.CustomTime `xml:"DateRangeEnd" json:"DateRangeEnd"`
-	CurrentStatus  string          `xml:"CurrentStatus" json:"CurrentStatus"`
+	ZipCode         string          `xml:"ZipCode" json:"ZipCode"`
+	MaxResults      string          `xml:"MaxResults" json:"MaxResults"`
+	maxResults      int64           //
+	IncludeDetails  string          `xml:"IncludeDetails" json:"IncludeDetails"`
+	includeDetails  bool            //
+	IncludeComments string          `xml:"IncludeComments" json:"IncludeComments"`
+	includeComments bool            //
+	DateRangeStart  data.CustomTime `xml:"DateRangeStart" json:"DateRangeStart"`
+	DateRangeEnd    data.CustomTime `xml:"DateRangeEnd" json:"DateRangeEnd"`
+	CurrentStatus   string          `xml:"CurrentStatus" json:"CurrentStatus"`
 }
 
 func (st *GetReportsByZipCode) Validate(start time.Time) string {
@@ -176,11 +190,12 @@ func (st *GetReportsByZipCode) Validate(start time.Time) string {
 	st.start = start
 	st.maxResults = v.int("MaxResults", st.MaxResults)
 	st.includeDetails = v.bool("IncludeDetails", st.IncludeDetails)
+	st.includeComments = v.bool("IncludeComments", st.IncludeComments)
 	return v.errmsg
 }
 
 func (st *GetReportsByZipCode) Run() (string, error) {
-	rpts, _ := data.FindZipCode(st.ZipCode)
+	rpts, _ := data.FindZipCode(st.ZipCode, st.includeComments)
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
 
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
@@ -193,6 +208,7 @@ func (st GetReportsByZipCode) String() string {
 	ls.AddS(st.Request.String())
 	ls.AddF("ZipCode: %q\n", st.ZipCode)
 	ls.AddF("MaxResults: %s/%v\n", st.MaxResults, st.maxResults)
+	ls.AddF("IncludeComments: %s/%v\n", st.IncludeComments, st.includeComments)
 	ls.AddF("IncludeDetails: %v/%t\n", st.IncludeDetails, st.includeDetails)
 	ls.AddF("Date Range: %v  to: %v \n", st.DateRangeStart, st.DateRangeEnd)
 	return ls.Box(90)
@@ -229,9 +245,8 @@ func (st *GetReport) Validate(start time.Time) string {
 }
 
 func (st *GetReport) Run() (string, error) {
-	rpts, _ := data.FindID(st.ReportIDV)
+	rpts, _ := data.FindID(st.ReportIDV, st.includeComments)
 	log.Debug(">>> rpts:\n%s\n", spew.Sdump(rpts))
-
 	resp, _ := response.NewResponseReports(true, st.Start(), rpts)
 	return resp, nil
 }

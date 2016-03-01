@@ -5,6 +5,7 @@ import (
 	"CitySourcedAPI/logs"
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/davecgh/go-spew/spew"
 )
@@ -278,5 +279,12 @@ func TestRepeatReadData(t *testing.T) {
 		t.Errorf("Duplicate calls to data.Init() should have resulted in a warning")
 	}
 	fmt.Println("   (Should have just received a WARN error 'Duplicate calls...')")
+
+}
+
+func TestCustomTime(t *testing.T) {
+	fmt.Println("\n\n>>>>>>>>>>>>>>>>>>> TestCustomTime <<<<<<<<<<<<<<<<<<<<<<<<<<")
+	x := data.CustomTime{time.Now()}
+	fmt.Printf("Time: %v\n", x)
 
 }
